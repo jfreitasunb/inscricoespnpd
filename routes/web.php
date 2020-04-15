@@ -11,26 +11,10 @@
 |
 */
 
-Route::get('/', [
-        'uses'  => 'HomeController@index',
-        'as'    => 'home',
-        // 'middleware' => ['define.locale'],
-]);
+Route::get('/', 'HomeController@index')->name('home')->middleware('define.locale');
 
-Route::get('/ptbr', [
-    'uses' => 'HomeController@getLangPortuguese',
-    'as'   => 'lang.portuguese',
-    'middleware' => ['define.locale'],
-]);
+Route::get('/ptbr','HomeController@getLangPortuguese')->name('lang.portuguese')->middleware('define.locale');
 
-Route::get('/en', [
-    'uses' => 'HomeController@getLangEnglish',
-    'as'   => 'lang.english',
-    'middleware' => ['define.locale'],
-]);
+Route::get('/en','HomeController@getLangEnglish')->name('lang.english')->middleware('define.locale');
 
-Route::get('/es', [
-    'uses' => 'HomeController@getLangSpanish',
-    'as'   => 'lang.spanish',
-    'middleware' => ['define.locale'],
-]);
+Route::get('/es','HomeController@getLangSpanish')->name('lang.spanish')->middleware('define.locale');
