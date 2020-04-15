@@ -7,7 +7,12 @@
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/css_pnpd.css') }}" rel="stylesheet">
   <script src="https://use.fontawesome.com/96ea273a00.js"></script>
-  <link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/pnpd.js') }}"></script>
+  <script src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
   {{-- <script>
     window.Laravel = {!! json_encode([
       'csrfToken' => csrf_token(),
@@ -79,9 +84,4 @@
     </div> --}}
     @include('templates.partials.rodape')
 </body>
-  <script src="{{ asset('jquery/jquery-3.1.1.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/monitoria.js') }}"></script>
-  <script src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
-  <script src="{{ asset('js/app.js') }}"></script>
 </html>
