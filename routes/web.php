@@ -16,3 +16,21 @@ Route::get('/', [
         'as'    => 'home',
         // 'middleware' => ['define.locale'],
 ]);
+
+Route::get('/ptbr', [
+    'uses' => 'HomeController@getLangPortuguese',
+    'as'   => 'lang.portuguese',
+    'middleware' => ['define.locale'],
+]);
+
+Route::get('/en', [
+    'uses' => 'HomeController@getLangEnglish',
+    'as'   => 'lang.english',
+    'middleware' => ['define.locale'],
+]);
+
+Route::get('/es', [
+    'uses' => 'HomeController@getLangSpanish',
+    'as'   => 'lang.spanish',
+    'middleware' => ['define.locale'],
+]);
