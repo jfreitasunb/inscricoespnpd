@@ -66,8 +66,8 @@
           @endadmin
         @else --}}
           @yield('inicio')
-          {{-- @yield('content')
-          @yield('ver_ficha')
+          @yield('content')
+          {{-- @yield('ver_ficha')
         @endif --}}
       @include('templates.partials.rodape')
       <script src="https://use.fontawesome.com/96ea273a00.js"></script>
