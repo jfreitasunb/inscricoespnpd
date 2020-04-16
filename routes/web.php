@@ -19,4 +19,4 @@ Route::get('/en','HomeController@getLangEnglish')->name('lang.english')->middlew
 
 Route::get('/es','HomeController@getLangSpanish')->name('lang.spanish')->middleware('define.locale');
 
-Auth::routes(['register' => false]);
+Auth::routes(['verify' => true]);
