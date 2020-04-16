@@ -18,3 +18,7 @@ Route::get('/ptbr','HomeController@getLangPortuguese')->name('lang.portuguese')-
 Route::get('/en','HomeController@getLangEnglish')->name('lang.english')->middleware('define.locale');
 
 Route::get('/es','HomeController@getLangSpanish')->name('lang.spanish')->middleware('define.locale');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
