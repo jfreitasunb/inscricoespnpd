@@ -19,6 +19,4 @@ Route::get('/en','HomeController@getLangEnglish')->name('lang.english')->middlew
 
 Route::get('/es','HomeController@getLangSpanish')->name('lang.spanish')->middleware('define.locale');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
