@@ -2,12 +2,12 @@
 
 @section('inicio')
   <div class="row">
-    <div class="col-lg-6 offset-md-3">
+    <div class="col-lg-4 offset-md-5">
       <div class="idiomas btn-toolbar">
         <div class="btn-group-justified">
           <a href="{{ route('lang.portuguese') }}" class="btn btn-primary button">Português</a>
           <a href="{{ route('lang.english') }}" class="btn btn-primary button">English</a>
-          <a href="{{ route('lang.spanish') }}" class="btn btn-primary button">Español</a>
+          {{-- <a href="{{ route('lang.spanish') }}" class="btn btn-primary button">Español</a> --}}
         </div>
       </div>
     </div>
