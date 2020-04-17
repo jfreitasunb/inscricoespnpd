@@ -13,11 +13,13 @@
       @include('templates.partials.alertas_erros')
       @include('templates.partials.cabecalho')
         @if (Auth::check())
-          <div class="container-fluid">
-            <div class="row-fluid">
-              @include('templates.partials.admin.menu_admin')
+          @admin(Auth()->user())
+            <div class="container-fluid">
+              <div class="row-fluid">
+                @include('templates.partials.admin.menu_admin')
+              </div>
             </div>
-          </div>
+          @endadmin
         @else
           @yield('inicio')
           @yield('content')
