@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+Use Alert;
 use DB;
 use Session;
 use Illuminate\Http\Request;
@@ -42,6 +43,19 @@ class LoginController extends Controller
             return '/admin';
         }
         return '/home';
+    }
+
+    protected function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        Alert::info('Logout', 'Você saiu da sua conta!')->autoclose(1500);
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
     
     /**
