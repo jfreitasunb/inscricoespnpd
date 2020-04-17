@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
+use Session;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use ThrottlesLogins;
 
 class LoginController extends Controller
 {
@@ -20,13 +25,25 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected $maxAttempts = 5;
+
+    protected $decayMinutes = 5;
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/';
-
+    // protected $redirectTo = '/';
+    // 
+    
+    protected function redirectTo()
+    {
+        if (auth()->user()->user_type == 'admin') {
+            return '/admin';
+        }
+        return '/home';
+    }
+    
     /**
      * Create a new controller instance.
      *
