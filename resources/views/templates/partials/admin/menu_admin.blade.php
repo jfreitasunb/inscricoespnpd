@@ -1,15 +1,15 @@
 <div class="row">
-    <div class="col-sm-3 col-md-2">
+    <div class="col-md-3 col-lg-2">
         <div class="panel-group" id="accordion">
-            <div class="menuadmin panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
+            <div class="menuadmin card bg-card border-primary">
+                <div class="card-header">
+                    <h4 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseUm"><span class="glyphicon glyphicon-user fa-fw">
                         </span>Sistema</a>
                     </h4>
                 </div>
                 <div id="collapseUm" class="panel-collapse collapse">
-                    <div class="panel-body">
+                    <div class="card-body bg-white">
                         <table class="table">
                             <tr>
                                 <td class= "">
@@ -21,14 +21,14 @@
                     </div>
                 </div>
                 {{-- <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseDois"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Dados da Pós-Graduação</a>
                         </h4>
                     </div>
                     <div id="collapseDois" class="panel-collapse collapse {{ $keep_open_accordion_dados_pos }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 <tr>
                                     <td class= "{{ Route::currentRouteNamed('dados.coordenador.pos') ? 'active_link' : '' }}">
@@ -55,14 +55,14 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTres"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Configurar Edital</a>
                         </h4>
                     </div>
                     <div id="collapseTres" class="panel-collapse collapse {{ $keep_open_accordion_configurar_edital }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 <tr>
                                     <td class= "{{ Route::currentRouteNamed('configura.inscricao') ? 'active_link' : '' }}">
@@ -99,14 +99,14 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseQuatro"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Acompanhar Inscrições</a>
                         </h4>
                     </div>
                     <div id="collapseQuatro" class="panel-collapse collapse {{ $keep_open_accordion_acompanhar_inscricoes }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 <tr>
                                     <td class= "{{ Route::currentRouteNamed('lista.recomendacoes') ? 'active_link' : '' }}">
@@ -153,14 +153,14 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseCinco"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Gerar Relatórios de Inscritos</a>
                         </h4>
                     </div>
                     <div id="collapseCinco" class="panel-collapse collapse {{ $keep_open_accordion_relatorios }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 
                                 <tr>
@@ -183,14 +183,14 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeis"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Processo de Seleção</a>
                         </h4>
                     </div>
                     <div id="collapseSeis" class="panel-collapse collapse {{ $keep_open_accordion_processo_selecao }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 <tr>
                                     <td class= "{{ Route::currentRouteNamed('homologa.inscricoes') ? 'active_link' : '' }}">
@@ -207,14 +207,14 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSete"><span class="glyphicon glyphicon-file fa-fw">
                             </span>Acompanha Selecionados</a>
                         </h4>
                     </div>
                     <div id="collapseSete" class="panel-collapse collapse {{ $keep_open_accordion_acompanha_selecionados }}">
-                        <div class="panel-body">
+                        <div class="card-body">
                             <table class="table">
                                 <tr>
                                     <td class= "{{ Route::currentRouteNamed('altera.status.selecionados') ? 'active_link' : '' }}">
@@ -231,15 +231,15 @@
                     </div>
                 </div> --}}
                 {{-- <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <span class="glyphicon glyphicon-stats fa-fw"></span><a href="{{ route('ver.charts') }}">Estatísticas</a>
                         </h4>
                     </div>
                 </div> --}}
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
+                    <div class="card-header">
+                        <h4 class="card-title">
                             <span class="glyphicon glyphicon-log-out fa-fw"></span>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Sair</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
