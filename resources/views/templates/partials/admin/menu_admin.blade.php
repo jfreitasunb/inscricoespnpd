@@ -8,47 +8,12 @@
                         </span>Sistema</a>
                     </h4>
                 </div>
-                <div id="collapseUm" class="panel-collapse collapse {{ $keep_open_accordion_contas }}">
+                <div id="collapseUm" class="panel-collapse collapse">
                     <div class="panel-body">
                         <table class="table">
                             <tr>
-                                <td class= "{{ Route::currentRouteNamed('lista.edita.usuarios') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="{{ route('lista.edita.usuarios') }}">Lista/Edita Usuários</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('pesquisa.email.muda.senha') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="{{ route('pesquisa.email.muda.senha') }}">Link mudança de senha</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('admin.impersonate') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="{{ route('admin.impersonate') }}">Logar como</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('pesquisa.usuario') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="{{ route('pesquisa.usuario') }}">Ativar/Alterar conta</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('lista.inativos') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="{{ route('lista.inativos') }}">Usuários Inativos</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('associa.recomendantes') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-list fa-fw"></span><a href="{{ route('associa.recomendantes') }}">Associa email de recomendante</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('visualiza.associacoes') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-list fa-fw"></span><a href="{{ route('visualiza.associacoes') }}">Associações existentes</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('visualiza.associacoesconta.cartas.recomendante') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-list fa-fw"></span><a href="{{ route('conta.cartas.recomendante') }}">Total de cartas por recomendante</a>
+                                <td class= "">
+                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="#">Lista/Edita Usuários</a>
                                 </td>
                             </tr>
                         </table>
