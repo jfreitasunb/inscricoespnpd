@@ -25,7 +25,7 @@ Auth::routes(['verify' => true]);
 *Área do Admin
  */
 
-Route::prefix('admin')->middleware('user.role:admin', 'auth', 'verified')->group(function () {
+Route::prefix('admin')->middleware('user.role:admin', 'auth')->group(function () {
 
     Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
 });
