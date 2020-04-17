@@ -42,5 +42,5 @@ return [
     'inscricao_nao_finalizada' => 'Su registro no está finalizado en nuestro sistema. El tiempo para la salida ',
     'acesso_para_finalizada' => 'Haga clic aquí para acceder al sistema y finalizar la suscripción.',
     'documentos_matricula_sucesso' => '¡Los documentos suyos fueron recibidos con éxito en nuestro sistema!',
-    'PNPD' => 'PNPD',
+    'PNPD' => 'Programa Nacional de Pós-Doutorado',
 ];
