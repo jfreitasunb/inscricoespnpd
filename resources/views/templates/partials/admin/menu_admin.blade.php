@@ -240,7 +240,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <span class="glyphicon glyphicon-log-out fa-fw"></span><a href="{{ route('logout') }}">Sair</a>
+                            <span class="glyphicon glyphicon-log-out fa-fw"></span>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Sair</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                         </h4>
                     </div>
                 </div>
