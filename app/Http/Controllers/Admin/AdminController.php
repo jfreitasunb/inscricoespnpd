@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+Use Alert;
 use Auth;
 use DB;
 use Mail;
@@ -41,6 +42,7 @@ class AdminController extends Controller
 
 	public function getMenu()
 	{	
+        Alert::success('Login efetuado', 'Bem vindo!')->autoclose(1500);
 		Session::get('locale');
 		return view('home');
 	}
