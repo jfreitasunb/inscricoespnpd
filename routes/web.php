@@ -20,3 +20,12 @@ Route::get('/en','HomeController@getLangEnglish')->name('lang.english')->middlew
 Route::get('/es','HomeController@getLangSpanish')->name('lang.spanish')->middleware('define.locale');
 
 Auth::routes(['verify' => true]);
+
+/*
+*Área do Admin
+ */
+
+Route::prefix('admin')->middleware('verified')->group(function () {
+
+    Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
+});
