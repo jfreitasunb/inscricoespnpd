@@ -5,15 +5,20 @@
                 <div class="card-header">
                     <h4 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseUm"><span class="glyphicon glyphicon-user fa-fw">
-                        </span>Sistema</a>
+                        </span>Configurar Edital</a>
                     </h4>
                 </div>
                 <div id="collapseUm" class="panel-collapse collapse">
                     <div class="card-body bg-white">
                         <table class="table">
                             <tr>
-                                <td class= "">
-                                    <span class="glyphicon glyphicon-cog fa-fw"></span><a href="#">Lista/Edita Usuários</a>
+                                <td class= "{{ Route::currentRouteNamed('configura.inscricao') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('configura.inscricao') }}">Configurar Inscrição</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class= "{{ Route::currentRouteNamed('editar.inscricao') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-pencil fa-fw"></span><a href="{{ route('editar.inscricao') }}">Editar detalhes da inscrição</a>
                                 </td>
                             </tr>
                         </table>
@@ -238,7 +243,7 @@
                     </div>
                 </div> --}}
                 <div class="panel panel-default">
-                    <div class="card-header">
+                    <div class="card-header bg-card border-primary">
                         <h4 class="card-title">
                             <span class="glyphicon glyphicon-log-out fa-fw"></span>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Sair</a>
@@ -252,44 +257,8 @@
         </div>
         <div class="col-sm-9 col-md-10">
             <div class="menuadmin well">
-                @yield('lista_edita_usuarios')
-                @yield('dados_coordenador_pos')
-                @yield('edita_area_pos')
-                @yield('admin_impersonate')
-                @yield('editar_periodo_confirmacao')
-                @yield('editar_periodo_envio_documentos_matricula')
-                @yield('cadastra_area_pos')
-                @yield('lista_contagem_cartas')
-                @yield('edita_formacao')
-                @yield('ativa_conta')
-                @yield('link_muda_senha')
-                @yield('contas_inativas')
-                @yield('visualiza_associacoes')
-                @yield('cadastra_disciplina')
                 @yield('configura_inscricao')
-                @yield('configurar_periodo_confirmacao')
-                @yield('configurar_periodo_envio_documentos_matricula')
                 @yield('editar_inscricao')
-                @yield('reativar_inscricao_candidato')
-                @yield('reativar_carta_enviada')
-                @yield('acha_indicacoes')
-                @yield('associa_recomendate')
-                @yield('nao_finalizadas')
-                @yield('homologa_inscricoes')
-                @yield('seleciona_candidatos')
-                @yield('altera_status_selecionados')
-                @yield('tabela_indicacoes')
-                @yield('altera_recomendantes')
-                @yield('relatorio_pos_edital_vigente')
-                @yield('relatorio_pos_editais_anteriores')
-                @yield('datatable_users')
-                @yield('ficha_individual')
-                @yield('graficos')
-                @yield('auxilia_selecao')
-                @yield('altera_documentos_matricula_coordenador')
-                @yield('envia_documentos_matricula')
-                @yield('processa_documentos_matricula')
-                @yield('link_acesso')
             </div>
         </div>
     </div>
