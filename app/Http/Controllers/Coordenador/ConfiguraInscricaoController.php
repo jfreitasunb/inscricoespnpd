@@ -9,7 +9,7 @@ class ConfiguraInscricaoController extends Controller
 {
     public function getConfiguraInscricao()
     {
-
+        return view('templates.partials.coordenador.configurar_inscricao');
     }
 
     public function postConfiguraInscricao()
