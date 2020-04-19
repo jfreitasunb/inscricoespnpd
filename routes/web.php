@@ -25,7 +25,16 @@ Auth::routes(['verify' => true]);
 *Área do Admin
  */
 
-Route::prefix('admin')->middleware('user.role:admin', 'auth')->group(function () {
+Route::prefix('admin')->middleware('user.role:admin, coordenador', 'auth')->group(function () {
 
     Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
+    Route::get('/', 'Coordenador\EditaInscricaoController@getEditaInscricao')->name('editar.inscricao');
+    Route::post('/', 'Coordenador\EditaInscricaoController@postEditaInscricao')->name('editar.inscricao');
+});
+
+Route::prefix('coordenador')->middleware('user.role:admin, coordenador', 'auth')->group(function () {
+
+    // Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
+    Route::get('/', 'Coordenador\ConfiguraInscricaoController@getConfiguraInscricao')->name('configura.inscricao');
+    Route::post('/', 'Coordenador\ConfiguraInscricaoController@postConfiguraInscricao')->name('configura.inscricao');
 });
