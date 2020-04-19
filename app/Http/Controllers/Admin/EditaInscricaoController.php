@@ -9,7 +9,7 @@ class EditaInscricaoController extends Controller
 {
     public function getEditaInscricao()
     {
-
+        return view('templates.partials.admin.editar_inscricao');
     }
 
     public function postEditaInscricao()
