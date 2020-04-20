@@ -47,4 +47,15 @@ class ConfiguraInscricaoPNPD extends Model
 
         return 0;
     }
+
+    public function retorna_edital_vigente($id_inscricao_pnpd = null)
+    {
+        if (is_null($id_inscricao_pnpd)) {
+
+            return $this->orderBy('id_inscricao_pnpd','desc')->get()->first();
+        }else{
+            
+            return $this->where('id_inscricao_pnpd', $id_inscricao_pnpd)->get()->first();
+        }    
+    }
 }
