@@ -73,12 +73,12 @@
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          {{-- <div class="form-group row">
             <label for="edital" class="col-4 col-form-label">Edital</label> 
             <div class="col-8">
               <input id="edital" name="edital" type="text" class="form-control">
             </div>
-          </div>
+          </div> --}}
           <div class="form-group row">
             <label class="col-4">Necessita de Recomendante?</label> 
             <div class="col-8">
