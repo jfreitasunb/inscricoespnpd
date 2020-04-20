@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfiguraInscricaoPNPD;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,14 +20,9 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        // $inscricao_pos = new ConfiguraInscricaoPos();
+        $inscricao_pos = new ConfiguraInscricaoPNPD();
 
-        // $periodo_inscricao = $inscricao_pos->retorna_periodo_inscricao();
-
-        // $texto_inscricao_pos = $inscricao_pos->define_texto_inscricao();
-        // 
-        
-        $periodo_inscricao = "01/04/2020 à 31/12/2020";
+        $periodo_inscricao = $inscricao_pos->retorna_periodo_inscricao();
 
         View::share ( 'periodo_inscricao', $periodo_inscricao );
     }
