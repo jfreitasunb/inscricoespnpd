@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
+use Alert;
+use App\Models\ConfiguraInscricaoPNPD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
