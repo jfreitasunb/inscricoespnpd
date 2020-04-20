@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AppModelsConfiguraInscricaoPNPD extends Model
+class ConfiguraInscricaoPNPD extends Model
 {
-    // protected $table = 'users';
+    protected $table = 'configura_inscricao_pnpd';
 
     protected $primaryKey = 'id_inscricao_pnpd';
 
@@ -25,4 +25,15 @@ class AppModelsConfiguraInscricaoPNPD extends Model
         'id_coordenador',
         'necessita_recomendante',
     ];
+
+    public function permite_configurar_inscricao($data_inicio, $data_fim)
+    {
+        $existe = count($this->whereBetween('fim_inscricao', [$data_inicio, $data_fim])->get());
+
+        if ($existe) {
+            return false;
+        }
+
+        return true;
+    }
 }
