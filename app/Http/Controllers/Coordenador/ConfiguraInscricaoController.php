@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Coordenador;
 use Auth;
 use Alert;
 use Carbon\Carbon;
+use Notification;
+use App\Models\User;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use InscricoesPos\Notifications\NotificaNovaInscricao;
+use App\Notifications\NotificaNovaInscricao;
 
 
 class ConfiguraInscricaoController extends Controller
@@ -21,14 +23,13 @@ class ConfiguraInscricaoController extends Controller
     public function postConfiguraInscricao(Request $request)
     {
         $this->validate($request, [
-            'inicio_inscricao' => 'required|date_format:"d/m/Y"|before:fim_inscricao|after:today',
+            'inicio_inscricao' => 'required|date_format:"d/m/Y"|before:fim_inscricao',
             'fim_inscricao' => 'required|date_format:"d/m/Y"|after:inicio_inscricao|after:today',
             'prazo_carta' => 'required|date_format:"d/m/Y"|after:inicio_inscricao|after:today',
             'data_homologacao' => 'required|date_format:"d/m/Y"|after:fim_inscricao|after:today',
             'data_divulgacao_resultado' => 'required|date_format:"d/m/Y"|after:data_homologacao|after:today',
             'necessita_recomendante' => 'required',
         ]);
-
 
         $user = Auth::user();
 
@@ -81,9 +82,23 @@ class ConfiguraInscricaoController extends Controller
             $configura_nova_inscricao_pnpd->necessita_recomendante = $necessita_recomendante;
 
             $configura_nova_inscricao_pnpd->save();
-        }else{
+
+            $dados_email['inicio_inscricao'] = $request->inicio_inscricao;
+            
+            $dados_email['fim_inscricao'] = $request->fim_inscricao;
+            
+            $dados_email['prazo_carta'] = $request->prazo_carta;
+
+            Notification::send(User::find('1'), new NotificaNovaInscricao($dados_email));
+
             Alert::error('Já existe uma inscrição ativa!', 'Não é possível configurar uma nova!');
-            return redirect()->back();
+
+            return redirect()->route('configura.inscricao');
+        }else{
+
+            Alert::error('Já existe uma inscrição ativa!', 'Não é possível configurar uma nova!');
+
+            return redirect()->route('configura.inscricao');
         }
     }
 }
