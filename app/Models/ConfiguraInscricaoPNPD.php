@@ -36,4 +36,15 @@ class ConfiguraInscricaoPNPD extends Model
 
         return true;
     }
+
+    public function ultimo_edital($ano)
+    {
+        $temp = $this->select('edital')->where('inicio_inscricao', 'like', $ano.'%')->orderby('edital', 'desc')->value('edital');
+
+        if (!is_null($temp)) {
+            return explode("-", $temp)[0];
+        }
+
+        return 0;
+    }
 }
