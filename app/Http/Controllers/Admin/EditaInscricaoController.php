@@ -12,7 +12,14 @@ class EditaInscricaoController extends Controller
 {
     public function getEditaInscricao()
     {
-        return view('templates.partials.admin.editar_inscricao');
+        $user = Auth::user();
+
+        if ($user->user_type == "admin") {
+            return view('templates.partials.admin.editar_inscricao');
+        }else{
+            return redirect()->home();
+        }
+        
     }
 
     public function postEditaInscricao()
