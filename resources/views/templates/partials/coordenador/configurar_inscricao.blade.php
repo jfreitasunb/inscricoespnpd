@@ -4,7 +4,6 @@
   {!! Html::style( asset('css/parsley.css') ) !!}
 @endsection
 
-{{-- {{ dd(session()->all()) }} --}}
 @section('configura_inscricao')
 <div class="row">
    <div class="col-md-8 col-md-offset-2">
