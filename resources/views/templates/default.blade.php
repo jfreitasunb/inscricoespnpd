@@ -24,6 +24,13 @@
         @else
           @yield('inicio')
           @yield('content')
+          @liberainscricao()
+          <div class="container-fluid">
+              <div class="row-fluid">
+                @include('templates.partials.candidato.formulario_inscricao')
+              </div>
+          </div>
+          @endliberainscricao
           {{-- @yield('ver_ficha') --}}
         @endif
       @include('templates.partials.rodape')
