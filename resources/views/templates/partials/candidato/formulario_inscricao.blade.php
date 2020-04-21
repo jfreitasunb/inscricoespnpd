@@ -2,38 +2,38 @@
     <div class="row h-100 justify-content-center align-items-center">
         <legend class="text-center">Formulário de Inscrição</legend>
         <div class="col-10 col-md-8 col-lg-6">
-          {!! Form::open(array('route' => 'configura.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
+          {!! Form::open(array('route' => 'processa.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
             <div class="form-group">
-                <label for="text"></label> 
-                <input id="text" name="text" placeholder="Nome Completo" type="text" required="required" class="form-control">
+                <label for="nome"></label>
+                <input id="nome" name="nome" placeholder="Nome Completo" type="nome" required="required" class="form-control">
             </div>
           <div class="form-group">
-            <label for="cpf"></label> 
+            <label for="cpf"></label>
             <input id="cpf" name="cpf" placeholder="CPF" type="text" required="required" class="form-control">
           </div>
           <div class="form-row">
             <div class="form-group col-md-10">
-              <label for="instituicao">Instituição de obtenção do doutorado</label> 
-              <input id="instituicao" name="instituicao" type="text" required="required" class="form-control">  
+              <label for="instituicao">Instituição de obtenção do doutorado</label>
+              <input id="instituicao" name="instituicao" type="text" required="required" class="form-control">
             </div>
             <div class="form-group col-md-2">
               <label for="ano_doutorado">Ano</label>
-              <input id="instituicao" name="instituicao" type="text" required="required" class="form-control"> 
+              <input id="ano_doutorado" name="ano_doutorado" type="text" required="required" class="form-control">
             </div>
           </div>
           <div class="form-group">
-            <label>Membros do Programa com quem pode colaborar</label> 
+            <label>Membros do Programa com quem pode colaborar</label>
             <div>
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input name="checkbox" id="checkbox_0" type="checkbox" checked="checked" required="required" class="custom-control-input" value="rabbit"> 
+                <input name="checkbox" id="checkbox_0" type="checkbox" checked="checked" required="required" class="custom-control-input" value="rabbit">
                 <label for="checkbox_0" class="custom-control-label">Rabbit</label>
               </div>
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input name="checkbox" id="checkbox_1" type="checkbox" required="required" class="custom-control-input" value="duck"> 
+                <input name="checkbox" id="checkbox_1" type="checkbox" required="required" class="custom-control-input" value="duck">
                 <label for="checkbox_1" class="custom-control-label">Duck</label>
               </div>
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input name="checkbox" id="checkbox_2" type="checkbox" required="required" class="custom-control-input" value="fish"> 
+                <input name="checkbox" id="checkbox_2" type="checkbox" required="required" class="custom-control-input" value="fish">
                 <label for="checkbox_2" class="custom-control-label">Fish</label>
               </div>
             </div>
