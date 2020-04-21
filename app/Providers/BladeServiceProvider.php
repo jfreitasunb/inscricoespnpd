@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ConfiguraInscricaoPNPD;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +34,16 @@ class BladeServiceProvider extends ServiceProvider
             // View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
 
             return $user->isAdmin();
+        });
+
+        Blade::if('liberainscricao', function ( $user = null ){
+
+            $edital_ativo = new ConfiguraInscricaoPNPD();
+
+            $autoriza_inscricao = $edital_ativo->autoriza_inscricao();
+
+            return $autoriza_inscricao;
+         
         });
     }
 
