@@ -58,14 +58,14 @@
                 <div class="form-group col-md-6">
                   <label for="">Currículo</label>
                   <div class="custom-file">
-                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile" name="curriculo">
+                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile1" name="curriculo">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                   </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="">Projeto</label>
                   <div class="custom-file">
-                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile" name="projeto">
+                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile1" name="projeto">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                   </div>
                 </div>
