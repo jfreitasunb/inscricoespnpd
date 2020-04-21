@@ -11,19 +11,15 @@
             <label for="cpf"></label> 
             <input id="cpf" name="cpf" placeholder="CPF" type="text" required="required" class="form-control">
           </div>
-          <div class="form-group">
-            <label for="ano_doutorado">Ano de obtenção do doutorado</label> 
-            <div>
-              <select id="ano_doutorado" name="ano_doutorado" required="required" class="custom-select">
-                <option value="rabbit">Rabbit</option>
-                <option value="duck">Duck</option>
-                <option value="fish">Fish</option>
-              </select>
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label for="instituicao">Instituição de obtenção do doutorado</label> 
+              <input id="instituicao" name="instituicao" type="text" required="required" class="form-control">  
             </div>
-          </div>
-          <div class="form-group">
-            <label for="text2"></label> 
-            <input id="text2" name="text2" placeholder="Instituição de Obtenção do Doutorado" type="text" required="required" class="form-control">
+            <div class="form-group col-md-2">
+              <label for="ano_doutorado">Ano</label>
+              <input id="instituicao" name="instituicao" type="text" required="required" class="form-control"> 
+            </div>
           </div>
           <div class="form-group">
             <label>Membros do Programa com quem pode colaborar</label> 
@@ -41,14 +37,38 @@
                 <label for="checkbox_2" class="custom-control-label">Fish</label>
               </div>
             </div>
-              </div>
-              <div class="form-group">
-                <label for="nome_recomendante_1"></label> 
+          </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
                 <input id="nome_recomendante_1" name="nome_recomendante_1" placeholder="Nome do Recomendante" type="text" class="form-control" required="required">
+                </div>
+                <div class="form-group col-md-6">
+                  <input id="email_recomendante_1" name="email_recomendante_1" placeholder="E-mail do Recomendante" type="text" class="form-control" required="required">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="text">Text Field</label> 
-                <input id="text" name="text" type="text" class="form-control">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                <input id="nome_recomendante_2" name="nome_recomendante_2" placeholder="Nome do Recomendante" type="text" class="form-control" required="required">
+                </div>
+                <div class="form-group col-md-6">
+                  <input id="email_recomendante_2" name="email_recomendante_2" placeholder="E-mail do Recomendante" type="text" class="form-control" required="required">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="">Currículo</label>
+                  <div class="custom-file">
+                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile" name="curriculo">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="">Projeto</label>
+                  <div class="custom-file">
+                    <input type="file" accept="application/pdf" class="custom-file-input" id="customFile" name="projeto">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>
+                </div>
               </div>
               <div class="form-group row">
                 <div class="offset-4 col-8">
