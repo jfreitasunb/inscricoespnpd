@@ -38,3 +38,10 @@ Route::prefix('coordenador')->middleware('user.role:admin, coordenador', 'auth')
     Route::get('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@getConfiguraInscricao')->name('configura.inscricao');
     Route::post('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@postConfiguraInscricao')->name('configura.inscricao');
 });
+
+Route::prefix('candidato')->middleware('define.locale')->group(function () {
+
+    // Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
+    Route::get('/processa/inscricao', 'Candidato\ProcessaInscricaoController@getProcessaInscricao')->name('processa.inscricao');
+    Route::post('/processa/inscricao', 'Candidato\ProcessaInscricaoController@postProcessaInscricao')->name('processa.inscricao');
+});
