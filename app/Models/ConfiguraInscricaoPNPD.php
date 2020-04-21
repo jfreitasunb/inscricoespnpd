@@ -99,4 +99,23 @@ class ConfiguraInscricaoPNPD extends Model
             return $periodo_inscricao = trans('mensagens_gerais.inscricao_encerrada');
         }
     }
+
+    public function autoriza_inscricao()
+    {
+        $inicio_inscricao = Carbon::createFromFormat('Y-m-d', $this->retorna_edital_vigente()->inicio_inscricao);
+
+        $fim_inscricao = Carbon::createFromFormat('Y-m-d', $this->retorna_edital_vigente()->fim_inscricao);
+
+        $data_inicio = $inicio_inscricao->format('Y-m-d');
+
+        $data_fim = $fim_inscricao->format('Y-m-d');
+
+        $data_hoje = (new Carbon())->format('Y-m-d');
+
+        if (($data_hoje >= $data_inicio) AND ($data_hoje <= $data_fim)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
