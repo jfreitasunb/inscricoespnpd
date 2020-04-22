@@ -17,14 +17,13 @@
           @candidato(Auth()->user())
             <div class="container">
               @include('templates.partials.candidato.menu_candidato')
-              @yield('formulario_inscricao')
+              @liberainscricao
+                @yield('formulario_inscricao')
+              @endliberainscricao
               @yield('finaliza_inscricao')
               @statuscarta
                 @yield('status_cartas')
               @endstatuscarta
-              @yield('confirma_presenca')
-              @yield('envia_documentos_matricula')
-              @yield('processa_documentos_matricula')
             </div>
           @endcandidato
           @admin(Auth()->user())
