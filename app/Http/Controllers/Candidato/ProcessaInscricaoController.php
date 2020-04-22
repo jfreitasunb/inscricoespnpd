@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class ProcessaInscricaoController extends Controller
 {
-    public function getProcessaInscricao()
-    {
-
-    }
-
     public function postProcessaInscricao(Request $request)
     {
       dd($request);
