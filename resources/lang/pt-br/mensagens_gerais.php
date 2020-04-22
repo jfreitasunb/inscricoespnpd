@@ -47,4 +47,5 @@ return [
     'acesso_para_finalizada' => 'Clique aqui para acessar o sistema e finalizar sua inscrição.',
     'documentos_matricula_sucesso' => 'Seus documentos foram recebidos corretamente em nosso sistema!',
     'PNPD' => 'Programa Nacional de Pós-Doutorado',
+    'menu_sair' => 'Sair',
 ];

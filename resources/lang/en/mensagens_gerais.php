@@ -44,4 +44,5 @@ return [
     'acesso_para_finalizada' => 'Click here to access the system and finalize your subscription.',
     'documentos_matricula_sucesso' => 'Yours documents where successfully received in our system!',
     'PNPD' => 'Programa Nacional de Pós-Doutorado',
+    'menu_sair' => 'Logout',
 ];

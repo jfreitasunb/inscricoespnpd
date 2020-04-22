@@ -4,32 +4,32 @@
   {!! Html::style( asset('css/parsley.css') ) !!}
 @endsection
 
-@section('editar_inscricao')
+@section('formulario_inscricao')
   <div class="container h-100">
       <div class="row h-100 justify-content-center align-items-center">
-          <legend class="text-center">Formulário de Inscrição</legend>
+          <legend class="text-center">{{ trans('tela_inscricao.menu_principal') }}</legend>
           <div class="col-10 col-md-8 col-lg-6">
-            {!! Form::open(array('route' => 'processa.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
+            {!! Form::open(array('route' => 'candidato.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
               <div class="form-group">
                   <label for="nome"></label>
-                  <input id="nome" name="nome" placeholder="Nome Completo" type="nome" required="required" class="form-control">
+                  <input id="nome" name="nome" placeholder="{{ trans('tela_inscricao.nome') }}" type="nome" required="required" class="form-control">
               </div>
             <div class="form-group">
               <label for="cpf"></label>
-              <input id="cpf" name="cpf" placeholder="CPF" type="text" required="required" class="form-control">
+              <input id="cpf" name="cpf" placeholder="{{ trans('tela_inscricao.cpf') }}" type="text" required="required" class="form-control">
             </div>
             <div class="form-row">
               <div class="form-group col-md-10">
-                <label for="instituicao">Instituição de obtenção do doutorado</label>
+                <label for="instituicao">{{ trans('tela_inscricao.instituicao') }}</label>
                 <input id="instituicao" name="instituicao" type="text" required="required" class="form-control">
               </div>
               <div class="form-group col-md-2">
-                <label for="ano_doutorado">Ano</label>
+                <label for="ano_doutorado">{{ trans('tela_inscricao.ano_doutorado') }}</label>
                 <input id="ano_doutorado" name="ano_doutorado" type="text" required="required" class="form-control">
               </div>
             </div>
             <div class="form-group">
-              <label>Membros do Programa com quem pode colaborar</label>
+              <label>{{ trans('tela_inscricao.colobaradores') }}</label>
               <div>
                 <div class="custom-control custom-checkbox custom-control-inline">
                   <input name="checkbox" id="checkbox_0" type="checkbox" checked="checked" required="required" class="custom-control-input" value="rabbit">
@@ -47,39 +47,39 @@
             </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                  <input id="nome_recomendante_1" name="nome_recomendante_1" placeholder="Nome do Recomendante" type="text" class="form-control" required="required">
+                  <input id="nome_recomendante_1" name="nome_recomendante_1" placeholder="{{ trans('tela_inscricao.nome_recomendante') }}" type="text" class="form-control" required="required">
                   </div>
                   <div class="form-group col-md-6">
-                    <input id="email_recomendante_1" name="email_recomendante_1" placeholder="E-mail do Recomendante" type="text" class="form-control" required="required">
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                  <input id="nome_recomendante_2" name="nome_recomendante_2" placeholder="Nome do Recomendante" type="text" class="form-control" required="required">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <input id="email_recomendante_2" name="email_recomendante_2" placeholder="E-mail do Recomendante" type="text" class="form-control" required="required">
+                    <input id="email_recomendante_1" name="email_recomendante_1" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" required="required">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="">Currículo</label>
+                  <input id="nome_recomendante_2" name="nome_recomendante_2" placeholder="{{ trans('tela_inscricao.nome_recomendante') }}" type="text" class="form-control" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input id="email_recomendante_2" name="email_recomendante_2" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" required="required">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="">{{ trans('tela_inscricao.curriculo') }}</label>
                     <div class="custom-file">
                       <input type="file" accept="application/pdf" class="custom-file-input" id="customFile1" name="curriculo">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+                      <label class="custom-file-label" for="customFile">{{ trans('tela_inscricao.escolha') }}</label>
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="">Projeto</label>
+                    <label for="">{{ trans('tela_inscricao.projeto') }}</label>
                     <div class="custom-file">
                       <input type="file" accept="application/pdf" class="custom-file-input" id="customFile1" name="projeto">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+                      <label class="custom-file-label" for="customFile">{{ trans('tela_inscricao.escolha') }}</label>
                     </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="offset-4 col-8">
-                    <button name="submit" type="submit" class="btn btn-primary">Enviar</button>
+                    <button name="submit" type="submit" class="btn btn-primary">{{ trans('tela_inscricao.enviar') }}</button>
                   </div>
                 </div>
               {!! Form::close() !!}
