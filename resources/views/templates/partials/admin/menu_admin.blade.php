@@ -8,7 +8,7 @@
                         </span>Configurar Edital</a>
                     </h4>
                 </div>
-                <div id="collapseUm" class="panel-collapse collapse">
+                <div id="collapseUm" class="panel-collapse collapse {{ $keep_open_accordion_configurar_edital }}">
                     <div class="card-body bg-white">
                         <table class="table">
                             <tr>
