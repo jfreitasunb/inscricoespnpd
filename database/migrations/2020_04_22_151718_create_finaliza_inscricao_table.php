@@ -17,8 +17,8 @@ class CreateAppModelsFinalizaInscricaosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('id_inscricao_pnpd');
             $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('usuario_id');
-            $table->foreign('usuario_id')->references('usuario_id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('id_candidato');
+            $table->foreign('id_candidato')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->boolean('inscricao_finalizada')->default(FALSE);
             $table->timestamps();
         });
