@@ -61,6 +61,8 @@ class BladeServiceProvider extends ServiceProvider
                 return false;
             }
 
+            View::share('nome_usuario', $user->nome);
+
             return $user->isCandidato();
         });
 
