@@ -19,7 +19,9 @@
               @include('templates.partials.candidato.menu_candidato')
               @yield('formulario_inscricao')
               @yield('finaliza_inscricao')
-              @yield('status_cartas')
+              @statuscarta
+                @yield('status_cartas')
+              @endstatuscarta
               @yield('confirma_presenca')
               @yield('envia_documentos_matricula')
               @yield('processa_documentos_matricula')
