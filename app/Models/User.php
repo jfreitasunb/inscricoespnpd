@@ -48,4 +48,13 @@ class User extends Authenticatable
             return FALSE;
         }
     }
+
+    public function isCandidato()
+    {
+        if (auth()->user()->user_type === 'candidato') {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
 }
