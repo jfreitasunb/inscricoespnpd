@@ -14,6 +14,17 @@
       @include('templates.partials.alertas_erros')
       @include('templates.partials.cabecalho')
         @if (Auth::check())
+          @candidato(Auth()->user())
+            <div class="container">
+              @include('templates.partials.candidato.menu_candidato')
+              @yield('formulario_inscricao')
+              @yield('finaliza_inscricao')
+              @yield('status_cartas')
+              @yield('confirma_presenca')
+              @yield('envia_documentos_matricula')
+              @yield('processa_documentos_matricula')
+            </div>
+          @endcandidato
           @admin(Auth()->user())
             <div class="container-fluid">
               <div class="row-fluid">
@@ -24,13 +35,6 @@
         @else
           @yield('inicio')
           @yield('content')
-          @liberainscricao()
-          <div class="container-fluid">
-              <div class="row-fluid">
-                @include('templates.partials.candidato.formulario_inscricao')
-              </div>
-          </div>
-          @endliberainscricao
           {{-- @yield('ver_ficha') --}}
         @endif
       @include('templates.partials.rodape')
