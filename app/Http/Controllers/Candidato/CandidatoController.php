@@ -20,10 +20,14 @@ class CandidatoController extends Controller
 
         $configura_inscricao = new ConfiguraInscricaoPNPD();
 
+        $edital = $configura_inscricao->retorna_edital_vigente();
+
+        $id_inscricao_pnpd = $edital->id_inscricao_pnpd;
+
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
         if ($libera_formulario) {
-            return view('templates.partials.candidato.formulario_inscricao');
+            return view('templates.partials.candidato.formulario_inscricao')->with(compact('id_inscricao_pnpd'));
         }else{
             return view('/');
         }
