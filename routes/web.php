@@ -41,7 +41,9 @@ Route::prefix('coordenador')->middleware('user.role:admin, coordenador', 'auth')
 
 Route::prefix('candidato')->middleware('define.locale')->group(function () {
 
-    // Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
-    Route::get('/processa/inscricao', 'Candidato\ProcessaInscricaoController@getProcessaInscricao')->name('processa.inscricao');
-    Route::post('/processa/inscricao', 'Candidato\ProcessaInscricaoController@postProcessaInscricao')->name('processa.inscricao');
+    // Route::get('/', 'Candidato\CandidatoController@getMenu');
+
+    Route::get('/inscricao', 'Candidato\CandidatoController@getMenu')->name('candidato.inscricao');
+    
+    Route::post('/processa/inscricao', 'Candidato\ProcessaInscricaoController@postProcessaInscricao')->name('candidato.inscricao');
 });
