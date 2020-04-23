@@ -11,21 +11,19 @@
           <div class="col-10 col-md-8 col-lg-6">
             {!! Form::open(array('route' => 'candidato.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
               <div class="form-group">
-                  <label for="nome"></label>
-                  <input id="nome" name="nome" placeholder="{{ trans('tela_inscricao.nome') }}" type="nome" required="required" class="form-control">
+                {!! Form::text('nome', null, ['placeholder'=> trans('tela_inscricao.nome'),  'class' => 'form-control', 'required' => '']) !!}
               </div>
             <div class="form-group">
-              <label for="cpf"></label>
-              <input id="cpf" name="cpf" placeholder="{{ trans('tela_inscricao.cpf') }}" type="text" required="required" class="form-control">
+              {!! Form::text('cpf', null, ['placeholder'=> trans('tela_inscricao.cpf'),  'class' => 'form-control', 'required' => '']) !!}
             </div>
             <div class="form-row">
               <div class="form-group col-md-10">
                 <label for="instituicao">{{ trans('tela_inscricao.instituicao') }}</label>
-                <input id="instituicao" name="instituicao" type="text" required="required" class="form-control">
+                {!! Form::text('instituicao', null, ['placeholder'=> trans('tela_inscricao.instituicao'),  'class' => 'form-control', 'required' => '']) !!}
               </div>
               <div class="form-group col-md-2">
                 <label for="ano_doutorado">{{ trans('tela_inscricao.ano_doutorado') }}</label>
-                <input id="ano_doutorado" name="ano_doutorado" type="text" required="required" class="form-control">
+                {!! Form::text('ano_doutorado', null, ['class' => 'form-control', 'required' => '']) !!}
               </div>
             </div>
             <div class="form-group">
