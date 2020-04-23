@@ -14,7 +14,7 @@
           <fieldset class="scheduler-border">
             <legend class="scheduler-border">{{ trans('tela_inscricao.dados_pessoais') }}</legend>
             <div class="form-group">
-              {!! Form::text('nome', null, ['placeholder'=> trans('tela_inscricao.nome'),  'class' => 'form-control', 'required' => '']) !!}
+              {!! Form::text('nome', $nome ?: '', ['class' => 'form-control', 'required' => '']) !!}
             </div>
             <div class="form-group">
               {!! Form::text('cpf', null, ['placeholder'=> trans('tela_inscricao.cpf'),  'class' => 'form-control', 'required' => '']) !!}
