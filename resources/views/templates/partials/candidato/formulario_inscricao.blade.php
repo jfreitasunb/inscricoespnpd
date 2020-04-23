@@ -43,14 +43,16 @@
               </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-            <input id="nome_recomendante_1" name="nome_recomendante_1" placeholder="{{ trans('tela_inscricao.nome_recomendante') }}" type="text" class="form-control" required="required">
+          @for ($i = 1; $i <= $numero_cartas ; $i++)
+            <div class="form-row">
+              <div class="form-group col-md-6">
+              <input id="nome_recomendante_{{ $i }}" name="nome_recomendante[]" placeholder="{{ trans('tela_inscricao.nome_recomendante') }}" type="text" class="form-control" required="required">
+              </div>
+              <div class="form-group col-md-6">
+                <input id="email_recomendante_{{ $i }}" name="email_recomendante[]" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" required="required">
+              </div>
             </div>
-            <div class="form-group col-md-6">
-              <input id="email_recomendante_1" name="email_recomendante_1" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" required="required">
-            </div>
-          </div>
+          @endfor
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">{{ trans('tela_inscricao.curriculo') }}</label>
