@@ -26,10 +26,11 @@ class CandidatoController extends Controller
 
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
-        if ($libera_formulario) {
-            return view('templates.partials.candidato.formulario_inscricao')->with(compact('id_inscricao_pnpd'));
-        }else{
+        if (!$libera_formulario) {
+            
             return view('/');
         }
+
+        return view('templates.partials.candidato.formulario_inscricao')->with(compact('id_inscricao_pnpd'));
     }
 }
