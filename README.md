@@ -7,9 +7,3 @@ This README would normally document whatever steps are necessary to get your app
 *https://bootstrapformbuilder.com/
 *https://uxsolutions.github.io/bootstrap-datepicker/?markup=component&format=&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&maxViewMode=4&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&keyboardNavigation=on&forceParse=on#sandbox
 ###################
-
-
-#SELECT * from orientateur
-
-
-#select name||' '||firstname as nome, un.login from users us,unix un where us.coduser='".$coduser."' and un.coduser='".$coduser."'"
