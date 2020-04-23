@@ -15,7 +15,7 @@ return [
     'colobaradores' => 'Program members you can collaborate with',
     'nome_recomendante' => 'Name',
     'email_recomendante' => 'Email',
-    'curriculo' => 'Curriculum',
+    'curriculo' => 'Curriculum Vitae or Lattes',
     'escolha' => 'Choose file',
     'projeto' => 'Project',
     'enviar' => 'Submit',

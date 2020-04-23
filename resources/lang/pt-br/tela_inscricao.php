@@ -15,7 +15,7 @@ return [
     'colobaradores' => 'Membros do Programa com quem pode colaborar',
     'nome_recomendante' => 'Nome do Recomendante ',
     'email_recomendante' => 'E-mail do Recomendante',
-    'curriculo' => 'Currículo',
+    'curriculo' => 'Curriculum Vitae ou Lattes',
     'escolha' => 'Escolher',
     'projeto' => 'Projeto',
     'enviar' => 'Enviar',
