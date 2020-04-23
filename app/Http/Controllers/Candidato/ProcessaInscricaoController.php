@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ConfiguraInscricaoPNPD;
+use App\Models\User;
+use App\Models\DadosInscricao;
 
 class ProcessaInscricaoController extends Controller
 {
@@ -49,5 +51,8 @@ class ProcessaInscricaoController extends Controller
             ]);
         }
         
+        $user = Auth::user();
+
+        $usuario_id = $user->usuario_id;
     }
 }
