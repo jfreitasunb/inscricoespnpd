@@ -11,8 +11,7 @@ class ProcessaInscricaoController extends Controller
 {
     public function postProcessaInscricao(Request $request)
     {
-      dd($request);
-      $configura_inscricao = new ConfiguraInscricaoPNPD();
+        $configura_inscricao = new ConfiguraInscricaoPNPD();
 
         $edital = $configura_inscricao->retorna_edital_vigente();
 
@@ -32,7 +31,7 @@ class ProcessaInscricaoController extends Controller
                 'instituicao' => 'required',
                 'ano_doutorado',
                 'colaboradores',
-                'nome_recomendante' => 'required',
+                'nome_recomendante' => 'required|valida_recomendantes',
                 'email_recomendante' => 'required|valida_recomendantes',
                 'confirmar_email_recomendante' => 'required|same:email_recomendante',
                 'curriculo' => 'required|max:50000|mimes:pdf',
