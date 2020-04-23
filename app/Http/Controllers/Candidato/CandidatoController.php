@@ -14,10 +14,6 @@ class CandidatoController extends Controller
     {
         Session::get('locale');
         
-        // $user = $this->SetUser();
-        
-        // $id_user = $user->usuario_id;
-
         $configura_inscricao = new ConfiguraInscricaoPNPD();
 
         $edital = $configura_inscricao->retorna_edital_vigente();
