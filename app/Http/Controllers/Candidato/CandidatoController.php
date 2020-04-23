@@ -29,6 +29,10 @@ class CandidatoController extends Controller
             return view('/');
         }
 
-        return view('templates.partials.candidato.formulario_inscricao')->with(compact('id_inscricao_pnpd', 'numero_cartas'));
+        $user = Auth::user();
+
+        $nome = $user->nome;
+
+        return view('templates.partials.candidato.formulario_inscricao')->with(compact('id_inscricao_pnpd', 'numero_cartas', 'nome'));
     }
 }
