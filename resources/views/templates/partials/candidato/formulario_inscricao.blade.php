@@ -32,15 +32,15 @@
               <label>{{ trans('tela_inscricao.colobaradores') }}</label>
               <div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input name="checkbox" id="checkbox_0" type="checkbox" checked="checked" required="required" class="custom-control-input" value="rabbit">
-                  <label for="checkbox_0" class="custom-control-label">Rabbit</label>
+                  <input name="colaboradores" id="checkbox_0" type="checkbox" class="custom-control-input" value="rabbit">
+                  <label for="colaboradores" class="custom-control-label">Rabbit</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input name="checkbox" id="checkbox_1" type="checkbox" required="required" class="custom-control-input" value="duck">
+                  <input name="checkbox" id="checkbox_1" type="checkbox" class="custom-control-input" value="duck">
                   <label for="checkbox_1" class="custom-control-label">Duck</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input name="checkbox" id="checkbox_2" type="checkbox" required="required" class="custom-control-input" value="fish">
+                  <input name="checkbox" id="checkbox_2" type="checkbox" class="custom-control-input" value="fish">
                   <label for="checkbox_2" class="custom-control-label">Fish</label>
                 </div>
               </div>
