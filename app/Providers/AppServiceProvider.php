@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\ConfiguraPNPD;
+use App\Models\ConfiguraInscricaoPNPD;
 use Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $configura_pnpd = new ConfiguraPNPD();
+        $configura_pnpd = new ConfiguraInscricaoPNPD();
 
         $numero_cartas = $configura_pnpd->retorna_edital_vigente()->numero_cartas;
         
