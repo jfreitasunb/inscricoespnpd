@@ -91,7 +91,15 @@
                 <label for="necessita_recomendante_1" class="custom-control-label">Não</label>
               </div>
             </div>
-          </div> 
+          </div>
+          <div class="form-group row">
+            {!! Form::label('numero_cartas', 'Número de cartas:', ['class' => 'col-4 col-form-label']); !!}
+            <div class="col-8">
+              <div class="input-group">
+                {!! Form::text('numero_cartas', null, ['class' => 'form-control']) !!}
+              </div>
+            </div>
+          </div>
           <div class="form-group row">
             <div class="offset-4 col-8">
               <button name="submit" type="submit" class="btn btn-primary">Enviar</button>

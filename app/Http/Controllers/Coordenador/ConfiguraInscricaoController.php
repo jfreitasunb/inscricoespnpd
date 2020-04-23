@@ -64,6 +64,8 @@ class ConfiguraInscricaoController extends Controller
         $numero_ultimo_edital = $configura_nova_inscricao_pnpd->ultimo_edital($ano);
 
         if ($pode_configurar) {
+
+            $configura_nova_inscricao_pnpd->id_usuario_configurou = $user->usuario_id;
             
             $configura_nova_inscricao_pnpd->inicio_inscricao = $data_inicio;
             
@@ -76,10 +78,12 @@ class ConfiguraInscricaoController extends Controller
             $configura_nova_inscricao_pnpd->data_divulgacao_resultado = $data_divulgacao_resultado;
             
             $configura_nova_inscricao_pnpd->edital = ($numero_ultimo_edital+1)."-".$ano;
-            
-            $configura_nova_inscricao_pnpd->id_coordenador = $user->usuario_id;
 
             $configura_nova_inscricao_pnpd->necessita_recomendante = $necessita_recomendante;
+
+            if (!is_null($request->numero_cartas)) {
+                $configura_nova_inscricao_pnpd->numero_cartas = (int) $request->numero_cartas;
+            }
 
             $configura_nova_inscricao_pnpd->save();
 

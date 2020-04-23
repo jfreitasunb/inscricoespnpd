@@ -64,6 +64,14 @@
             </div>
           </div>
           <div class="form-group row">
+            {!! Form::label('numero_cartas', 'Necessita de Recomendante?', ['class' => 'col-4 col-form-label']); !!}
+            <div class="col-8">
+              <div class="input-group">
+                {!! Form::text('numero_cartas', $edital_vigente->numero_cartas? 'Sim' : 'Não', ['class' => 'form-control']) !!}
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
             <div class="offset-4 col-8">
               <button name="submit" type="submit" class="btn btn-primary">Enviar</button>
             </div>

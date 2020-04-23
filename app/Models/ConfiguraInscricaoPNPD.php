@@ -18,14 +18,15 @@ class ConfiguraInscricaoPNPD extends Model
      * @var array
      */
     protected $fillable = [
+        'id_usuario_configurou',
         'inicio_inscricao', 
         'fim_inscricao',
         'prazo_carta',
         'data_homologacao',
         'data_divulgacao_resultado',
-        'edital',
-        'id_coordenador',
         'necessita_recomendante',
+        'numero_cartas',
+        'edital',
     ];
 
     public function permite_configurar_inscricao($data_inicio, $data_fim)

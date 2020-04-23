@@ -78,6 +78,10 @@ class EditaInscricaoController extends Controller
 
         $novos_dados_edital['necessita_recomendante'] = $necessita_recomendante;
 
+        if (!is_null($request->numero_cartas)) {
+            $novos_dados_edital['numero_cartas'] = (int) $request->numero_cartas;
+        }
+
         $edital_vigente->update($novos_dados_edital);
 
         Alert::success('', 'Dados atualizados com sucesso!')->autoclose(3000);
