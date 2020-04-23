@@ -10,6 +10,7 @@
       <legend class="text-center">{{ trans('tela_inscricao.menu_principal') }}</legend>
       <div class="col-10 col-md-8 col-lg-6">
         {!! Form::open(array('route' => 'candidato.inscricao','data-parsley-validate' => '' ,'enctype' => 'multipart/form-data')) !!}
+          {{ Form::hidden('id_inscricao_pnpd', $id_inscricao_pnpd) }}
           <div class="form-group">
             {!! Form::text('nome', null, ['placeholder'=> trans('tela_inscricao.nome'),  'class' => 'form-control', 'required' => '']) !!}
           </div>
@@ -49,7 +50,7 @@
               <input id="nome_recomendante_{{ $i }}" name="nome_recomendante[]" placeholder="{{ trans('tela_inscricao.nome_recomendante') }}" type="text" class="form-control" required="required">
               </div>
               <div class="form-group col-md-6">
-                <input id="email_recomendante_{{ $i }}" name="email_recomendante[]" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" required="required">
+                <input id="email_recomendante_{{ $i }}" name="email_recomendante[]" placeholder="{{ trans('tela_inscricao.email_recomendante') }}" type="text" class="form-control" data-parsley-type='email' required="required">
               </div>
             </div>
           @endfor
