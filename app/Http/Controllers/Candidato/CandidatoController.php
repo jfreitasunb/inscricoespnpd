@@ -26,6 +26,8 @@ class CandidatoController extends Controller
 
         $numero_cartas = $edital->numero_cartas;
 
+        $numero_cartas = 2;
+
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
         if (!$libera_formulario) {
