@@ -59,8 +59,33 @@ class ProcessaInscricaoController extends Controller
 
         $inscricao = new DadosInscricao();
 
-        
+        $cpf = str_replace("-", "", str_replace(".", "", $request->cpf));
 
+        $instituicao = $request->instituicao;
 
+        $ano_doutorado = (int)$request->ano_doutorado;
+
+        $colaboradores = $request->colaboradores;
+
+        $ja_iniciou_inscricao = $inscricao->retorna_registro($id_inscricao_pnpd, $usuario_id);
+
+        $dados_inscricao_candidato = [];
+
+        $dados_inscricao_candidato['cpf'] = $cpf;
+
+        $dados_inscricao_candidato['instituicao'] = $instituicao;
+
+        $dados_inscricao_candidato['ano_doutorado'] = $ano_doutorado;
+
+        $dados_inscricao_candidato['colaboradores'] = $colaboradores;
+
+        if (is_null($ja_iniciou_inscricao)) {
+
+            $inscricao->save($dados_inscricao_candidato);
+        }else{
+            $atualiza = DadosInscricao::find($ja_iniciou_inscricao);
+
+            dd($atualiza->update($dados_inscricao_candidato));
+        }
     }
 }
