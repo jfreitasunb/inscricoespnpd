@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Candidato;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\User;
 use App\Models\DadosInscricao;
@@ -21,6 +21,8 @@ class ProcessaInscricaoController extends Controller
 
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
+        $necessita_recomendante = $configura_inscricao->necessita_recomendante;
+
         if (!$libera_formulario) {
             return view('/');
         }
@@ -31,8 +33,8 @@ class ProcessaInscricaoController extends Controller
                 'nome' => 'required',
                 'cpf' => 'required',
                 'instituicao' => 'required',
-                'ano_doutorado',
-                'colaboradores',
+                'ano_doutorado' => 'required',
+                'colaboradores' => 'required',
                 'nome_recomendante' => 'required|valida_recomendantes',
                 'email_recomendante' => 'required|valida_recomendantes',
                 'confirmar_email_recomendante' => 'required|same:email_recomendante',
@@ -45,7 +47,7 @@ class ProcessaInscricaoController extends Controller
                 'cpf' => 'required',
                 'instituicao' => 'required',
                 'ano_doutorado' => 'required',
-                'colaboradores' => 'required|array|min:2',
+                'colaboradores' => 'required',
                 'curriculo' => 'required|max:50000|mimes:pdf',
                 'projeto' => 'required|max:50000|mimes:pdf',
             ]);
@@ -54,5 +56,11 @@ class ProcessaInscricaoController extends Controller
         $user = Auth::user();
 
         $usuario_id = $user->usuario_id;
+
+        $inscricao = new DadosInscricao();
+
+        
+
+
     }
 }
