@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FinalizaInscricao extends Model
 {
-    protected $primaryKey = 'id_candidato';
+    protected $primaryKey = 'id';
 
     protected $table = 'finaliza_inscricao';
 
@@ -19,5 +19,10 @@ class FinalizaInscricao extends Model
         }else{
             return FALSE;
         }
+    }
+
+    public function retorna_tabela_inicializada($id_candidato, $id_inscricao_pnpd)
+    {
+        return $this->select('id')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->value('id');
     }
 }
