@@ -47,5 +47,5 @@ Route::prefix('candidato')->middleware('define.locale')->group(function () {
     
     Route::post('/processa/inscricao', 'Candidato\ProcessaInscricaoController@postProcessaInscricao')->name('candidato.inscricao');
 
-    Route::get('/finaliza/inscricao', 'Candidato\FinalizaInscricaoController@getFinalizaInscricao')-name('finalizar.inscricao');
+    Route::get('/finaliza/inscricao', 'Candidato\FinalizaInscricaoController@getFinalizaInscricao')->name('finalizar.inscricao');
 });
