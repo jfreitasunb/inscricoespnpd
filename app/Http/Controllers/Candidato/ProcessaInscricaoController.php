@@ -10,6 +10,7 @@ use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\User;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
+use App\Models\FinalizaInscricao;
 
 class ProcessaInscricaoController extends Controller
 {
@@ -193,6 +194,18 @@ class ProcessaInscricaoController extends Controller
             $request->projeto->storeAs('uploads', $nome_projeto[1]);
 
             $projeto->atualiza_arquivos_enviados($usuario_id, $id_inscricao_pnpd, 'Projeto');
+        }
+
+        $finaliza_inscricao = new FinalizaInscricao();
+
+        $ja_inicializou = $finaliza_inscricao->retorna_tabela_inicializada($id_candidato, $id_inscricao_pnpd);
+
+        if (is_null($ja_inicializou)) {
+            $finaliza_inscricao->id_candidato = $usuario_id;
+
+            $finaliza_inscricao->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+            $finaliza_inscricao->save();
         }
     }
 }
