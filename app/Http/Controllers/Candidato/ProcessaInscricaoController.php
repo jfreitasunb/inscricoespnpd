@@ -198,9 +198,10 @@ class ProcessaInscricaoController extends Controller
 
         $finaliza_inscricao = new FinalizaInscricao();
 
-        $ja_inicializou = $finaliza_inscricao->retorna_tabela_inicializada($id_candidato, $id_inscricao_pnpd);
+        $ja_inicializou = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
         if (is_null($ja_inicializou)) {
+            
             $finaliza_inscricao->id_candidato = $usuario_id;
 
             $finaliza_inscricao->id_inscricao_pnpd = $id_inscricao_pnpd;
