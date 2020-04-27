@@ -53,11 +53,21 @@ class ProcessaInscricaoController extends Controller
             ]);
         }
         
+        $nomes_recomendantes = $request->nome_recomendante;
+
+        $emails_recomendantes = $request->email_recomendante;
+
         $user = Auth::user();
 
         $usuario_id = $user->usuario_id;
 
         $inscricao = new DadosInscricao();
+
+        $usuario = User::find($usuario_id);
+
+        $atualiza_nome['nome'] = $request->nome;
+
+        $usuario->update($atualiza_nome);
 
         $cpf = str_replace("-", "", str_replace(".", "", $request->cpf));
 
