@@ -47,6 +47,12 @@ class FinalizaInscricaoController extends Controller
 
             return redirect()->back();
         }
+
+        $dados_inscricao = new DadosInscricao();
+
+        $dados_pessoais_candidato = $dados_inscricao->retorna_dados_inscricao($usuario_id, $id_inscricao_pnpd);
+
+        $nome_candidato = $user->nome;
     }
 
     public function postProcessaInscricao(Request $request)
