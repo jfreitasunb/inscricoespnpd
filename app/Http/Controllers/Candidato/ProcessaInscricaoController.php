@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Candidato;
 
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
@@ -95,7 +96,7 @@ class ProcessaInscricaoController extends Controller
 
                 $novo_usuario->email = $emails_recomendantes[$i];
 
-                $novo_usuario->password = 'temp';
+                $novo_usuario->password = Hash::make('temp');
 
                 $novo_usuario->locale = 'en';
 
