@@ -24,4 +24,9 @@ class DadosInscricao extends Model
         'colaboradores',
         'recomendantes',
     ];
+
+    public function retorna_registro($id_inscricao_pnpd, $id_candidato)
+    {
+        return $this->select('id')->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('id_candidato', $id_candidato)->value('id');
+    }
 }
