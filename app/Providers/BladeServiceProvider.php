@@ -94,7 +94,7 @@ class BladeServiceProvider extends ServiceProvider
 
             $status_inscricao = $finaliza_inscricao->retorna_inscricao_finalizada($id_user, $id_inscricao_pnpd);
 
-            if ($autoriza_status_carta and $status_inscricao) {
+            if ($autoriza_status_carta and ($status_inscricao or is_null($status_inscricao))) {
                 return true;
             }else{
                 return false;
