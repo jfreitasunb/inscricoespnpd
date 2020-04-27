@@ -57,4 +57,9 @@ class User extends Authenticatable
             return FALSE;
         }
     }
+
+    public function retorna_id_pelo_email($email)
+    {
+        return $this->select('usuario_id')->where('email', $email)->value('usuario_id');
+    }
 }
