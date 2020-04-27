@@ -9,6 +9,7 @@ use Auth;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\User;
 use App\Models\DadosInscricao;
+use App\Models\ArquivosParaInscricao;
 
 class ProcessaInscricaoController extends Controller
 {
@@ -138,7 +139,60 @@ class ProcessaInscricaoController extends Controller
         }else{
             $atualiza = DadosInscricao::find($ja_iniciou_inscricao);
 
-            dd($atualiza->update($dados_inscricao_candidato));
+            $atualiza->update($dados_inscricao_candidato);
+        }
+
+        $curriculo = new ArquivosParaInscricao();
+                
+        $curriculo_ja_enviados = $curriculo->retorna_arquivo_edital_atual($usuario_id, $id_inscricao_pnpd, 'Curriculo');
+
+        if (is_null($curriculo_ja_enviados)) {
+
+            $curriculum = $request->curriculo->store('uploads');
+
+            $curriculo->id_candidato = $usuario_id;
+            
+            $curriculo->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+            $curriculo->nome_arquivo = $curriculum;
+        
+            $curriculo->tipo_arquivo = "Curriculo";
+        
+            $curriculo->save();
+        }else{
+            
+            $nome_arquivo = explode("/", $curriculo_ja_enviados->nome_arquivo);
+
+            $request->curriculo->storeAs('uploads', $nome_arquivo[1]);
+
+            $curriculo->atualiza_arquivos_enviados($usuario_id, $id_inscricao_pnpd, 'Curriculo');
+        }
+        
+        $projeto = new ArquivosParaInscricao();
+                
+        $projeto_ja_enviado = $projeto->retorna_arquivo_edital_atual($usuario_id, $id_inscricao_pnpd, 'Projeto');
+
+        if (is_null($projeto_ja_enviado)) {
+            
+            $proj = $request->projeto->store('uploads');
+
+            $projeto->id_candidato = $usuario_id;
+            
+            $projeto->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+            $projeto->nome_arquivo = $proj;
+        
+            $projeto->tipo_arquivo = "Projeto";
+        
+            $projeto->save();
+
+        }else{
+            
+            $nome_projeto = explode("/", $projeto_ja_enviado->nome_arquivo);
+
+            $request->projeto->storeAs('uploads', $nome_projeto[1]);
+
+            $projeto->atualiza_arquivos_enviados($usuario_id, $id_inscricao_pnpd, 'Projeto');
         }
     }
 }
