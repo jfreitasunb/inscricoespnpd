@@ -29,4 +29,9 @@ class DadosInscricao extends Model
     {
         return $this->select('id')->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('id_candidato', $id_candidato)->value('id');
     }
+
+    public function retorna_dados_inscricao($id_candidato, $id_inscricao_pnpd)
+    {
+        return $this->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->get();
+    }
 }
