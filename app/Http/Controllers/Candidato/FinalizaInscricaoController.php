@@ -32,11 +32,26 @@ class FinalizaInscricaoController extends Controller
         if (!$libera_formulario) {
             return view('/');
         }
+
+        $user = Auth::user();
+
+        $usuario_id = $user->usuario_id;
+
+        $finaliza_inscricao = new FinalizaInscricao();
+
+        $status_inscricao = $finaliza_inscricao->retorna_inscricao_finalizada($usuario_id, $id_inscricao_pnpd);
+
+        if ($status_inscricao) {
+
+            Alert()::warning(trans('mensagens_gerais.inscricao_finalizada'));
+
+            return redirect()->back();
+        }
     }
 
     public function postProcessaInscricao(Request $request)
     {
-        
+
         $configura_inscricao = new ConfiguraInscricaoPNPD();
 
         $edital = $configura_inscricao->retorna_edital_vigente();
