@@ -22,7 +22,7 @@ class CreateArquivosParaInscricaoTable extends Migration
             $table->string('nome_arquivo', 255);
             $table->string('tipo_arquivo', 50);
             $table->boolean('removido')->default(FALSE);
-            $table->timestamp('data_remocao');
+            $table->timestamp('data_remocao')->nullable();
             $table->timestamps();
         });
     }
