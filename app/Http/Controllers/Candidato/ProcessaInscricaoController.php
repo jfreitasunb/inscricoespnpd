@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
+use Alert;
 
 class ProcessaInscricaoController extends Controller
 {
@@ -201,12 +202,16 @@ class ProcessaInscricaoController extends Controller
         $ja_inicializou = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
         if (is_null($ja_inicializou)) {
-            
+
             $finaliza_inscricao->id_candidato = $usuario_id;
 
             $finaliza_inscricao->id_inscricao_pnpd = $id_inscricao_pnpd;
 
             $finaliza_inscricao->save();
         }
+
+        Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
+
+        return redirect()->route('finalizar.inscricao');    
     }
 }
