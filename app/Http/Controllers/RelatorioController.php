@@ -13,7 +13,7 @@ use Imagick;
 use App\Http\Controllers\FPDFController;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\ConfiguraInscricaoPos;
+use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\FinalizaInscricao;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
@@ -75,7 +75,7 @@ class RelatorioController extends BaseController
 
     $endereco_mudar = '/var/www/inscricoespos/storage/app/public/';
     
-    $relatorio = new ConfiguraInscricaoPos();
+    $relatorio = new ConfiguraInscricaoPNPD();
 
     $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
