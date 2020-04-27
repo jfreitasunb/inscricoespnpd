@@ -115,11 +115,6 @@ class ProcessaInscricaoController extends Controller
                     $id_recomendantes .= $usuario_existe;
                 }
             }
-
-
-            
-
-            
         }
 
         $dados_inscricao_candidato = [];
