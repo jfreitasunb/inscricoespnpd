@@ -87,23 +87,39 @@ class ProcessaInscricaoController extends Controller
             
             $novo_usuario = new User();
 
-            $novo_usuario->nome = $nomes_recomendantes[$i];
+            $usuario_existe = $novo_usuario->retorna_id_pelo_email($emails_recomendantes[$i]);
 
-            $novo_usuario->email = $emails_recomendantes[$i];
+            if (is_null($usuario_existe)) {
+                
+                $novo_usuario->nome = $nomes_recomendantes[$i];
 
-            $novo_usuario->password = 'temp';
+                $novo_usuario->email = $emails_recomendantes[$i];
 
-            $novo_usuario->locale = 'en';
+                $novo_usuario->password = 'temp';
 
-            $novo_usuario->user_type = 'recomendante';
+                $novo_usuario->locale = 'en';
 
-            $novo_usuario->save();
+                $novo_usuario->user_type = 'recomendante';
 
-            if ($i == 0) {
-                $id_recomendantes .= $novo_usuario->usuario_id."_";
+                $novo_usuario->save();
+
+                if ($i == 0) {
+                    $id_recomendantes .= $novo_usuario->usuario_id."_";
+                }else{
+                    $id_recomendantes .= $novo_usuario->usuario_id;
+                }
             }else{
-                $id_recomendantes .= $novo_usuario->usuario_id;
+                if ($i == 0) {
+                    $id_recomendantes .= $usuario_existe."_";
+                }else{
+                    $id_recomendantes .= $usuario_existe;
+                }
             }
+
+
+            
+
+            
         }
 
         $dados_inscricao_candidato = [];
