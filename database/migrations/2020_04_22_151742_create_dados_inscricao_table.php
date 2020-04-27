@@ -15,10 +15,10 @@ class CreateDadosInscricaoTable extends Migration
     {
         Schema::create('dados_inscricao', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('id_inscricao_pnpd');
-            $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('id_candidato');
             $table->foreign('id_candidato')->references('usuario_id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('id_inscricao_pnpd');
+            $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->string('cpf', 20);
             $table->text('instituicao');
             $table->integer('ano_doutorado', 4);
