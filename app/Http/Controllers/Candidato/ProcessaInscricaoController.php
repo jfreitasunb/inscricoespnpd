@@ -91,12 +91,14 @@ class ProcessaInscricaoController extends Controller
             $usuario_existe = $novo_usuario->retorna_id_pelo_email($emails_recomendantes[$i]);
 
             if (is_null($usuario_existe)) {
-                
+
+                $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(5, 20))).$emails_recomendantes[0].bin2hex(random_bytes(rand(5, 25))));
+
                 $novo_usuario->nome = $nomes_recomendantes[$i];
 
                 $novo_usuario->email = $emails_recomendantes[$i];
 
-                $novo_usuario->password = Hash::make('temp');
+                $novo_usuario->password = Hash::make($senha_temporaria);
 
                 $novo_usuario->locale = 'en';
 
