@@ -15,8 +15,28 @@ use Alert;
 
 class FinalizaInscricaoController extends Controller
 {
+    public function getFinalizaInscricao()
+    {
+        $configura_inscricao = new ConfiguraInscricaoPNPD();
+
+        $edital = $configura_inscricao->retorna_edital_vigente();
+
+        $id_inscricao_pnpd = $edital->id_inscricao_pnpd;
+
+        $libera_formulario = $configura_inscricao->autoriza_inscricao();
+
+        $numero_cartas = $edital->numero_cartas;
+
+        $necessita_recomendante = $edital->necessita_recomendante;
+
+        if (!$libera_formulario) {
+            return view('/');
+        }
+    }
+
     public function postProcessaInscricao(Request $request)
     {
+        
         $configura_inscricao = new ConfiguraInscricaoPNPD();
 
         $edital = $configura_inscricao->retorna_edital_vigente();
