@@ -21,7 +21,9 @@ class ProcessaInscricaoController extends Controller
 
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
-        $necessita_recomendante = $configura_inscricao->necessita_recomendante;
+        $numero_cartas = $edital->numero_cartas;
+
+        $necessita_recomendante = $edital->necessita_recomendante;
 
         if (!$libera_formulario) {
             return view('/');
@@ -79,6 +81,31 @@ class ProcessaInscricaoController extends Controller
 
         $ja_iniciou_inscricao = $inscricao->retorna_registro($id_inscricao_pnpd, $usuario_id);
 
+        $id_recomendantes = "";
+
+        for ($i=0; $i < $numero_cartas; $i++) { 
+            
+            $novo_usuario = new User();
+
+            $novo_usuario->nome = $nomes_recomendantes[$i];
+
+            $novo_usuario->email = $emails_recomendantes[$i];
+
+            $novo_usuario->password = 'temp';
+
+            $novo_usuario->locale = 'en';
+
+            $novo_usuario->user_type = 'recomendante';
+
+            $novo_usuario->save();
+
+            if ($i == 0) {
+                $id_recomendantes .= $novo_usuario->usuario_id."_";
+            }else{
+                $id_recomendantes .= $novo_usuario->usuario_id;
+            }
+        }
+
         $dados_inscricao_candidato = [];
 
         $dados_inscricao_candidato['cpf'] = $cpf;
@@ -88,6 +115,8 @@ class ProcessaInscricaoController extends Controller
         $dados_inscricao_candidato['ano_doutorado'] = $ano_doutorado;
 
         $dados_inscricao_candidato['colaboradores'] = $colaboradores;
+
+        $dados_inscricao_candidato['recomendantes'] = $id_recomendantes;
 
         if (is_null($ja_iniciou_inscricao)) {
 
