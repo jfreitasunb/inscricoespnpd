@@ -16,7 +16,7 @@
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">{{ trans('tela_status_cartas.nome') }}</th>
+      <th scope="col">{{ trans('tela_status_cartas.nome_recomendante') }}</th>
       <th scope="col">{{ trans('tela_status_cartas.situacao_carta') }}</th>
     </tr>
   </thead>
@@ -27,7 +27,7 @@
       @else
         <tr class="carta_incompleta">
       @endif
-      <td>{{ $status['nome'] }}</td>
+      <td>{{ $status['nome_recomendante'] }}</td>
       <td>@if ($status['status_carta'])
           {{ trans('tela_status_cartas.status_enviada') }}
         @else

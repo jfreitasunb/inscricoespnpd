@@ -57,7 +57,7 @@ class CandidatoController extends Controller
 
             foreach ($recomendantes as $recomendante) {
                 
-                $dados_para_template[$recomendante]['nome'] = User::find($recomendante)->nome;
+                $dados_para_template[$recomendante]['nome_recomendante'] = User::find($recomendante)->nome;
 
                 $carta = new CartaRecomendacao();
 
