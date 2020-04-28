@@ -179,6 +179,7 @@ class RelatorioController extends HomeController
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
 
+
     $endereco_mudar = '/var/www/inscricoespos/storage/app/public/';
     
     $relatorio = new ConfiguraInscricaoPNPD();
@@ -186,6 +187,8 @@ class RelatorioController extends HomeController
     $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
     $necessita_recomendante = $relatorio_disponivel->necessita_recomendante;
+
+    $numero_cartas = $relatorio_disponivel->numero_cartas;
 
     $locais_arquivos = $this->ConsolidaLocaisArquivos($relatorio_disponivel->edital);
 
@@ -210,7 +213,7 @@ class RelatorioController extends HomeController
 
     $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['ficha_inscricao'], $dados_candidato_para_relatorio);
 
-    $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
+    $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','contatos_indicados', 'necessita_recomendante', 'numero_cartas'));
     $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
 
     $nome_uploads = $this->ConsolidaDocumentosPDF($dados_candidato_para_relatorio['id_candidato'], $locais_arquivos['local_documentos'], $id_inscricao_pnpd, $necessita_recomendante);
