@@ -96,7 +96,7 @@ class RelatorioController extends HomeController
 
     $consolida_dados_inscricao['instituicao'] = $dados[0]->instituicao;
 
-    $consolida_dados_inscricao['ano'] = $dados[0]->ano;
+    $consolida_dados_inscricao['ano_doutorado'] = $dados[0]->ano_doutorado;
 
     $consolida_dados_inscricao['colaboradores'] = $dados[0]->colaboradores;
 
