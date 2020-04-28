@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
+use App\Models\LinkCartaRecomendacao;
 use Alert;
 use Notification;
 use App\Notifications\NotificaCandidato;
@@ -101,11 +102,39 @@ class FinalizaInscricaoController extends Controller
 
         $id_para_finalizacao = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
-        $finaliza = FinalizaInscricao::find($id_para_finalizacao);
+        // $finaliza = FinalizaInscricao::find($id_para_finalizacao);
 
-        $finaliza->inscricao_finalizada = True;
+        // $finaliza->inscricao_finalizada = True;
 
-        $finaliza->update();
+        // $finaliza->update();
+
+        if ($necessita_recomendante) {
+            
+            $dados_inscricao = new DadosInscricao();
+
+            $recomendantes = $dados_inscricao->retorna_dados_inscricao($usuario_id, $id_inscricao_pnpd);
+
+            $ids = explode("_", $recomendantes[0]->recomendantes);
+
+            for ($i=0; $i < $numero_cartas; $i++) { 
+                
+                $link = new LinkCartaRecomendacao();
+
+                $link_existe = $link->link_existe($ids[$i], $usuario_id, $id_inscricao_pnpd);
+
+                if (!$link_existe) {
+                    $link->id_recomendante = $ids[$i];
+
+                    $link->id_candidato = $usuario_id;
+
+                    $link->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+                    $link->link_acesso = 'temp';
+
+                    $link->save();
+                }
+            }
+        }
 
         //Para testes
         $dados_email_candidato['nome'] = $user->nome;
