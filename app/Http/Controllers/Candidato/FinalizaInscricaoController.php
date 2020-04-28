@@ -46,7 +46,7 @@ class FinalizaInscricaoController extends Controller
 
         if ($status_inscricao) {
 
-            Alert()::warning(trans('mensagens_gerais.inscricao_finalizada'));
+            Alert::error(trans('mensagens_gerais.inscricao_finalizada'));
 
             return redirect()->back();
         }
@@ -92,13 +92,21 @@ class FinalizaInscricaoController extends Controller
 
         if ($status_inscricao) {
 
-            Alert()::warning(trans('mensagens_gerais.inscricao_finalizada'));
+            Alert::error(trans('mensagens_gerais.inscricao_finalizada'));
 
             return redirect()->back();
         }
 
-        Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
+        $id_para_finalizacao = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
-        return redirect()->route('finalizar.inscricao');    
+        $finaliza = FinalizaInscricao::find($id_para_finalizacao);
+
+        $finaliza->inscricao_finalizada = True;
+
+        $finaliza->update();
+
+        // Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
+
+        // return redirect()->route('finalizar.inscricao');    
     }
 }
