@@ -141,6 +141,41 @@ class RelatorioController extends HomeController
       return $nome_arquivos;
   }
 
+  public function ConsolidaDocumentosPDF($id_candidato, $local_documentos, $id_inscricao_pnpd)
+  {
+
+    $nome_uploads = [];
+
+    $documento = new ArquivosParaInscricao();
+
+    $nome_documento_banco = $local_documentos.$documento->retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd, 'Curriculo')->nome_arquivo;
+
+    $nome_projeto_banco = $local_documentos.$documento->retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd, 'Projeto')->nome_arquivo;
+
+
+    $nome_uploads['documento_pdf'] = str_replace(File::extension($nome_documento_banco),'pdf', $nome_documento_banco);  
+
+    $nome_uploads['nome_projeto_pdf'] = str_replace(File::extension($nome_projeto_banco),'pdf', $nome_projeto_banco);
+
+    return $nome_uploads;
+  }
+
+  public function ConsolidaFichaRelatorio($nome_arquivos, $nome_uploads)
+  {
+    
+    $process = new Process('pdftk '.$nome_arquivos['arquivo_relatorio_candidato_temporario'].' '.$nome_uploads['documento_pdf'].' '.$nome_uploads['nome_projeto_pdf'].' '.' cat output '.$nome_arquivos['arquivo_relatorio_candidato_final']);
+
+    $process->setTimeout(3600);
+    
+    $process->run();
+
+    if (!$process->isSuccessful()) {
+      throw new ProcessFailedException($process);
+    }
+
+    @unlink($nome_arquivos['arquivo_relatorio_candidato_temporario']);
+  }
+
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
 
@@ -174,11 +209,9 @@ class RelatorioController extends HomeController
     }
 
     $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['ficha_inscricao'], $dados_candidato_para_relatorio);
-    
-    dd($dados_candidato_para_relatorio);
-    
-    $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
-    $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
+
+    // $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
+    // $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
 
     $nome_uploads = $this->ConsolidaDocumentosPDF($dados_candidato_para_relatorio['id_candidato'], $locais_arquivos['local_documentos'], $id_inscricao_pnpd, $necessita_recomendante);
 
