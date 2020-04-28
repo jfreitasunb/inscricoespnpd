@@ -82,7 +82,7 @@ class ProcessaInscricaoController extends Controller
 
         $colaboradores = $request->colaboradores;
 
-        $ja_iniciou_inscricao = $inscricao->retorna_registro($id_inscricao_pnpd, $usuario_id);
+        $ja_iniciou_inscricao = $inscricao->retorna_registro($usuario_id, $id_inscricao_pnpd);
 
         $id_recomendantes = "";
 
