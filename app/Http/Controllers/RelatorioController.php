@@ -210,8 +210,8 @@ class RelatorioController extends HomeController
 
     $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['ficha_inscricao'], $dados_candidato_para_relatorio);
 
-    // $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
-    // $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
+    $pdf = PDF::loadView('templates.partials.candidato.pdf_ficha_inscricao', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
+    $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
 
     $nome_uploads = $this->ConsolidaDocumentosPDF($dados_candidato_para_relatorio['id_candidato'], $locais_arquivos['local_documentos'], $id_inscricao_pnpd, $necessita_recomendante);
 
