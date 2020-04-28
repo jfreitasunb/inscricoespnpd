@@ -43,7 +43,6 @@ class ProcessaInscricaoController extends Controller
                 'colaboradores' => 'required',
                 'nome_recomendante' => 'required|valida_recomendantes',
                 'email_recomendante' => 'required|valida_recomendantes',
-                'confirmar_email_recomendante' => 'required|same:email_recomendante',
                 'curriculo' => 'required|max:50000|mimes:pdf',
                 'projeto' => 'required|max:50000|mimes:pdf',
             ]);
