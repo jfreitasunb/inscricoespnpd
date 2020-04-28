@@ -28,7 +28,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 /**
 * Classe para visualização da página inicial.
 */
-class RelatorioController extends BaseController
+class RelatorioController extends HomeController
 {
 
   protected $normalizeChars = array(
@@ -70,6 +70,20 @@ class RelatorioController extends BaseController
     return $locais_arquivos;
   }
 
+  public function ConsolidaDadosPessoais($id_candidato)
+  {
+    $consolida_dados = [];
+
+    $usuario = User::find($id_candidato);
+    
+    $consolida_dados['nome'] = $usuario->nome;
+
+    $consolida_dados['email'] = $usuario->email;
+
+    return $consolida_dados;
+  }
+
+
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
 
@@ -88,6 +102,8 @@ class RelatorioController extends BaseController
     $dados_candidato_para_relatorio['edital'] = $relatorio_disponivel->edital;
 
     $dados_candidato_para_relatorio['id_candidato'] = $id_candidato;
+
+    dd($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']));
 
     foreach ($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']) as $key => $value) {
        $dados_candidato_para_relatorio[$key] = $value;
