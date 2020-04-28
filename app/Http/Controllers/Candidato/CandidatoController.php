@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Candidato;
 
 use Auth;
 use Session;
+use App\Models\User;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\CartaRecomendacao;
 use App\Models\FinalizaInscricao;
+use App\Models\DadosInscricao;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -24,6 +26,8 @@ class CandidatoController extends Controller
 
         $numero_cartas = $edital->numero_cartas;
 
+        $necessita_recomendante = $edital->necessita_recomendante;
+
         $libera_formulario = $configura_inscricao->autoriza_inscricao();
 
 
@@ -34,6 +38,8 @@ class CandidatoController extends Controller
 
         $user = Auth::user();
 
+        // dd($user);
+
         $nome = $user->nome;
 
         $usuario_id = $user->usuario_id;
@@ -42,11 +48,23 @@ class CandidatoController extends Controller
 
         $status_inscricao = $finaliza_inscricao->retorna_inscricao_finalizada($usuario_id, $id_inscricao_pnpd);
 
-        if ($status_inscricao) {
+        if ($status_inscricao and $necessita_recomendante) {
 
-            $carta = new CartaRecomendacao();
+            $dados = new DadosInscricao();
 
-            return view('templates.partials.candidato.status_cartas')->with(compact('dados_cartas'));
+            $recomendantes = explode("_", $dados->retorna_dados_inscricao($usuario_id, $id_inscricao_pnpd)[0]->recomendantes);
+            $dados_para_template = [];
+
+            foreach ($recomendantes as $recomendante) {
+                
+                $dados_para_template[$recomendante]['nome'] = User::find($recomendante)->nome;
+
+                $carta = new CartaRecomendacao();
+
+                $dados_para_template[$recomendante]['status_carta'] = $carta->carta_preenchida($recomendante, $usuario_id, $id_inscricao_pnpd);
+            }
+            
+            return view('templates.partials.candidato.status_cartas')->with(compact('dados_para_template'));
             
         }
 
