@@ -38,9 +38,8 @@ class NotificaRecomendante extends Notification
             ->line('Dear professor, '.$this->dados_email['nome_professor'].',')
             ->line('you have been appointed for reference to the candidate to the postgradute program at MAT/UnB '.$this->dados_email['nome_candidato'].'.')
             ->line('The recommendation letter must be sent by the website: '.url('/').'/recomendante/'.$this->dados_email['link_acesso'])
-            ->line('To access the system use as login: '.$this->dados_email['email_recomendante'])
             ->line('The deadline for submission of the recommendation letter is: '.$this->dados_email['prazo_envio'].'.')
-            ->action('Click here to create your password', url('esqueci/senha'))
+            ->action('Click here to create your password', url('password/reset'))
             ->line('Sincerely, postgraduate comitee of MAT/UnB.');
     }
 }
