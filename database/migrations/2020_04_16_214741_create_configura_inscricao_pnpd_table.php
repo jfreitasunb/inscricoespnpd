@@ -22,7 +22,7 @@ class CreateConfiguraInscricaoPNPDTable extends Migration
             $table->date('prazo_carta');
             $table->date('data_homologacao');
             $table->date('data_divulgacao_resultado');
-            $table->boolean('necessita_recomendante')->default(TRUE);
+            $table->boolean('necessita_recomendante')->default(True);
             $table->integer('numero_cartas')->default(2);
             $table->string('edital', 7);
             $table->timestamps();

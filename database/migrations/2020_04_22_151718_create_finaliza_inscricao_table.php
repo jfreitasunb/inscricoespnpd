@@ -19,7 +19,7 @@ class CreateFinalizaInscricaoTable extends Migration
             $table->foreign('id_candidato')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('id_inscricao_pnpd');
             $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
-            $table->boolean('inscricao_finalizada')->default(FALSE);
+            $table->boolean('inscricao_finalizada')->default(False);
             $table->timestamps();
         });
     }
