@@ -61,7 +61,7 @@ class FinalizaInscricaoController extends Controller
         return view('templates.partials.candidato.finalizar_inscricao',compact('ficha_inscricao','nome_candidato'));
     }
 
-    public function postProcessaInscricao(Request $request)
+    public function postFinalizaInscricao(Request $request)
     {
 
         $configura_inscricao = new ConfiguraInscricaoPNPD();
