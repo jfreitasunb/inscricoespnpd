@@ -24,12 +24,12 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        $configura_pnpd = new ConfiguraInscricaoPNPD();
-
-        $numero_cartas = $configura_pnpd->retorna_edital_vigente()->numero_cartas;
-        
+    {   
         Validator::extend('valida_recomendantes', function($attribute, $value, $parameters, $validator) {
+            $configura_pnpd = new ConfiguraInscricaoPNPD();
+
+            $numero_cartas = $configura_pnpd->retorna_edital_vigente()->numero_cartas;
+            
             if(sizeof(array_unique($value)) <> $numero_cartas){
                 return false;
             }
