@@ -53,7 +53,7 @@ class FinalizaInscricaoController extends Controller
 
             Alert::error(trans('mensagens_gerais.inscricao_finalizada'));
 
-            return redirect()->back();
+            return redirect()->route('home');
         }
 
         $nome_candidato = $user->nome;
@@ -99,16 +99,16 @@ class FinalizaInscricaoController extends Controller
 
             Alert::error(trans('mensagens_gerais.inscricao_finalizada'));
 
-            return redirect()->back();
+            return redirect()->route('home');
         }
 
         $id_para_finalizacao = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
-        // $finaliza = FinalizaInscricao::find($id_para_finalizacao);
+        $finaliza = FinalizaInscricao::find($id_para_finalizacao);
 
-        // $finaliza->inscricao_finalizada = True;
+        $finaliza->inscricao_finalizada = True;
 
-        // $finaliza->update();
+        $finaliza->update();
 
         if ($necessita_recomendante) {
             
@@ -164,8 +164,8 @@ class FinalizaInscricaoController extends Controller
 
         Notification::send(User::find($usuario_id), new NotificaCandidato($dados_email_candidato));
 
-        // Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
+        Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
 
-        // return redirect()->route('finalizar.inscricao');    
+        return redirect()->route('home');    
     }
 }
