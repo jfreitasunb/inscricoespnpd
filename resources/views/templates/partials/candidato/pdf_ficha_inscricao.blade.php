@@ -48,26 +48,33 @@
                 Programa de Pós-Graduação do MAT/UnB
             </h4>
         </p>
-
+        <h3>Ficha de Inscrição ao Programa Nacional de Pós Doutorado</h3>
         <div>
-            <label class="control-label">{{ trans('tela_dados_pessoais.nome') }}: </label>{{ $dados_candidato_para_relatorio['nome'] }}
+            <label class="control-label">{{ trans('tela_inscricao.nome') }}: </label>{{ $dados_candidato_para_relatorio['nome'] }}
         </div>
         <div>
-            <label class="control-label">{{ trans('tela_dados_pessoais.cpf') }}: </label>{{ $dados_candidato_para_relatorio['cpf'] }}
+            <label class="control-label">{{ trans('tela_inscricao.cpf') }}: </label>{{ $dados_candidato_para_relatorio['cpf'] }}
         </div>
-
+        <div>
+            <label>{{ trans('tela_ficha_inscricao.instituicao') }}: </label> {{ $dados_candidato_para_relatorio['instituicao'] }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label>{{ trans('tela_ficha_inscricao.ano_doutorado') }}: </label> {{ $dados_candidato_para_relatorio['ano_doutorado'] }}
+        </div>
         <hr>
-        <h3>{{ trans('tela_dados_academicos.tela_dados_academicos') }}</h3>
-        <div>
-            <label>{{ trans('tela_dados_academicos.instituicao') }}: </label> {{ $dados_candidato_para_relatorio['instituicao'] }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label>{{ trans('tela_dados_academicos.ano_doutorado') }}: </label> {{ $dados_candidato_para_relatorio['ano_doutorado'] }}
-        </div>
+        <h3>{{ trans('tela_ficha_inscricao.colaboradores') }}</h3>
+        @php
+            $temp = explode(";", $dados_candidato_para_relatorio['colaboradores'])
+        @endphp
+        @foreach ($temp as $colab)
+            <ul>
+                <li>{{ $colab }}</li>
+            </ul>
+        @endforeach
 
         @if ($necessita_recomendante)
             <hr>
-            <h3>{{ trans('tela_escolha_candidato.recomendante') }}</h3>
+            <h3>{{ trans('tela_ficha_inscricao.recomendante') }}</h3>
             @for ($i = 0; $i < $numero_cartas; $i++)
                 <div>
-                    <label> {{ trans('tela_escolha_candidato.nome_recomendante') }}: </label> {{ $contatos_indicados['nome_recomendante_'.$i] }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label>Email: </label>{{ $contatos_indicados['email_recomendante_'.$i] }}
+                    <label> {{ trans('tela_ficha_inscricao.nome') }}: </label> {{ $contatos_indicados['nome_recomendante_'.$i] }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label>Email: </label>{{ $contatos_indicados['email_recomendante_'.$i] }}
                 </div>
             @endfor
         @endif
