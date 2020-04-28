@@ -93,14 +93,6 @@ class RelatorioController extends BaseController
        $dados_candidato_para_relatorio[$key] = $value;
     }
 
-    foreach ($this->ConsolidaDadosAcademicos($dados_candidato_para_relatorio['id_candidato'], $locale_relatorio) as $key => $value) {
-        $dados_candidato_para_relatorio[$key] = $value;
-    }
-
-    foreach ($this->ConsolidaEscolhaCandidato($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd, $locale_relatorio) as $key => $value) {
-      $dados_candidato_para_relatorio[$key] = $value;
-    }
-
     if ($necessita_recomendante) {
       $contatos_indicados = $this->ConsolidaIndicaoes($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd);
     }
