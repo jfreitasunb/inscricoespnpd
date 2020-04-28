@@ -83,6 +83,52 @@ class RelatorioController extends HomeController
     return $consolida_dados;
   }
 
+  public function ConsolidaDadosInscricao($id_candidato, $id_inscricao_pnpd)
+  {
+
+    $consolida_dados_inscricao = [];
+
+    $dados_inscricao = new DadosInscricao();
+
+    $dados = $dados_inscricao->retorna_dados_inscricao($id_candidato, $id_inscricao_pnpd);
+
+    $consolida_dados_inscricao['cpf'] = $dados[0]->cpf;
+
+    $consolida_dados_inscricao['instituicao'] = $dados[0]->instituicao;
+
+    $consolida_dados_inscricao['ano'] = $dados[0]->ano;
+
+    $consolida_dados_inscricao['colaboradores'] = $dados[0]->colaboradores;
+
+    return $consolida_dados_inscricao;
+  }
+
+  public function ConsolidaIndicaoes($id_candidato, $id_inscricao_pnpd)
+  {
+
+    $configura = new ConfiguraInscricaoPNPD();
+
+    $numero_cartas = $configura->retorna_edital_vigente($id_inscricao_pnpd)->numero_cartas;
+
+    $dados_inscricao = new DadosInscricao();
+
+    $dados = $dados_inscricao->retorna_dados_inscricao($id_candidato, $id_inscricao_pnpd);
+
+    $temp = explode("_", $dados[0]->recomendantes);
+
+    $recomendantes = [];
+
+    for ($i=0; $i < $numero_cartas; $i++) { 
+      
+      $user = User::find($temp[$i]);
+
+      $recomendantes['nome_recomendante_'.$i] = $user->nome;
+
+      $recomendantes['email_recomendante_'.$i] = $user->email;
+    }
+
+    return $recomendantes;
+  }
 
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
@@ -103,20 +149,17 @@ class RelatorioController extends HomeController
 
     $dados_candidato_para_relatorio['id_candidato'] = $id_candidato;
 
-    dd($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']));
+    foreach ($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']) as $key => $value)
+    {
+       $dados_candidato_para_relatorio[$key] = $value;
+    }
 
-    foreach ($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']) as $key => $value) {
+    foreach ($this->ConsolidaDadosInscricao($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd) as $key => $value) {
        $dados_candidato_para_relatorio[$key] = $value;
     }
 
     if ($necessita_recomendante) {
       $contatos_indicados = $this->ConsolidaIndicaoes($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd);
-    }
-    
-    $dados_candidato_para_relatorio['motivacao'] = nl2br($this->ConsolidaCartaMotivacao($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd));
-
-    if ($necessita_recomendante) {
-      $recomendantes_candidato = $this->ConsolidaNomeRecomendantes($contatos_indicados,$id_candidato,$id_inscricao_pnpd);
     }
     
     $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['ficha_inscricao'], $dados_candidato_para_relatorio);
