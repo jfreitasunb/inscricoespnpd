@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Candidato;
 
+use App\Http\Controllers\RelatorioController;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -37,6 +38,8 @@ class FinalizaInscricaoController extends Controller
 
         $usuario_id = $user->usuario_id;
 
+        $locale_candidato = $user->locale;
+
         $finaliza_inscricao = new FinalizaInscricao();
 
         $status_inscricao = $finaliza_inscricao->retorna_inscricao_finalizada($usuario_id, $id_inscricao_pnpd);
@@ -52,7 +55,7 @@ class FinalizaInscricaoController extends Controller
 
         $novo_relatorio = new RelatorioController;
 
-        $ficha_inscricao = $novo_relatorio->geraFichaInscricao($id_candidato, $id_inscricao_pos, $locale_candidato);
+        $ficha_inscricao = $novo_relatorio->geraFichaInscricao($usuario_id, $id_inscricao_pnpd, $locale_candidato);
 
 
         return view('templates.partials.candidato.finalizar_inscricao',compact('ficha_inscricao','nome_candidato'));
