@@ -25,7 +25,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center">
-            {!! Form::submit(trans('tela_finalizar_inscricao.menu_envio_definitivo'), ['class' => 'btn btn-danger btn-lg register-submit']) !!}
+            {!! Form::submit(trans('tela_ficha_inscricao.menu_enviar'), ['class' => 'btn btn-danger btn-lg register-submit']) !!}
           </div>
         </div>
       </div>
