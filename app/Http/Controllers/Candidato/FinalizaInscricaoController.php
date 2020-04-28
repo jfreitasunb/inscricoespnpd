@@ -13,6 +13,8 @@ use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
 use Alert;
+use Notification;
+use App\Notifications\NotificaCandidato;
 
 class FinalizaInscricaoController extends Controller
 {
@@ -104,6 +106,16 @@ class FinalizaInscricaoController extends Controller
         $finaliza->inscricao_finalizada = True;
 
         $finaliza->update();
+
+        //Para testes
+        $dados_email_candidato['nome'] = $user->nome;
+
+        $dados_email_candidato['ficha_inscricao'] = str_replace("storage/relatorios/", "/var/www/inscricoespnpd/storage/app/public/relatorios/", $request->ficha_inscricao);
+        
+        //Para uso no MAT
+        // $dados_email_candidato['ficha_inscricao'] = str_replace("storage/relatorios/", "storage/app/public/relatorios/", $request->ficha_inscricao);
+
+        Notification::send(User::find($usuario_id), new NotificaCandidato($dados_email_candidato));
 
         // Alert::success(trans('mensagens_gerais.mensagem_sucesso'));
 
