@@ -16,6 +16,8 @@ use App\Models\LinkCartaRecomendacao;
 use Alert;
 use Notification;
 use App\Notifications\NotificaCandidato;
+use App\Notifications\NotificaRecomendante;
+use Carbon\Carbon;
 
 class FinalizaInscricaoController extends Controller
 {
@@ -129,10 +131,26 @@ class FinalizaInscricaoController extends Controller
 
                     $link->id_inscricao_pnpd = $id_inscricao_pnpd;
 
-                    $link->link_acesso = 'temp';
+                    $link->link_acesso = $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(20, 30))));;
 
                     $link->save();
                 }
+
+                $dado_pessoal_recomendante = User::find($ids[$i]);
+
+                $prazo_envio = Carbon::createFromFormat('Y-m-d', $edital->prazo_carta);
+
+                $dados_email['nome_professor'] = $dado_pessoal_recomendante->nome;
+
+                $dados_email['nome_candidato'] = $user->nome;
+
+                $dados_email['email_recomendante'] = $dado_pessoal_recomendante->email;
+
+                $dados_email['prazo_envio'] = $prazo_envio->format('d/m/Y');
+
+                $dados_email['link_acesso'] = $link->recupera_link_acesso($ids[$i], $usuario_id, $id_inscricao_pnpd);
+
+                Notification::send(User::find($ids[$i]), new NotificaRecomendante($dados_email));
             }
         }
 
