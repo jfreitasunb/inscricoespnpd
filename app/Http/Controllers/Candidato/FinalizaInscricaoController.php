@@ -13,6 +13,7 @@ use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
 use App\Models\LinkCartaRecomendacao;
+use App\Models\CartaRecomendacao;
 use Alert;
 use Notification;
 use App\Notifications\NotificaCandidato;
@@ -134,6 +135,21 @@ class FinalizaInscricaoController extends Controller
                     $link->link_acesso = $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(20, 30))));;
 
                     $link->save();
+                }
+
+                $carta = new CartaRecomendacao();
+
+                $carta_inicializada = $carta->retorna_carta_inicializada($ids[$i], $usuario_id, $id_inscricao_pnpd);
+
+                if (!$carta_inicializada) {
+                    
+                    $carta->id_recomendante = $ids[0];
+
+                    $carta->id_candidato = $usuario_id;
+
+                    $carta->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+                    $carta->save();
                 }
 
                 $dado_pessoal_recomendante = User::find($ids[$i]);
