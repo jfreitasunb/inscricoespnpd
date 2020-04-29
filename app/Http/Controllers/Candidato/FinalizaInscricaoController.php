@@ -19,6 +19,8 @@ use Notification;
 use App\Notifications\NotificaCandidato;
 use App\Notifications\NotificaRecomendante;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Str;
 
 class FinalizaInscricaoController extends Controller
 {
@@ -105,11 +107,11 @@ class FinalizaInscricaoController extends Controller
 
         $id_para_finalizacao = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
-        $finaliza = FinalizaInscricao::find($id_para_finalizacao);
+        // $finaliza = FinalizaInscricao::find($id_para_finalizacao);
 
-        $finaliza->inscricao_finalizada = True;
+        // $finaliza->inscricao_finalizada = True;
 
-        $finaliza->update();
+        // $finaliza->update();
 
         if ($necessita_recomendante) {
             
@@ -119,26 +121,48 @@ class FinalizaInscricaoController extends Controller
 
             $ids = explode("_", $recomendantes[0]->recomendantes);
 
-            for ($i=0; $i < $numero_cartas; $i++) { 
+            for ($i=0; $i < $numero_cartas; $i++) {
+
+                $tamanho_link = rand(60, 99);
                 
                 $link = new LinkCartaRecomendacao();
 
                 $link_existe = $link->link_existe($ids[$i], $usuario_id, $id_inscricao_pnpd);
 
                 if (!$link_existe) {
-                    $link->id_recomendante = $ids[$i];
+                    
+                    try {
 
-                    $link->id_candidato = $usuario_id;
+                        $link->id_recomendante = $ids[$i];
 
-                    $link->id_inscricao_pnpd = $id_inscricao_pnpd;
+                        $link->id_candidato = $usuario_id;
 
-                    $tamanho_link = rand(80, 100);
+                        $link->id_inscricao_pnpd = $id_inscricao_pnpd;
 
-                    $link->link_acesso = str_shuffle(bin2hex(random_bytes($tamanho_link)));
+                        $link->link_acesso = Str::random($tamanho_link);
 
-                    $link->tamanho_link = $tamanho_link;
+                        $link->tamanho_link = $tamanho_link;
+                        
+                        $link->save();
+                    } 
+                    catch (Exception $exception){
+                        $errorCode = $exception->errorInfo[0];
+                      
+                        if ($errorCode == "23505") {
+                            
+                            $link->id_recomendante = $ids[$i];
 
-                    $link->save();
+                            $link->id_candidato = $usuario_id;
+
+                            $link->id_inscricao_pnpd = $id_inscricao_pnpd;
+
+                            $link->link_acesso = Str::random($tamanho_link + 1);
+
+                            $link->tamanho_link = $tamanho_link + 1;
+
+                            $link->save();
+                        }
+                    }
                 }
 
                 $carta = new CartaRecomendacao();
