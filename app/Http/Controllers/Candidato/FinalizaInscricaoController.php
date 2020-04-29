@@ -134,7 +134,7 @@ class FinalizaInscricaoController extends Controller
 
                     $tamanho_link = rand(80, 100);
 
-                    $link->link_acesso = $senha_temporaria = str_shuffle(bin2hex(random_bytes($tamanho_link)));
+                    $link->link_acesso = str_shuffle(bin2hex(random_bytes($tamanho_link)));
 
                     $link->tamanho_link = $tamanho_link;
 
