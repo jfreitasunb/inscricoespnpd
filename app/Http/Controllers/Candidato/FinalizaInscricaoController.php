@@ -107,11 +107,11 @@ class FinalizaInscricaoController extends Controller
 
         $id_para_finalizacao = $finaliza_inscricao->retorna_tabela_inicializada($usuario_id, $id_inscricao_pnpd);
 
-        // $finaliza = FinalizaInscricao::find($id_para_finalizacao);
+        $finaliza = FinalizaInscricao::find($id_para_finalizacao);
 
-        // $finaliza->inscricao_finalizada = True;
+        $finaliza->inscricao_finalizada = True;
 
-        // $finaliza->update();
+        $finaliza->update();
 
         if ($necessita_recomendante) {
             
