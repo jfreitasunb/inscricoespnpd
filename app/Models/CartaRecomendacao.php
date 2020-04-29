@@ -20,18 +20,22 @@ class CartaRecomendacao extends Model
         'id_candidato', 
         'id_inscricao_pnpd',
         'recomendacao',
+        'carta_finalizada',
     ];
 
-    public function carta_preenchida($id_recomendante, $id_candidato, $id_inscricao_pnpd)
+    public function retorna_carta_inicializada($id_recomendante, $id_candidato, $id_inscricao_pnpd)
     {
         $temp = $this->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->get();
 
         if (count($temp) == 0) {
             return False;
-        }elseif ($temp[0]->recomendacao == "") {
-            return False;
         }else{
             return True;
         }
+    }
+
+    public function carta_preenchida($id_recomendante, $id_candidato, $id_inscricao_pnpd)
+    {
+        return $this->select('carta_finalizada')->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->value('carta_finalizada');
     }
 }
