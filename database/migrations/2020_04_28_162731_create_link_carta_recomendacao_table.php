@@ -21,7 +21,8 @@ class CreateLinkCartaRecomendacaoTable extends Migration
             $table->foreign('id_candidato')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('id_inscricao_pnpd');
             $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
-            $table->text('link_acesso')->nullable();
+            $table->string('link_acesso', 100)->unique()->nullable();
+            $table->integer('tamanho_link')->nullable();
             $table->timestamps();
         });
     }
