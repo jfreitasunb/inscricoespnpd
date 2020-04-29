@@ -132,7 +132,11 @@ class FinalizaInscricaoController extends Controller
 
                     $link->id_inscricao_pnpd = $id_inscricao_pnpd;
 
-                    $link->link_acesso = $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(20, 30))));;
+                    $tamanho_link = rand(80, 100);
+
+                    $link->link_acesso = $senha_temporaria = str_shuffle(bin2hex(random_bytes($tamanho_link)));
+
+                    $link->tamanho_link = $tamanho_link;
 
                     $link->save();
                 }
