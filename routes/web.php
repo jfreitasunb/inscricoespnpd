@@ -56,5 +56,5 @@ Route::prefix('recomendante')->middleware('define.locale')->group(function () {
 
     // Route::get('/', 'Candidato\CandidatoController@getMenu');
 
-    Route::get('/preenche/carta', 'Recomendante\RecomendanteController@getLink');
+    Route::get('/preenche/carta/{token}/{reco}', 'Recomendante\RecomendanteController@getLink');
 });
