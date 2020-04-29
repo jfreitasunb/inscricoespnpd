@@ -21,8 +21,8 @@ class CreateCartaRecomendacaoTable extends Migration
             $table->foreign('id_candidato')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('id_inscricao_pnpd');
             $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
-            $table->text('recomendacao');
-            $table->bolean('carta_finalizada')->default(False);
+            $table->text('recomendacao')->nullable();
+            $table->boolean('carta_finalizada')->default(False);
             $table->timestamps();
         });
     }
