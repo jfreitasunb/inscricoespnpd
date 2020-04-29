@@ -51,3 +51,10 @@ Route::prefix('candidato')->middleware('define.locale')->group(function () {
 
     Route::post('/finaliza/inscricao', 'Candidato\FinalizaInscricaoController@postFinalizaInscricao')->name('finalizar.inscricao');
 });
+
+Route::prefix('recomendante')->middleware('define.locale')->group(function () {
+
+    // Route::get('/', 'Candidato\CandidatoController@getMenu');
+
+    Route::get('/preenche/carta', 'Recomendante\RecomendanteController@getLink');
+});
