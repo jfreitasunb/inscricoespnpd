@@ -188,6 +188,8 @@ class FinalizaInscricaoController extends Controller
 
                 $dados_email['id_recomendante'] = $ids[$i];
 
+                $dados_email['id_inscricao_pnpd'] = $id_inscricao_pnpd;
+
                 $dados_email['nome_candidato'] = $user->nome;
 
                 $dados_email['email_recomendante'] = $dado_pessoal_recomendante->email;
