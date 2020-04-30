@@ -37,4 +37,9 @@ class LinkCartaRecomendacao extends Model
     {
         return $this->select('link_acesso')->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->value('link_acesso');
     }
+
+    public function retorna_dados_link($link_acesso)
+    {
+        return $this->where('link_acesso', $link_acesso)->get();
+    }
 }
