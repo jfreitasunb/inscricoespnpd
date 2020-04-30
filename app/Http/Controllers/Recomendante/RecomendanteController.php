@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Recomendante;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LinkCartaRecomendacao;
+use App\Models\ConfiguraInscricaoPNPD;
+use App\Models\User;
+use App\Models\DadosInscricao;
+use App\Models\CartaRecomendacao;
+
 
 class RecomendanteController extends Controller
 {   
