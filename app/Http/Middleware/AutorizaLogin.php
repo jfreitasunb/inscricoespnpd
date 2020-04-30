@@ -16,9 +16,9 @@ class AutorizaLogin
      */
     public function handle($request, Closure $next)
     {
-        $monitoria = new ConfiguraInscricaoPNPD();
+        $inscricao = new ConfiguraInscricaoPNPD();
 
-        $autoriza_inscricao = $monitoria->autoriza_inscricao();
+        $autoriza_inscricao = $inscricao->autoriza_inscricao();
 
         if (!$autoriza_inscricao) {
             return redirect('/');
