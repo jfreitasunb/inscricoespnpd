@@ -71,8 +71,18 @@ class RecomendanteController extends Controller
             return redirect('/');
         }
 
-        
+        $dados_recomendante = [];
 
+        $dados_recomendante['nome_recomendante'] = User::find($id_recomendante)->nome;
 
+        $dados_recomendante['id_recomendante'] = $id_recomendante;
+
+        $dados_candidato = [];
+
+        $dados_candidato['nome_candidato'] = User::find($dados_link->id_candidato);
+
+        $dados_candidato['id_candidato'] = $dados_link->id_candidato;
+
+        return view('templates.partials.recomendante.carta_recomendacao')->with(compact('id_inscricao_pnpd', 'dados_candidato', 'dados_recomendante'));
     }
 }
