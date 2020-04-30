@@ -120,6 +120,21 @@ class ConfiguraInscricaoPNPD extends Model
         }
     }
 
+    public function autoriza_carta()
+    {
+        $fim_carta = Carbon::createFromFormat('Y-m-d', $this->retorna_edital_vigente()->prazo_carta);
+
+        $prazo_carta = $fim_carta->format('Y-m-d');
+
+        $data_hoje = (new Carbon())->format('Y-m-d');
+
+        if (($prazo_carta > $data_hoje)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function visualiza_status_carta()
     {
         $inicio = Carbon::createFromFormat('Y-m-d', $this->retorna_edital_vigente()->inicio_inscricao);
