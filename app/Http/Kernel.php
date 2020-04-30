@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'define.locale' => \App\Http\Middleware\LocaleMiddleware::class,
         'user.role' => \App\Http\Middleware\UserRoles::class,
         'autoriza.inscricao' => \App\Http\Middleware\AutorizaLogin::class,
+        'autoriza.carta' => \App\Http\Middleware\AutorizaCarta::class,
     ];
 
     /**

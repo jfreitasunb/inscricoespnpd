@@ -39,7 +39,7 @@ Route::prefix('coordenador')->middleware('user.role:admin, coordenador', 'auth')
     Route::post('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@postConfiguraInscricao')->name('configura.inscricao');
 });
 
-Route::prefix('candidato')->middleware('define.locale')->group(function () {
+Route::prefix('candidato')->middleware('user.role:candidato', 'define.locale', 'auth')->group(function () {
 
     // Route::get('/', 'Candidato\CandidatoController@getMenu');
 
@@ -52,7 +52,7 @@ Route::prefix('candidato')->middleware('define.locale')->group(function () {
     Route::post('/finaliza/inscricao', 'Candidato\FinalizaInscricaoController@postFinalizaInscricao')->name('finalizar.inscricao');
 });
 
-Route::prefix('recomendante')->middleware('define.locale')->group(function () {
+Route::prefix('recomendante')->middleware('define.locale', 'autoriza.carta')->group(function () {
 
     // Route::get('/', 'Candidato\CandidatoController@getMenu');
 
