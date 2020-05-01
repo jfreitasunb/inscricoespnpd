@@ -19,4 +19,14 @@ class DadosRecomendante extends Model
         'id_recomendante',
         'instituicao',
     ];
+
+    public function retorna_id_dados_recomendante($id_recomendante)
+    {
+        return $this->select('id')->where('id_recomendante', $id_recomendante)->value('id');
+    }
+
+    public function retorna_dados_recomendante($id_recomendante)
+    {
+        return $this->where('id_recomendante', $id_recomendante)->get()->first();
+    }
 }
