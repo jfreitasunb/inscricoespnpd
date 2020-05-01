@@ -90,6 +90,16 @@ class RecomendanteController extends Controller
 
     public function postSalvaCarta(Request $request)
     {
+        $inscricao = new ConfiguraInscricaoPNPD();
+
+        $autoriza_carta = $inscricao->autoriza_carta();
+
+        if (!$autoriza_carta) {
+
+            Alert::error('Dear professor, the deadline for sending letters is closed.');
+
+            return redirect('/');
+        }
 
         $this->validate($request, [
             'nome' => 'required',
