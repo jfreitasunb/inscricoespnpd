@@ -57,4 +57,6 @@ Route::prefix('recomendante')->middleware('define.locale', 'autoriza.carta')->gr
     // Route::get('/', 'Candidato\CandidatoController@getMenu');
 
     Route::get('/preenche/carta/{token}/{reco}', 'Recomendante\RecomendanteController@getLink');
+
+    Route::post('/salva/carta', 'Recomendante\RecomendanteController@postSalvaCarta')->name('salva.carta');
 });
