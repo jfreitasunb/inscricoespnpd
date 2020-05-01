@@ -80,6 +80,14 @@ class RecomendanteController extends Controller
 
         $dados_recomendante['id_recomendante'] = $id_recomendante;
 
+        $recomendante = new DadosRecomendante();
+
+        $dados_recomendante['instituicao_recomendante'] = $recomendante->retorna_dados_recomendante($id_recomendante)->instituicao;
+
+        $carta = new CartaRecomendacao();
+
+        $dados_recomendante['carta'] = $carta->retorna_dados_carta($id_recomendante, $dados_link->id_candidato, $id_inscricao_pnpd)->recomendacao;
+        
         $dados_candidato = [];
 
         $dados_candidato['nome_candidato'] = User::find($dados_link->id_candidato)->nome;

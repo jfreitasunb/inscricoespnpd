@@ -20,11 +20,11 @@
           </div>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.instituticao_recomendante')) !!}
-            {!! Form::text('instituicao', '', ['class' => 'form-control', 'required' => '']) !!}
+            {!! Form::text('instituicao', $dados_recomendante['instituicao_recomendante'] ? : '', ['class' => 'form-control', 'required' => '']) !!}
           </div>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.recomendacao')) !!}
-            {!! Form::textarea('recomendacao', '', ['cols' => '40', 'rows' => '15', 'class' => 'form-control', 'required' => '']) !!}
+            {!! Form::textarea('recomendacao', $dados_recomendante['carta'] ? : '', ['cols' => '40', 'rows' => '15', 'class' => 'form-control', 'required' => '']) !!}
           </div>
 
           {!! Form::hidden('id_candidato', $dados_candidato['id_candidato'], []) !!}
