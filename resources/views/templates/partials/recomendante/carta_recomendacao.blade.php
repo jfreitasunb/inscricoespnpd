@@ -16,7 +16,7 @@
           <legend class="scheduler-border">{{ trans('tela_carta_recomendacao.carta_candidato').$dados_candidato['nome_candidato'] }}</legend>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.nome_recomendante')) !!}
-            {!! Form::text('nome', $dados_recomendante['nome_recomendante'] ? : '', ['class' => 'form-control', 'required' => '']) !!}
+            {!! Form::text('nome_recomendante', $dados_recomendante['nome_recomendante'] ? : '', ['class' => 'form-control', 'required' => '']) !!}
           </div>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.instituticao_recomendante')) !!}
