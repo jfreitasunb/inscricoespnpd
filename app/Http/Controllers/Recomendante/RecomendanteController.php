@@ -109,11 +109,11 @@ class RecomendanteController extends Controller
 
         $valor_original = $_GET['reco'];
 
+        $link_original = $_GET['link_acesso'];
+
         $id_recomendante_original = explode('-', $valor_original)[0];
 
         $id_inscricao_pnpd_original = explode('-', $valor_original)[1];
-
-        $link_original = $_GET['link_acesso'];
 
         $id_inscricao_pnpd_formulario = (int)$request->id_inscricao_pnpd;
 
@@ -125,5 +125,44 @@ class RecomendanteController extends Controller
             
             return redirect('/');
         }
+
+        $link = new LinkCartaRecomendacao();
+
+        $dados_link = $link->retorna_dados_link($link_original);
+
+        if (count($dados_link)> 1 or count($dados_link) == 0) {
+            
+            return redirect('/');
+        }
+
+        $dados_link = $link->retorna_dados_link($link_original);
+
+        $edital = $inscricao->retorna_edital_vigente();
+
+        if (!$edital->necessita_recomendante) {
+            
+            return redirect('/');
+        }
+
+        if ($edital->id_inscricao_pnpd != $id_inscricao_pnpd_original) {
+            
+            return redirect('/');
+        }
+
+        if ($dados_link[0]->id_recomendante != $id_recomendante_original ) {
+            
+            return redirect('/');
+        }
+
+        $dados = new DadosInscricao();
+
+        $dados_candidato = $dados->retorna_dados_inscricao($dados_link[0]->id_candidato, $id_inscricao_pnpd_original);
+
+        if (strpos($dados_candidato[0]->recomendantes, $id_recomendante_original) == false) {
+            
+            return redirect('/');
+        }
+
+        dd("aqui");
     }
 }
