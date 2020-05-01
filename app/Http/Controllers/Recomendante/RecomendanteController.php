@@ -90,6 +90,11 @@ class RecomendanteController extends Controller
 
     public function postSalvaCarta(Request $request)
     {
-        dd($_GET['reco']);
+
+        $this->validate($request, [
+            'nome' => 'required',
+            'instituicao' => 'required',
+            'recomendacao' => 'required',
+        ]);
     }
 }
