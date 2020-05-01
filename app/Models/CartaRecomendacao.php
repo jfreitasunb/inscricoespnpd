@@ -38,4 +38,9 @@ class CartaRecomendacao extends Model
     {
         return $this->select('carta_finalizada')->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->value('carta_finalizada');
     }
+
+    public function retorna_id_carta_inicializada($id_recomendante, $id_candidato, $id_inscricao_pnpd)
+    {
+        return $this->select('id')->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->value('id');
+    }
 }
