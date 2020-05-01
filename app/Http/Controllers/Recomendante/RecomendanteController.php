@@ -102,10 +102,12 @@ class RecomendanteController extends Controller
         }
 
         $this->validate($request, [
-            'nome' => 'required',
+            'nome_recomendante' => 'required',
             'instituicao' => 'required',
             'recomendacao' => 'required',
         ]);
+
+        $nome_recomendante = $request->nome_recomendante;
 
         $instituicao = $request->instituicao;
 
@@ -178,6 +180,15 @@ class RecomendanteController extends Controller
        $preenche_carta->carta_finalizada = True;
 
        $preenche_carta->update();
+
+       $user = User::find($id_recomendante_original);
+
+       if ($user->nome != $nome_recomendante) {
+           
+           $user->nome = $nome_recomendante;
+
+           $user->update();
+       }
 
     }
 }
