@@ -43,9 +43,11 @@ class RecomendanteController extends Controller
 
         $id_inscricao_pnpd = $edital->id_inscricao_pnpd;
 
-        $id_recomendante = explode("-", $request->reco)[0];
+        $reco = $request->reco;
 
-        $id_inscricao = explode("-", $request->reco)[1];
+        $id_recomendante = explode("-", $reco)[0];
+
+        $id_inscricao = explode("-", $reco)[1];
 
         if (!$edital->necessita_recomendante) {
             
@@ -83,11 +85,11 @@ class RecomendanteController extends Controller
 
         $dados_candidato['id_candidato'] = $dados_link->id_candidato;
 
-        return view('templates.partials.recomendante.carta_recomendacao')->with(compact('id_inscricao_pnpd', 'dados_candidato', 'dados_recomendante'));
+        return view('templates.partials.recomendante.carta_recomendacao')->with(compact('id_inscricao_pnpd', 'dados_candidato', 'dados_recomendante', 'link_acesso', 'reco'));
     }
 
     public function postSalvaCarta(Request $request)
     {
-        dd($request);
+        dd($_GET['reco']);
     }
 }
