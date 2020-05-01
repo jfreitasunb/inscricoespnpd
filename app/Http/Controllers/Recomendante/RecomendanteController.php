@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\DadosInscricao;
 use App\Models\CartaRecomendacao;
 use App\Models\DadosRecomendante;
-
+use Alert;
 
 class RecomendanteController extends Controller
 {   
@@ -87,7 +87,7 @@ class RecomendanteController extends Controller
         $carta = new CartaRecomendacao();
 
         $dados_recomendante['carta'] = $carta->retorna_dados_carta($id_recomendante, $dados_link->id_candidato, $id_inscricao_pnpd)->recomendacao;
-        
+
         $dados_candidato = [];
 
         $dados_candidato['nome_candidato'] = User::find($dados_link->id_candidato)->nome;
@@ -218,5 +218,9 @@ class RecomendanteController extends Controller
 
             $atualiza_dados_recomendante->update();
        }
+
+       Alert::success('Dear professor, your recommendation letters was successfully received in our system! Thank you.');
+
+        return redirect('/');
     }
 }
