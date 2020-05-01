@@ -99,6 +99,10 @@ class RecomendanteController extends Controller
 
         $valor_original = $_GET['reco'];
 
+        $id_recomendante_original = explode('-', $valor_original)[0];
+
+        $id_inscricao_pnpd_original = explode('-', $valor_original)[1];
+
         $link_original = $_GET['link_acesso'];
 
         $id_inscricao_pnpd_formulario = (int)$request->id_inscricao_pnpd;
@@ -106,5 +110,10 @@ class RecomendanteController extends Controller
         $id_candidato_formulario = (int)$request->id_candidato;
 
         $id_recomendante_formulario = (int)$request->id_recomendante;
+
+        if (($id_recomendante_original != $id_recomendante_formulario) or ($id_inscricao_pnpd_original != $id_inscricao_pnpd_formulario)) {
+            
+            return redirect('/');
+        }
     }
 }
