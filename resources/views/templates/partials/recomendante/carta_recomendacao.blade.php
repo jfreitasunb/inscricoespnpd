@@ -11,7 +11,7 @@
     <div class="row h-100 justify-content-center align-items-center">
       <legend class="text-center">{{ trans('tela_carta_recomendacao.titulo_principal') }}</legend>
       <div class="col-10 col-md-10 col-lg-10">
-        {!! Form::open(array('route' => 'salva.carta', 'class' => 'form-horizontal', 'data-parsley-validate' => '' )) !!}
+        {!! Form::open(array('route' => array('salva.carta', 'link_acesso'=> $link_acesso, 'reco' => $reco), 'class' => 'form-horizontal', 'data-parsley-validate' => '' )) !!}
           <fieldset class="scheduler-border">
           <legend class="scheduler-border">{{ trans('tela_carta_recomendacao.carta_candidato').$dados_candidato['nome_candidato'] }}</legend>
           <div class="form-group">
@@ -28,6 +28,8 @@
           </div>
 
           {!! Form::hidden('id_candidato', $dados_candidato['id_candidato'], []) !!}
+          {!! Form::hidden('id_recomendante', $dados_recomendante['id_recomendante'], []) !!}
+          {!! Form::hidden('id_inscricao_pnpd', $id_inscricao_pnpd, []) !!}
 
           </fieldset>
           <div class="form-group">
