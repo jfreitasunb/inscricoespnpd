@@ -79,10 +79,15 @@ class RecomendanteController extends Controller
 
         $dados_candidato = [];
 
-        $dados_candidato['nome_candidato'] = User::find($dados_link->id_candidato);
+        $dados_candidato['nome_candidato'] = User::find($dados_link->id_candidato)->nome;
 
         $dados_candidato['id_candidato'] = $dados_link->id_candidato;
 
         return view('templates.partials.recomendante.carta_recomendacao')->with(compact('id_inscricao_pnpd', 'dados_candidato', 'dados_recomendante'));
+    }
+
+    public function postSalvaCarta(Request $request)
+    {
+        dd($request);
     }
 }
