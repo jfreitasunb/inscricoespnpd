@@ -9,6 +9,7 @@ use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\User;
 use App\Models\DadosInscricao;
 use App\Models\CartaRecomendacao;
+use App\Models\DadosRecomendante;
 
 
 class RecomendanteController extends Controller
@@ -190,5 +191,24 @@ class RecomendanteController extends Controller
            $user->update();
        }
 
+       $dado_recomendate = new DadosRecomendante();
+
+       $id_dado_recomendante = $dado_recomendate->retorna_id_dados_recomendante($id_recomendante_original);
+
+       if (is_null($id_dado_recomendante)) {
+           
+           $dado_recomendate->id_recomendante = $id_recomendante_original;
+
+           $dado_recomendate->instituicao = $instituicao;
+
+           $dado_recomendate->save();
+       }else{
+            
+            $atualiza_dados_recomendante = DadosRecomendante::find($id_dado_recomendante);
+
+            $atualiza_dados_recomendante->instituicao = $instituicao;
+
+            $atualiza_dados_recomendante->update();
+       }
     }
 }
