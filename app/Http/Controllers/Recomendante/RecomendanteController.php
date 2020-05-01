@@ -107,6 +107,10 @@ class RecomendanteController extends Controller
             'recomendacao' => 'required',
         ]);
 
+        $instituicao = $request->instituicao;
+
+        $recomendacao = $request->recomendacao;
+
         $valor_original = $_GET['reco'];
 
         $link_original = $_GET['link_acesso'];
@@ -163,6 +167,17 @@ class RecomendanteController extends Controller
             return redirect('/');
         }
 
-        dd("aqui");
+        $carta = new CartaRecomendacao();
+
+        $id_carta_inicializada = $carta->retorna_id_carta_inicializada($id_recomendante_original, $dados_link[0]->id_candidato, $id_inscricao_pnpd_original);
+
+       $preenche_carta = CartaRecomendacao::find($id_carta_inicializada);
+
+       $preenche_carta->recomendacao = $recomendacao;
+
+       $preenche_carta->carta_finalizada = True;
+
+       $preenche_carta->update();
+
     }
 }
