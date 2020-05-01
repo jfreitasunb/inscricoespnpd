@@ -96,5 +96,15 @@ class RecomendanteController extends Controller
             'instituicao' => 'required',
             'recomendacao' => 'required',
         ]);
+
+        $valor_original = $_GET['reco'];
+
+        $link_original = $_GET['link_acesso'];
+
+        $id_inscricao_pnpd_formulario = (int)$request->id_inscricao_pnpd;
+
+        $id_candidato_formulario = (int)$request->id_candidato;
+
+        $id_recomendante_formulario = (int)$request->id_recomendante;
     }
 }
