@@ -9,7 +9,7 @@
     tinymce.init({
       selector: '#recomendacao',
       plugins: 'print preview paste importcss searchreplace autolink directionality code visualblocks visualchars fullscreen link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern noneditable help charmap quickbars',
-      toolbar: 'undo redo | cut copy paste | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | insertfile template link code | ltr rtl | help',
+      toolbar: 'undo redo | cut copy paste | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | fullscreen  preview print | template link code | ltr rtl | help',
       toolbar_mode: 'wrap',
       default_link_target: "_blank"
     });
