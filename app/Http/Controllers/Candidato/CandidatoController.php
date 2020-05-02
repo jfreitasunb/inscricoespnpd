@@ -38,8 +38,6 @@ class CandidatoController extends Controller
 
         $user = Auth::user();
 
-        // dd($user);
-
         $nome = $user->nome;
 
         $usuario_id = $user->usuario_id;
