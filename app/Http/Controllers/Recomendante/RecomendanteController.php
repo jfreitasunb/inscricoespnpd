@@ -11,6 +11,7 @@ use App\Models\DadosInscricao;
 use App\Models\CartaRecomendacao;
 use App\Models\DadosRecomendante;
 use Alert;
+use Purifier;
 
 class RecomendanteController extends Controller
 {   
@@ -116,11 +117,11 @@ class RecomendanteController extends Controller
             'recomendacao' => 'required',
         ]);
 
-        $nome_recomendante = $request->nome_recomendante;
+        $nome_recomendante = Purifier::clean(trim($request->nome_recomendante));
 
-        $instituicao = $request->instituicao;
+        $instituicao = Purifier::clean(trim($request->instituicao));
 
-        $recomendacao = $request->recomendacao;
+        $recomendacao = Purifier::clean($request->recomendacao);
 
         $valor_original = $_GET['reco'];
 
