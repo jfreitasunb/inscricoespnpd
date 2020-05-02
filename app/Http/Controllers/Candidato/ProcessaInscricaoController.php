@@ -12,6 +12,7 @@ use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
 use Alert;
+use Purifier;
 
 class ProcessaInscricaoController extends Controller
 {
@@ -70,17 +71,17 @@ class ProcessaInscricaoController extends Controller
 
         $usuario = User::find($usuario_id);
 
-        $atualiza_nome['nome'] = $request->nome;
+        $atualiza_nome['nome'] = Purifier::clean(trim($request->nome));
 
         $usuario->update($atualiza_nome);
 
-        $cpf = str_replace("-", "", str_replace(".", "", $request->cpf));
+        $cpf = str_replace("-", "", str_replace(".", "", Purifier::clean(trim($request->cpf))));
 
-        $instituicao = $request->instituicao;
+        $instituicao = Purifier::clean(trim($request->instituicao));
 
-        $ano_doutorado = (int)$request->ano_doutorado;
+        $ano_doutorado = (int)Purifier::clean(trim($request->ano_doutorado));
 
-        $colaboradores = $request->colaboradores;
+        $colaboradores = Purifier::clean(trim($request->colaboradores));
 
         $ja_iniciou_inscricao = $inscricao->retorna_registro($usuario_id, $id_inscricao_pnpd);
 
@@ -90,15 +91,15 @@ class ProcessaInscricaoController extends Controller
             
             $novo_usuario = new User();
 
-            $usuario_existe = $novo_usuario->retorna_id_pelo_email($emails_recomendantes[$i]);
+            $usuario_existe = $novo_usuario->retorna_id_pelo_email(Purifier::clean(trim(strtolower($emails_recomendantes[$i]))));
 
             if (is_null($usuario_existe)) {
 
                 $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(5, 20))).$emails_recomendantes[0].bin2hex(random_bytes(rand(5, 25))));
 
-                $novo_usuario->nome = $nomes_recomendantes[$i];
+                $novo_usuario->nome = Purifier::clean(trim($nomes_recomendantes[$i]));
 
-                $novo_usuario->email = $emails_recomendantes[$i];
+                $novo_usuario->email = Purifier::clean(trim(strtolower($emails_recomendantes[$i])));
 
                 $novo_usuario->password = Hash::make($senha_temporaria);
 

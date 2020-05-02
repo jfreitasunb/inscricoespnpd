@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use ThrottlesLogins;
+use Purifier;
 
 class LoginController extends Controller
 {
@@ -67,6 +68,10 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
+        
+        $request->merge([
+            'email' => Purifier::clean(trim(strtolower($request->email))),
+        ]);
 
         if ($this->attemptLogin($request)) {
             

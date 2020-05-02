@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Purifier;
 
 class RegisterController extends Controller
 {
@@ -66,8 +67,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'nome' => $data['name'],
-            'email' => $data['email'],
+            'nome' => Purifier::clean(trim($data['name'])),
+            'email' => Purifier::clean(trim(strtolower($data['email']))),
             'password' => Hash::make($data['password']),
         ]);
     }
