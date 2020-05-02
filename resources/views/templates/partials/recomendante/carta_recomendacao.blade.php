@@ -4,6 +4,12 @@
   {!! Html::style( asset('css/parsley.css') ) !!}
   {!! Html::style( asset('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') ) !!}
   {!! Html::style( asset('bower_components/moment/locale/fr.js') ) !!}
+  {!! Html::script( asset('js/tinymce/tinymce.min.js') ) !!}
+  <script>
+    tinymce.init({
+      selector: '#recomendacao'
+    });
+  </script>
 @endsection
 
 @section('carta_recomendacao')
@@ -24,7 +30,7 @@
           </div>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.recomendacao')) !!}
-            {!! Form::textarea('recomendacao', $dados_recomendante['carta'] ? : '', ['cols' => '40', 'rows' => '15', 'class' => 'form-control', 'required' => '']) !!}
+            {!! Form::textarea('recomendacao', $dados_recomendante['carta'] ? : '', ['id' => 'recomendacao', 'cols' => '40', 'rows' => '15', 'class' => 'form-control', 'required' => '']) !!}
           </div>
 
           {!! Form::hidden('id_candidato', $dados_candidato['id_candidato'], []) !!}
