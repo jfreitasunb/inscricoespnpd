@@ -36,7 +36,9 @@
         @else
           @yield('inicio')
           @yield('content')
-          @yield('carta_recomendacao')
+          @acessa_carta()
+            @yield('carta_recomendacao')
+          @endacessa_carta
           {{-- @yield('ver_ficha') --}}
         @endif
       @include('templates.partials.rodape')

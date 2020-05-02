@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Request;
+use App\Models\LinkCartaRecomendacao;
+use App\Models\DadosInscricao;
 
 class BladeServiceProvider extends ServiceProvider
 {
@@ -99,6 +102,71 @@ class BladeServiceProvider extends ServiceProvider
             }else{
                 return false;
             }
+        });
+
+        Blade::if('acessa_carta', function (){
+            
+            $url = explode("/", Request::url());
+
+            $tamanho_array = sizeof($url);
+
+            $inscricao = new ConfiguraInscricaoPNPD();
+
+            $autoriza_carta = $inscricao->autoriza_carta();
+
+            if (!$autoriza_carta) {
+
+                return False;
+            }
+
+            $link_acesso = $url[$tamanho_array - 2];
+
+            $link = new LinkCartaRecomendacao();
+
+            $dados_link = $link->retorna_dados_link($link_acesso);
+
+            if (count($dados_link)> 1 or count($dados_link) == 0) {
+                
+                return False;
+            }
+
+            $dados_link = $link->retorna_dados_link($link_acesso)[0];
+
+            $edital = $inscricao->retorna_edital_vigente();
+
+            $id_inscricao_pnpd = $edital->id_inscricao_pnpd;
+
+            $reco = $url[$tamanho_array - 1];
+
+            $id_recomendante = explode("-", $reco)[0];
+
+            $id_inscricao = explode("-", $reco)[1];
+
+            if (!$edital->necessita_recomendante) {
+                
+                return False;
+            }
+
+            if ($edital->id_inscricao_pnpd != $id_inscricao) {
+                
+                return False;
+            }
+
+            if ($dados_link->id_recomendante != $id_recomendante ) {
+                
+                return False;
+            }
+
+            $dados = new DadosInscricao();
+
+            $dados_candidato = $dados->retorna_dados_inscricao($dados_link->id_candidato, $id_inscricao_pnpd);
+
+            if (strpos($dados_candidato[0]->recomendantes, $id_recomendante) == false) {
+                
+                return False;
+            }
+
+            return True;
         });
     }
 
