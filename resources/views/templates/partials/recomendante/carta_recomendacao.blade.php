@@ -7,7 +7,11 @@
   {!! Html::script( asset('js/tinymce/tinymce.min.js') ) !!}
   <script>
     tinymce.init({
-      selector: '#recomendacao'
+      selector: '#recomendacao',
+      plugins: 'print preview paste importcss searchreplace autolink directionality code visualblocks visualchars fullscreen link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern noneditable help charmap quickbars',
+      toolbar: 'undo redo | cut copy paste | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | insertfile template link code | ltr rtl | help',
+      toolbar_mode: 'wrap',
+      default_link_target: "_blank"
     });
   </script>
 @endsection
@@ -30,7 +34,7 @@
           </div>
           <div class="form-group">
             {!! form::label(trans('tela_carta_recomendacao.recomendacao')) !!}
-            {!! Form::textarea('recomendacao', $dados_recomendante['carta'] ? : '', ['id' => 'recomendacao', 'cols' => '40', 'rows' => '15', 'class' => 'form-control', 'required' => '']) !!}
+            {!! Form::textarea('recomendacao', $dados_recomendante['carta'] ? : '', ['id' => 'recomendacao', 'cols' => '40', 'rows' => '20', 'class' => 'form-control', 'required' => '']) !!}
           </div>
 
           {!! Form::hidden('id_candidato', $dados_candidato['id_candidato'], []) !!}
