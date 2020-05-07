@@ -52,6 +52,11 @@ class LoginController extends Controller
             return '/candidato/inscricao';
         }
 
+        if (auth()->user()->user_type == 'coordenador') {
+            
+            return '/coordenador';
+        }
+
         return '/home';
     }
 
