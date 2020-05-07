@@ -20,12 +20,12 @@ class BladeServiceProvider extends ServiceProvider
      * @return void
      */
     
-    private $accordion_configurar_edital = ['configura.inscricao', 'configura.periodo.confirmacao', 'configura.periodo.matricula', 'editar.inscricao', 'editar.periodo.confirmacao', 'editar.periodo.envio.documentos.matricula'];
+    private $accordion_configurar_edital = ['configura.inscricao', 'editar.inscricao'];
 
     public function ativa_accordion_configura_edital()
     {
         if (in_array(Route::currentRouteName(), $this->accordion_configurar_edital)) {
-            return 'in';
+            return 'show';
         }else{
             return '';
         }
@@ -52,6 +52,27 @@ class BladeServiceProvider extends ServiceProvider
             View::share('keep_open_accordion_configurar_edital', $this->ativa_accordion_configura_edital());
 
             return $user->isAdmin();
+        });
+
+        Blade::if('coordenador', function ( $user = null ){
+
+            if (!$user && auth()->check()) {
+                $user = auth()->user();
+            }
+
+            if (!$user) {
+                return false;
+            }
+
+            // View::share('keep_open_accordion_contas', $this->ativa_accordion_contas());
+
+            // View::share('keep_open_accordion_dados_pos', $this->ativa_accordion_dados_pos());
+
+            // View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
+
+            View::share('keep_open_accordion_configurar_edital', $this->ativa_accordion_configura_edital());
+
+            return $user->isCoordenador();
         });
 
         Blade::if('candidato', function ( $user = null ){
