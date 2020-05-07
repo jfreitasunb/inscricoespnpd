@@ -33,6 +33,13 @@
               </div>
             </div>
           @endadmin
+          @coordenador(Auth()->user())
+            <div class="container-fluid">
+              <div class="row-fluid">
+                @include('templates.partials.coordenador.menu_coordenador')
+              </div>
+            </div>
+          @endcoordenador
         @else
           @yield('inicio')
           @yield('content')
