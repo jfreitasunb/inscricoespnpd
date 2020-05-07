@@ -49,6 +49,15 @@ class User extends Authenticatable
         }
     }
 
+    public function isCoordenador()
+    {
+        if (auth()->user()->user_type === 'coordenador') {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
     public function isCandidato()
     {
         if (auth()->user()->user_type === 'candidato') {
