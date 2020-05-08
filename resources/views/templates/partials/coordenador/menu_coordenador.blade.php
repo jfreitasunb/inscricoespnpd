@@ -23,11 +23,6 @@
                                     <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('configura.inscricao') }}">Configurar Inscrição</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class= "{{ Route::currentRouteNamed('editar.inscricao') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-pencil fa-fw"></span><a href="{{ route('editar.inscricao') }}">Editar detalhes da inscrição</a>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -36,6 +31,17 @@
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseDois"><span class="glyphicon glyphicon-user fa-fw">
                         </span>Relatórios</a>
                     </h4>
+                </div>
+                <div id="collapseDois" class="panel-collapse collapse {{ $keep_open_accordion_relatorios }}">
+                    <div class="card-body bg-white">
+                        <table class="table">
+                            <tr>
+                                <td class= "{{ Route::currentRouteNamed('relatorio.atual') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('relatorio.atual') }}">Configurar Inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
