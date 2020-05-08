@@ -17,6 +17,7 @@ use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\FinalizaInscricao;
+use App\Models\CartaRecomendacao;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
@@ -126,8 +127,87 @@ class RelatorioController extends HomeController
 
       $recomendantes['email_recomendante_'.$i] = $user->email;
     }
-
+    
     return $recomendantes;
+  }
+
+  public function ConsolidaCartaPorRecomendante($id_recomendante,$id_candidato,$id_inscricao_pos)
+  {
+    $consolida_recomendacao = [];
+
+    $usuario_recomendante = User::find($id_recomendante);
+
+    $carta_recomendacao = new CartaRecomendacao();
+
+    $carta_candidato = $carta_recomendacao->retorna_carta_recomendacao($id_recomendante,$id_candidato,$id_inscricao_pos);
+
+    $dados_pessoais_recomendante = $dado_recomendante->retorna_dados_pessoais_recomendante($id_recomendante);
+    if (!is_null($dados_pessoais_recomendante)) {
+      $consolida_recomendacao['nome'] = $usuario_recomendante->nome;
+      $consolida_recomendacao['email'] = $usuario_recomendante->email;
+      $consolida_recomendacao['instituicao_recomendante'] = $dados_pessoais_recomendante->instituicao_recomendante;
+      $consolida_recomendacao['titulacao_recomendante'] = $dados_pessoais_recomendante->titulacao_recomendante;
+      $consolida_recomendacao['area_recomendante'] = $dados_pessoais_recomendante->area_recomendante;
+      $consolida_recomendacao['ano_titulacao'] = $dados_pessoais_recomendante->ano_titulacao;
+      $consolida_recomendacao['inst_obtencao_titulo'] = $dados_pessoais_recomendante->inst_obtencao_titulo;
+      $consolida_recomendacao['endereco_recomendante'] = $dados_pessoais_recomendante->endereco_recomendante;
+    }else{
+      $consolida_recomendacao['nome'] = '';
+      $consolida_recomendacao['email'] = '';
+      $consolida_recomendacao['instituicao_recomendante'] = '';
+      $consolida_recomendacao['titulacao_recomendante'] = '';
+      $consolida_recomendacao['area_recomendante'] = '';
+      $consolida_recomendacao['ano_titulacao'] = '';
+      $consolida_recomendacao['inst_obtencao_titulo'] = '';
+      $consolida_recomendacao['endereco_recomendante'] = '';
+    }
+    
+    
+    if (!is_null($carta_candidato)) {
+      $consolida_recomendacao['tempo_conhece_candidato'] = $carta_candidato->tempo_conhece_candidato;
+      $consolida_recomendacao['circunstancia_1'] = $carta_candidato->circunstancia_1;
+      $consolida_recomendacao['circunstancia_2'] = $carta_candidato->circunstancia_2;
+      $consolida_recomendacao['circunstancia_3'] = $carta_candidato->circunstancia_3;
+      $consolida_recomendacao['circunstancia_4'] = $carta_candidato->circunstancia_4;
+      $consolida_recomendacao['circunstancia_outra'] = $carta_candidato->circunstancia_outra;
+      $consolida_recomendacao['desempenho_academico'] = $carta_candidato->desempenho_academico;
+      $consolida_recomendacao['capacidade_aprender'] = $carta_candidato->capacidade_aprender;
+      $consolida_recomendacao['capacidade_trabalhar'] = $carta_candidato->capacidade_trabalhar;
+      $consolida_recomendacao['criatividade'] = $carta_candidato->criatividade;
+      $consolida_recomendacao['curiosidade'] = $carta_candidato->curiosidade;
+      $consolida_recomendacao['esforco'] = $carta_candidato->esforco;
+      $consolida_recomendacao['expressao_escrita'] = $carta_candidato->expressao_escrita;
+      $consolida_recomendacao['expressao_oral'] = $carta_candidato->expressao_oral;
+      $consolida_recomendacao['relacionamento'] = $carta_candidato->relacionamento;
+      $consolida_recomendacao['antecedentes_academicos'] = $carta_candidato->antecedentes_academicos;
+      $consolida_recomendacao['possivel_aproveitamento'] = $carta_candidato->possivel_aproveitamento;
+      $consolida_recomendacao['informacoes_relevantes'] = $carta_candidato->informacoes_relevantes;
+      $consolida_recomendacao['como_aluno'] = $carta_candidato->como_aluno;
+      $consolida_recomendacao['como_orientando'] = $carta_candidato->como_orientando;
+    }else{
+      $consolida_recomendacao['tempo_conhece_candidato'] = '';
+      $consolida_recomendacao['circunstancia_1'] = '';
+      $consolida_recomendacao['circunstancia_2'] = '';
+      $consolida_recomendacao['circunstancia_3'] = '';
+      $consolida_recomendacao['circunstancia_4'] = '';
+      $consolida_recomendacao['circunstancia_outra'] = '';
+      $consolida_recomendacao['desempenho_academico'] = '';
+      $consolida_recomendacao['capacidade_aprender'] = '';
+      $consolida_recomendacao['capacidade_trabalhar'] = '';
+      $consolida_recomendacao['criatividade'] = '';
+      $consolida_recomendacao['curiosidade'] = '';
+      $consolida_recomendacao['esforco'] = '';
+      $consolida_recomendacao['expressao_escrita'] = '';
+      $consolida_recomendacao['expressao_oral'] = '';
+      $consolida_recomendacao['relacionamento'] = '';
+      $consolida_recomendacao['antecedentes_academicos'] = '';
+      $consolida_recomendacao['possivel_aproveitamento'] = '';
+      $consolida_recomendacao['informacoes_relevantes'] = '';
+      $consolida_recomendacao['como_aluno'] = '';
+      $consolida_recomendacao['como_orientando'] = '';
+    }
+
+    return $consolida_recomendacao;
   }
 
   public function ConsolidaNomeArquivos($local_arquivos_temporarios, $local_arquivos_definitivos, $dados_candidato_para_relatorio)
@@ -256,8 +336,6 @@ class RelatorioController extends HomeController
     
     $usuarios_finalizados = $finaliza->retorna_usuarios_relatorios($id_inscricao_pnpd);
 
-    dd($usuarios_finalizados);
-
     foreach ($usuarios_finalizados as $candidato) {
 
       $linha_arquivo = [];
@@ -276,29 +354,21 @@ class RelatorioController extends HomeController
 
       $linha_arquivo['email'] = User::find($dados_candidato_para_relatorio['id_aluno'])->email;
 
-      foreach ($this->ConsolidaDadosAcademicos($dados_candidato_para_relatorio['id_aluno'], $locale_relatorio) as $key => $value) {
+      foreach ($this->ConsolidaDadosInscricao($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd) as $key => $value) {
         $dados_candidato_para_relatorio[$key] = $value;
       }
-
-      foreach ($this->ConsolidaEscolhaCandidato($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd, $locale_relatorio) as $key => $value) {
-        $dados_candidato_para_relatorio[$key] = $value;
-      }
-
-      $linha_arquivo['programa_pretendido'] = $dados_candidato_para_relatorio['programa_pretendido'];
-
-      $contatos_indicados = [];
 
       if ($necessita_recomendante) {
-        $contatos_indicados = $this->ConsolidaIndicaoes($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd);
 
-        $recomendantes_candidato = [];
+        $dados = new DadosInscricao();
 
+        $contatos_indicados = explode("_", $dados->retorna_dados_inscricao($candidato->id_candidato, $id_inscricao_pnpd)[0]->recomendantes);
+        
         foreach ($contatos_indicados  as $id ) {
-          $recomendantes_candidato[$id->id_recomendante] = $this->ConsolidaCartaPorRecomendante($id->id_recomendante,$dados_candidato_para_relatorio['id_aluno'],$id_inscricao_pnpd);
+
+          $recomendantes_candidato[$id] = $this->ConsolidaCartaPorRecomendante($id, $dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd);
         }
       }
-      
-      $dados_candidato_para_relatorio['motivacao'] = nl2br($this->ConsolidaCartaMotivacao($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd));
 
       $nome_arquivos = [];
 
