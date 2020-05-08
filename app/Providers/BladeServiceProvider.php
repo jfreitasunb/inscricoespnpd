@@ -22,6 +22,8 @@ class BladeServiceProvider extends ServiceProvider
     
     private $accordion_configurar_edital = ['configura.inscricao', 'editar.inscricao'];
 
+    private $accordion_relatorios = [ 'relatorio.atual', 'relatorio.anteriores'];
+
     public function ativa_accordion_configura_edital()
     {
         if (in_array(Route::currentRouteName(), $this->accordion_configurar_edital)) {
@@ -31,6 +33,15 @@ class BladeServiceProvider extends ServiceProvider
         }
     }
 
+    public function ativa_accordion_relatorios()
+    {
+        if (in_array(Route::currentRouteName(), $this->accordion_relatorios)) {
+            return 'show';
+        }else{
+            return '';
+        }
+    }
+    
     public function boot()
     {
         Blade::if('admin', function ( $user = null ){
@@ -47,7 +58,7 @@ class BladeServiceProvider extends ServiceProvider
 
             // View::share('keep_open_accordion_dados_pos', $this->ativa_accordion_dados_pos());
 
-            // View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
+            View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
 
             View::share('keep_open_accordion_configurar_edital', $this->ativa_accordion_configura_edital());
 
@@ -68,7 +79,7 @@ class BladeServiceProvider extends ServiceProvider
 
             // View::share('keep_open_accordion_dados_pos', $this->ativa_accordion_dados_pos());
 
-            // View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
+            View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
 
             View::share('keep_open_accordion_configurar_edital', $this->ativa_accordion_configura_edital());
 
