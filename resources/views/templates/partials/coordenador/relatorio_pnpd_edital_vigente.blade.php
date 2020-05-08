@@ -20,9 +20,7 @@
 			      	<th scope="row"><a href="{!! route('gera.relatorio', ['id_inscricao_pnpd' => $relatorio_disponivel['id_inscricao_pnpd']]) !!}">{{$relatorio_disponivel['edital']}}</a></th>
 			      	<td><a href="{!! route('gera.relatorio', ['id_inscricao_pnpd' => $relatorio_disponivel['id_inscricao_pnpd']]) !!}">{{\Carbon\Carbon::parse($relatorio_disponivel['inicio_inscricao'])->format('d/m/Y')." à ".\Carbon\Carbon::parse($relatorio_disponivel['fim_inscricao'])->format('d/m/Y')}}</a></td>
 			      	<td>@if($id_pnpd == $relatorio_disponivel['id_inscricao_pnpd'] || isset($local_arquivos)) 
-			      		@foreach ($arquivos_zipados_para_view as $zip_relatorio)
-			      		 	<a target="_blank" href="{{ asset($local_arquivos['arquivo_zip'].$zip_relatorio) }}" >{{$zip_relatorio}}</a>
-			      		@endforeach
+			      		 	<a target="_blank" href="{{ asset($local_arquivos['arquivo_zip'].$arquivos_zipados_para_view) }}" >Inscrições.zip</a>
 			      		@endif</td>
 			      	<td>@if($id_pnpd == $relatorio_disponivel['id_inscricao_pnpd'] || isset($local_arquivos)) <a target="_blank" href="{{asset($local_arquivos['local_relatorios'].$relatorio_csv)}}">{{$relatorio_csv}}</a> @endif</td>
 			    	</tr>
