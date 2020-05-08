@@ -62,12 +62,6 @@
 
             @foreach ($recomendantes_candidato as $recomendante)
             <div class="page_break"></div>
-            <h3>Carta de Recomendação - {{ $recomendante['nome'] }}</h3>
-            <div>
-                {{ $recomendante['recomendacao'] }}
-            </div>
-
-            <hr size="0">
             <div>
                 <label>Dados do Recomendante</label>
                 <div>
@@ -76,6 +70,11 @@
                 <div>
                     <label>Instituição: </label> {{ $recomendante['instituicao_recomendante'] }}
                 </div>
+            </div>
+            <h3>Carta de Recomendação</h3>
+            <div>
+                {!! $recomendante['recomendacao'] !!}
+            </div>
             @endforeach
         @endif
         
