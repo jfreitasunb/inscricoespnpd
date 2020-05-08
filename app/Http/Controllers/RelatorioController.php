@@ -223,4 +223,45 @@ class RelatorioController extends HomeController
     return str_replace($endereco_mudar,'storage/', $nome_arquivos['arquivo_relatorio_candidato_final']);
   }
 
+  public function geraRelatorio()
+  {
+    dd("aqui");
+  }
+
+  public function getListaRelatorios()
+  {
+    dd("agora");
+    // $locale_relatorio = 'pt-br';
+
+    // $relatorio = new ConfiguraInscricaoPos();
+
+    // $relatorio_disponivel = $relatorio->retorna_edital_vigente();
+
+
+    // $programas_disponiveis = explode("_", $relatorio->retorna_inscricao_ativa()->programa);
+
+    // $nome_programa_pos = new ProgramaPos();
+
+    // foreach ($programas_disponiveis as $programa) {
+
+    //   $programa_para_inscricao[$programa] = $nome_programa_pos->pega_programa_pos_mat($programa, $locale_relatorio);
+      
+    //   $contagem[$programa_para_inscricao[$programa]] = $this->ContaInscricoes($relatorio_disponivel->id_inscricao_pos, $programa);
+
+    // }
+
+    // $total_inscritos = array_sum($contagem);
+
+    // $nome_programas = implode('/', $programa_para_inscricao);
+
+    // $arquivos_zipados_para_view = "";
+
+    // $documentos_zipados = "";
+
+    // $relatorio_csv = "";
+
+    // $monitoria = "";
+
+    // return view('templates.partials.coordenador.relatorio_pos_edital_vigente')->with(compact('monitoria','relatorio_disponivel', 'nome_programas', 'programa_para_inscricao', 'total_inscritos', 'contagem', 'arquivos_zipados_para_view','relatorio_csv'));
+  }
 }
