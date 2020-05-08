@@ -224,6 +224,24 @@ class RelatorioController extends HomeController
     return $cabecalho = ["Nome","E-mail"];
   }
 
+  public function ConsolidaArquivosZIP($edital, $arquivo_zip, $local_relatorios)
+  {
+    $inscricoes_zipadas = 'Inscricoes_PNPD_Edital_'.$edital.'.zip';
+
+    $zip = new ZipArchive;
+
+    if ( $zip->open( $arquivo_zip.$inscricoes_zipadas, ZipArchive::CREATE ) === true ){
+
+     foreach (glob( $local_relatorios.'Inscricao_PNPD_Edital_'.'*') as $fileName ){
+        $file = basename( $fileName );
+        $zip->addFile( $fileName, $file );
+     }
+     $zip->close();
+    }
+
+    return $inscricoes_zipadas;
+  }
+
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
 
@@ -346,7 +364,7 @@ class RelatorioController extends HomeController
       $this->ConsolidaFichaRelatorio($nome_arquivos, $nome_uploads);
 
       $relatorio_csv->insertOne($linha_arquivo);
-      
+
     }
 
     $arquivos_zipados_para_view = $this->ConsolidaArquivosZIP($relatorio->edital, $locais_arquivos['arquivo_zip'], $locais_arquivos['local_relatorios'], $relatorio->programa);
