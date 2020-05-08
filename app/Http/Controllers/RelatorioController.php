@@ -223,14 +223,100 @@ class RelatorioController extends HomeController
     return str_replace($endereco_mudar,'storage/', $nome_arquivos['arquivo_relatorio_candidato_final']);
   }
 
-  public function geraRelatorio()
+  public function geraRelatorio($id_inscricao_pnpd)
   {
-    dd("aqui");
+
+    $locale_relatorio = 'pt-br';
+
+    $relatorio = ConfiguraInscricaoPNPD::find($id_inscricao_pnpd);
+
+    $necessita_recomendante = $relatorio->necessita_recomendante;
+
+    $locais_arquivos = $this->ConsolidaLocaisArquivos($relatorio->edital);
+
+    foreach (glob( $locais_arquivos['local_relatorios']."Inscri*") as $fileName ){
+      @unlink($fileName);
+    }
+
+    foreach (glob( $locais_arquivos['arquivo_zip']."*.zip") as $ZIPfile ){
+      @unlink($ZIPfile);
+    }
+    
+    $relatorio_csv = Writer::createFromPath($locais_arquivos['local_relatorios'].$locais_arquivos['arquivo_relatorio_csv'], 'w+');
+    
+    $relatorio_csv->insertOne($this->ConsolidaCabecalhoCSV());
+
+
+    $finaliza = new FinalizaInscricao();
+    
+    $usuarios_finalizados = $finaliza->retorna_usuarios_relatorios($id_inscricao_pnpd);
+
+    foreach ($usuarios_finalizados as $candidato) {
+
+      $linha_arquivo = [];
+
+      $dados_candidato_para_relatorio = [];
+
+      $dados_candidato_para_relatorio['edital'] = $relatorio->edital;
+
+      $dados_candidato_para_relatorio['id_aluno'] = $candidato->id_candidato;
+
+      foreach ($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_aluno']) as $key => $value) {
+         $dados_candidato_para_relatorio[$key] = $value;
+      }
+
+      $linha_arquivo['nome'] = $dados_candidato_para_relatorio['nome'];
+
+      $linha_arquivo['email'] = User::find($dados_candidato_para_relatorio['id_aluno'])->email;
+
+      foreach ($this->ConsolidaDadosAcademicos($dados_candidato_para_relatorio['id_aluno'], $locale_relatorio) as $key => $value) {
+        $dados_candidato_para_relatorio[$key] = $value;
+      }
+
+      foreach ($this->ConsolidaEscolhaCandidato($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd, $locale_relatorio) as $key => $value) {
+        $dados_candidato_para_relatorio[$key] = $value;
+      }
+
+      $linha_arquivo['programa_pretendido'] = $dados_candidato_para_relatorio['programa_pretendido'];
+
+      $contatos_indicados = [];
+
+      if ($necessita_recomendante) {
+        $contatos_indicados = $this->ConsolidaIndicaoes($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd);
+
+        $recomendantes_candidato = [];
+
+        foreach ($contatos_indicados  as $id ) {
+          $recomendantes_candidato[$id->id_recomendante] = $this->ConsolidaCartaPorRecomendante($id->id_recomendante,$dados_candidato_para_relatorio['id_aluno'],$id_inscricao_pnpd);
+        }
+      }
+      
+      $dados_candidato_para_relatorio['motivacao'] = nl2br($this->ConsolidaCartaMotivacao($dados_candidato_para_relatorio['id_aluno'], $id_inscricao_pnpd));
+
+      $nome_arquivos = [];
+
+      $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['local_relatorios'], $dados_candidato_para_relatorio);
+
+      $pdf = PDF::loadView('templates.partials.coordenador.pdf_relatorio', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
+
+      $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
+
+      $nome_uploads = $this->ConsolidaDocumentosPDF($dados_candidato_para_relatorio['id_aluno'], $locais_arquivos['local_documentos'], $id_inscricao_pnpd);
+
+      $this->ConsolidaFichaRelatorio($nome_arquivos, $nome_uploads);
+
+      $relatorio_csv->insertOne($linha_arquivo);
+      
+    }
+
+    $arquivos_zipados_para_view = $this->ConsolidaArquivosZIP($relatorio->edital, $locais_arquivos['arquivo_zip'], $locais_arquivos['local_relatorios'], $relatorio->programa);
+    
+
+    return $this->getArquivosRelatorios($id_inscricao_pnpd,$arquivos_zipados_para_view, $locais_arquivos['arquivo_relatorio_csv']);
   }
 
   public function getListaRelatorios()
   {
-
     $locale_relatorio = 'pt-br';
 
     $relatorio = new ConfiguraInscricaoPNPD();
@@ -249,6 +335,6 @@ class RelatorioController extends HomeController
 
     $id_pnpd = "";
 
-    return view('templates.partials.coordenador.relatorio_pos_edital_vigente')->with(compact('id_pnpd','relatorio_disponivel', 'total_inscritos', 'arquivos_zipados_para_view','relatorio_csv'));
+    return view('templates.partials.coordenador.relatorio_pnpd_edital_vigente')->with(compact('id_pnpd','relatorio_disponivel', 'total_inscritos', 'arquivos_zipados_para_view','relatorio_csv'));
   }
 }
