@@ -176,6 +176,11 @@ class RelatorioController extends HomeController
     @unlink($nome_arquivos['arquivo_relatorio_candidato_temporario']);
   }
 
+  public function ConsolidaCabecalhoCSV()
+  {
+    return $cabecalho = ["Nome","E-mail"];
+  }
+
   public function geraFichaInscricao($id_candidato, $id_inscricao_pnpd, $locale_relatorio)
   {
 
@@ -250,6 +255,8 @@ class RelatorioController extends HomeController
     $finaliza = new FinalizaInscricao();
     
     $usuarios_finalizados = $finaliza->retorna_usuarios_relatorios($id_inscricao_pnpd);
+
+    dd($usuarios_finalizados);
 
     foreach ($usuarios_finalizados as $candidato) {
 
