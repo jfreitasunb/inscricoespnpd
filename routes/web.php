@@ -40,7 +40,7 @@ Route::prefix('coordenador')->middleware('user.role:admin,coordenador', 'auth')-
 
     Route::post('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@postConfiguraInscricao')->name('configura.inscricao');
 
-    Route::get('relatorio/{id_pnpd}', 'RelatorioController@geraRelatorio')->name('gera.relatorio');
+    Route::get('relatorio/edital/vigente', 'RelatorioController@geraRelatorio')->name('gera.relatorio');
 
     Route::get('relatorio', 'RelatorioController@getListaRelatorios')->name('relatorio.atual');
 });
