@@ -132,7 +132,7 @@ class RelatorioController extends HomeController
     return $recomendantes;
   }
 
-  public function ConsolidaCartaPorRecomendante($id_recomendante, $id_candidato, $id_inscricao_pos)
+  public function ConsolidaCartaPorRecomendante($id_recomendante, $id_candidato, $id_inscricao_pnpd)
   {
     $consolida_recomendacao = [];
 
@@ -142,7 +142,7 @@ class RelatorioController extends HomeController
 
     $carta_recomendacao = new CartaRecomendacao();
 
-    $carta_candidato = $carta_recomendacao->retorna_dados_carta($id_recomendante, $id_candidato, $id_inscricao_pos);
+    $carta_candidato = $carta_recomendacao->retorna_dados_carta($id_recomendante, $id_candidato, $id_inscricao_pnpd);
 
     $dados_pessoais_recomendante = $dado_recomendante->retorna_dados_recomendante($id_recomendante);
 
@@ -287,6 +287,32 @@ class RelatorioController extends HomeController
     $this->ConsolidaFichaRelatorio($nome_arquivos, $nome_uploads);
 
     return str_replace($endereco_mudar,'storage/', $nome_arquivos['arquivo_relatorio_candidato_final']);
+  }
+
+  public function getArquivosRelatorios($id_inscricao_pnpd, $arquivos_zipados_para_view, $relatorio_csv)
+  {
+    
+    $locale_relatorio = 'pt-br';
+
+    $relatorio = new ConfiguraInscricaoPNPD();
+
+    $relatorio_disponivel = $relatorio->retorna_edital_vigente();
+
+    $total = new FinalizaInscricao();
+
+    $total_inscritos = $total->retorna_total_inscrictos($relatorio_disponivel->id_inscricao_pnpd);
+    
+    $id_pnpd = $id_inscricao_pnpd;
+
+    $local_arquivos = $this->ConsolidaLocaisArquivos($relatorio_disponivel->edital);
+
+    $endereco_zip_mudar = '/var/www/inscricoespos/storage/app/public/';
+
+    $local_arquivos['local_relatorios'] = str_replace($endereco_zip_mudar, 'storage/', $local_arquivos['local_relatorios']);
+
+    $local_arquivos['arquivo_zip'] = str_replace($endereco_zip_mudar, 'storage/', $local_arquivos['arquivo_zip']);
+
+    return view('templates.partials.coordenador.relatorio_pnpd_edital_vigente')->with(compact('id_pnpd','total_inscritos', 'relatorio_disponivel','arquivos_zipados_para_view','relatorio_csv','local_arquivos'));
   }
 
   public function geraRelatorio($id_inscricao_pnpd)
