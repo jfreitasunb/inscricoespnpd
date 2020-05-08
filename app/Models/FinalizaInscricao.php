@@ -35,4 +35,9 @@ class FinalizaInscricao extends Model
     {
         return $this->where('inscricao_finalizada', True)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->count();
     }
+
+    public function retorna_usuarios_relatorios($id_inscricao_pnpd)
+    {
+        return $this->where('inscricao_finalizada', True)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->get();
+    }
 }
