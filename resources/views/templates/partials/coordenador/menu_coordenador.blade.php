@@ -50,6 +50,7 @@
         <div class="menuadmin card card-body">
             <div class="bg-light">
                 @yield('configura_inscricao')
+                @yield('relatorio_pnpd_edital_vigente')
             </div>
         </div>
     </div>
