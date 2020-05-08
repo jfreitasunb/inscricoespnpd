@@ -55,7 +55,7 @@ class RelatorioController extends HomeController
 
     $locais_arquivos['local_relatorios'] = storage_path("app/public/relatorios/edital_".$edital."/");
     
-    $locais_arquivos['arquivo_relatorio_csv'] = 'Inscricoes_Edital_'.$edital.'.csv';
+    $locais_arquivos['arquivo_relatorio_csv'] = 'Inscricoes_PNPD_Edital_'.$edital.'.csv';
 
     $locais_arquivos['local_documentos'] = storage_path('app/');
 
@@ -178,7 +178,7 @@ class RelatorioController extends HomeController
     $nome_arquivos = [];
 
     $nome_arquivos['arquivo_relatorio_candidato_temporario'] = $local_arquivos_temporarios.str_replace(' ', '-',strtr($dados_candidato_para_relatorio['nome'], $this->normalizeChars)).'_'.$dados_candidato_para_relatorio['id_candidato'].'.pdf';
-    $nome_arquivos['arquivo_relatorio_candidato_final'] = $local_arquivos_definitivos.'Inscricao_'.str_replace(' ', '-',strtr($dados_candidato_para_relatorio['nome'], $this->normalizeChars)).'_'.$dados_candidato_para_relatorio['id_candidato'].'.pdf';
+    $nome_arquivos['arquivo_relatorio_candidato_final'] = $local_arquivos_definitivos.'Inscricao_PNPD_'.str_replace(' ', '-',strtr($dados_candidato_para_relatorio['nome'], $this->normalizeChars)).'_'.$dados_candidato_para_relatorio['id_candidato'].'.pdf';
       
 
       return $nome_arquivos;
@@ -232,7 +232,7 @@ class RelatorioController extends HomeController
 
     if ( $zip->open( $arquivo_zip.$inscricoes_zipadas, ZipArchive::CREATE ) === true ){
 
-     foreach (glob( $local_relatorios.'Inscricao_PNPD_Edital_'.'*') as $fileName ){
+     foreach (glob( $local_relatorios.'Inscricao_PNPD_'.'*') as $fileName ){
         $file = basename( $fileName );
         $zip->addFile( $fileName, $file );
      }
@@ -291,7 +291,7 @@ class RelatorioController extends HomeController
 
   public function getArquivosRelatorios($id_inscricao_pnpd, $arquivos_zipados_para_view, $relatorio_csv)
   {
-    
+
     $locale_relatorio = 'pt-br';
 
     $relatorio = new ConfiguraInscricaoPNPD();
