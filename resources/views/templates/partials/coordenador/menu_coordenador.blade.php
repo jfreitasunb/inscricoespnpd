@@ -37,7 +37,7 @@
                         <table class="table">
                             <tr>
                                 <td class= "{{ Route::currentRouteNamed('relatorio.atual') ? 'active_link' : '' }}">
-                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('relatorio.atual') }}">Configurar Inscrição</a>
+                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('relatorio.atual') }}">Edital Vigente</a>
                                 </td>
                             </tr>
                         </table>
