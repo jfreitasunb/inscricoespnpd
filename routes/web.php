@@ -39,6 +39,10 @@ Route::prefix('coordenador')->middleware('user.role:admin,coordenador', 'auth')-
     Route::get('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@getConfiguraInscricao')->name('configura.inscricao');
 
     Route::post('/configura/inscricao', 'Coordenador\ConfiguraInscricaoController@postConfiguraInscricao')->name('configura.inscricao');
+
+    Route::get('relatorio/{id_pnpd}', 'RelatorioController@geraRelatorio')->name('gera.relatorio');
+
+    Route::get('relatorio', 'RelatorioController@getListaRelatorios')->name('relatorio.atual');
 });
 
 Route::prefix('candidato')->middleware('user.role:candidato', 'define.locale', 'auth')->group(function () {
