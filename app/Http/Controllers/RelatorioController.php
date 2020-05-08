@@ -152,7 +152,7 @@ class RelatorioController extends HomeController
 
       $consolida_recomendacao['email'] = $usuario_recomendante->email;
       
-      $consolida_recomendacao['instituicao_recomendante'] = $dados_pessoais_recomendante->instituicao_recomendante;
+      $consolida_recomendacao['instituicao_recomendante'] = $dados_pessoais_recomendante->instituicao;
     }else{
       $consolida_recomendacao['nome'] = '';
 
