@@ -230,38 +230,25 @@ class RelatorioController extends HomeController
 
   public function getListaRelatorios()
   {
-    dd("agora");
-    // $locale_relatorio = 'pt-br';
 
-    // $relatorio = new ConfiguraInscricaoPos();
+    $locale_relatorio = 'pt-br';
 
-    // $relatorio_disponivel = $relatorio->retorna_edital_vigente();
+    $relatorio = new ConfiguraInscricaoPNPD();
 
+    $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
-    // $programas_disponiveis = explode("_", $relatorio->retorna_inscricao_ativa()->programa);
+    $total = new FinalizaInscricao();
 
-    // $nome_programa_pos = new ProgramaPos();
+    $total_inscritos = $total->retorna_total_inscrictos($relatorio_disponivel->id_inscricao_pnpd);
 
-    // foreach ($programas_disponiveis as $programa) {
+    $arquivos_zipados_para_view = "";
 
-    //   $programa_para_inscricao[$programa] = $nome_programa_pos->pega_programa_pos_mat($programa, $locale_relatorio);
-      
-    //   $contagem[$programa_para_inscricao[$programa]] = $this->ContaInscricoes($relatorio_disponivel->id_inscricao_pos, $programa);
+    $documentos_zipados = "";
 
-    // }
+    $relatorio_csv = "";
 
-    // $total_inscritos = array_sum($contagem);
+    $id_pnpd = "";
 
-    // $nome_programas = implode('/', $programa_para_inscricao);
-
-    // $arquivos_zipados_para_view = "";
-
-    // $documentos_zipados = "";
-
-    // $relatorio_csv = "";
-
-    // $monitoria = "";
-
-    // return view('templates.partials.coordenador.relatorio_pos_edital_vigente')->with(compact('monitoria','relatorio_disponivel', 'nome_programas', 'programa_para_inscricao', 'total_inscritos', 'contagem', 'arquivos_zipados_para_view','relatorio_csv'));
+    return view('templates.partials.coordenador.relatorio_pos_edital_vigente')->with(compact('id_pnpd','relatorio_disponivel', 'total_inscritos', 'arquivos_zipados_para_view','relatorio_csv'));
   }
 }
