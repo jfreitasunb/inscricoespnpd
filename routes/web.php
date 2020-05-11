@@ -43,6 +43,10 @@ Route::prefix('coordenador')->middleware('user.role:admin,coordenador', 'auth')-
     Route::get('relatorio/edital/vigente/{id_inscricao_pnpd}', 'RelatorioController@geraRelatorio')->name('gera.relatorio');
 
     Route::get('relatorio', 'RelatorioController@getListaRelatorios')->name('relatorio.atual');
+
+    Route::get('gera/ficha/individual', 'Coordenador\RelatorioPNPDController@getFichaInscricaoPorCandidato')->name('gera.ficha.individual');
+
+    Route::get('ver/ficha/individual', 'Coordenador\RelatorioPNPDController@GeraPdfFichaIndividual')->name('ver.ficha.individual');
 });
 
 Route::prefix('candidato')->middleware('user.role:candidato', 'define.locale', 'auth')->group(function () {
