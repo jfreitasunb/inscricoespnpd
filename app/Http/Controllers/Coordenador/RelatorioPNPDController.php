@@ -7,6 +7,7 @@ use Alert;
 use Session;
 use Carbon\Carbon;
 use Notification;
+use App\Http\Controllers\RelatorioController;
 use App\Models\User;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\FinalizaInscricao;
@@ -78,7 +79,7 @@ class RelatorioPNPDController extends Controller
 
         $ficha = new RelatorioController;
     
-        $nome_pdf = $ficha->geraFichaIndividual($id_aluno_pdf, $this->locale_default);
+        $nome_pdf = $ficha->geraFichaIndividual($id_aluno_pdf);
         
         
         return redirect()->back()->with(compact('nome_pdf','id_aluno_pdf'));
