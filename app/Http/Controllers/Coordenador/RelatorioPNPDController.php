@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Notification;
 use App\Models\User;
 use App\Models\ConfiguraInscricaoPNPD;
+use App\Models\FinalizaInscricao;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Notifications\NotificaNovaInscricao;
@@ -20,7 +21,7 @@ class RelatorioPNPDController extends Controller
     {   
         $user = Auth::user();
         
-        $relatorio = new ConfiguraInscricaoPos();
+        $relatorio = new ConfiguraInscricaoPNPD();
 
         $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
@@ -39,13 +40,15 @@ class RelatorioPNPDController extends Controller
         }
         
 
-        $inscricoes_finalizadas = $finalizacoes->retorna_usuarios_relatorio_individual($relatorio_disponivel->id_inscricao_pos, $this->locale_default);
+        $inscricoes_finalizadas = $finalizacoes->retorna_usuarios_relatorios($relatorio_disponivel->id_inscricao_pnpd);
+
+        dd($inscricoes_finalizadas);
 
         foreach ($inscricoes_finalizadas as $candidato ) {
 
             $cartas = new CartaRecomendacao();
 
-            $total_cartas[$candidato->id_candidato]=  $cartas->conta_cartas_enviadas_por_candidato($candidato->id_inscricao_pos, $candidato->id_candidato);
+            $total_cartas[$candidato->id_candidato]=  $cartas->conta_cartas_enviadas_por_candidato($candidato->id_inscricao_pnpd, $candidato->id_candidato);
         }
 
         $classes_linhas[0] = 'danger';
@@ -63,7 +66,7 @@ class RelatorioPNPDController extends Controller
         $user = Auth::user();
         
 
-        $id_inscricao_pos = (int) $_GET['id_inscricao_pos'];
+        $id_inscricao_pnpd = (int) $_GET['id_inscricao_pnpd'];
         
         $id_aluno_pdf = (int) $_GET['id_aluno'];
 
