@@ -40,6 +40,11 @@
                                     <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('relatorio.atual') }}">Edital Vigente</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class= "{{ Route::currentRouteNamed('gera.ficha.individual') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-file fa-fw"></span><a href="{{ route('gera.ficha.individual') }}">Ver fichas individuais</a>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -51,6 +56,7 @@
             <div class="bg-light">
                 @yield('configura_inscricao')
                 @yield('relatorio_pnpd_edital_vigente')
+                @yield('ficha_individual')
             </div>
         </div>
     </div>
