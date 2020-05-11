@@ -421,4 +421,56 @@ class RelatorioController extends HomeController
 
     return view('templates.partials.coordenador.relatorio_pnpd_edital_vigente')->with(compact('id_pnpd','relatorio_disponivel', 'total_inscritos', 'arquivos_zipados_para_view','relatorio_csv'));
   }
+
+  public function geraFichaIndividual($id_aluno)
+  {
+
+    $relatorio = new ConfiguraInscricaoPNPD();
+
+    $relatorio_disponivel = $relatorio->retorna_edital_vigente();
+
+    $id_inscricao_pnpd = $relatorio_disponivel->id_inscricao_pnpd;
+
+    $necessita_recomendante = $relatorio_disponivel->necessita_recomendante;
+
+    $locais_arquivos = $this->ConsolidaLocaisArquivos($relatorio_disponivel->edital);
+
+    $dados_candidato_para_relatorio['edital'] = $relatorio_disponivel->edital;
+
+    $dados_candidato_para_relatorio['id_candidato'] = $id_aluno;
+
+    foreach ($this->ConsolidaDadosPessoais($dados_candidato_para_relatorio['id_candidato']) as $key => $value) {
+       $dados_candidato_para_relatorio[$key] = $value;
+    }
+
+    foreach ($this->ConsolidaDadosInscricao($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd) as $key => $value) {
+      $dados_candidato_para_relatorio[$key] = $value;
+    }
+
+    if ($necessita_recomendante) {
+      
+      $dados = new DadosInscricao();
+
+        $contatos_indicados = explode("_", $dados->retorna_dados_inscricao($dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd)[0]->recomendantes);
+        
+        foreach ($contatos_indicados  as $id ) {
+
+          $recomendantes_candidato[$id] = $this->ConsolidaCartaPorRecomendante($id, $dados_candidato_para_relatorio['id_candidato'], $id_inscricao_pnpd);
+        }
+    }
+
+    $nome_arquivos = $this->ConsolidaNomeArquivos($locais_arquivos['arquivos_temporarios'], $locais_arquivos['local_relatorios'], $dados_candidato_para_relatorio);
+    
+    $pdf = PDF::loadView('templates.partials.coordenador.pdf_relatorio', compact('dados_candidato_para_relatorio','recomendantes_candidato', 'necessita_recomendante'));
+
+    $pdf->save($nome_arquivos['arquivo_relatorio_candidato_temporario']);
+
+    $nome_uploads = $this->ConsolidaDocumentosPDF($dados_candidato_para_relatorio['id_candidato'], $locais_arquivos['local_documentos'], $id_inscricao_pnpd);
+
+    $this->ConsolidaFichaRelatorio($nome_arquivos, $nome_uploads);
+
+    $endereco_mudar = '/var/www/inscricoespos/storage/app/public/';
+    
+    return str_replace($endereco_mudar, 'storage/', $nome_arquivos['arquivo_relatorio_candidato_final']);
+  }
 }
