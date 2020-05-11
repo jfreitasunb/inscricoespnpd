@@ -48,4 +48,9 @@ class CartaRecomendacao extends Model
     {
         return $this->where('id_recomendante', $id_recomendante)->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->get()->first();
     }
+
+    public function conta_cartas_enviadas_por_candidato($id_inscricao_pnpd, $id_candidato)
+    {
+        return $this->where('id_inscricao_pnpd',$id_inscricao_pnpd)->where('id_candidato',$id_candidato)->where('carta_finalizada',TRUE)->count();
+    }
 }
