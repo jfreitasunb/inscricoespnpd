@@ -16,7 +16,7 @@
       <tbody>
         @foreach( $inscricoes_finalizadas as $finalizada)
           <tr class="{{ $classes_linhas[$total_cartas[$finalizada['id_candidato']]] }}">
-            <td><a href=" {{ route('ver.ficha.individual', ['id_inscricao_pos' => $finalizada['id_inscricao_pos'],'id_aluno' => $finalizada['id_candidato']]) }}">{{ $finalizada['nome'] }}</a></td>
+            <td><a href=" {{ route('ver.ficha.individual', ['id_inscricao_pnpd' => $finalizada['id_inscricao_pnpd'],'id_aluno' => $finalizada['id_candidato']]) }}">{{ $finalizada['nome'] }}</a></td>
             <td>@if($id_aluno_pdf == $finalizada['id_candidato']) <a target="_blank" href="{{asset($nome_pdf)}}" > Ficha de Inscrição </a> @endif</td>
             <td>{{ $total_cartas[$finalizada['id_candidato']] }}</td>
           </tr>
