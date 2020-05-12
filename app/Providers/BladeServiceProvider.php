@@ -24,6 +24,8 @@ class BladeServiceProvider extends ServiceProvider
 
     private $accordion_relatorios = [ 'relatorio.atual', 'relatorio.anteriores'];
 
+    private $accordion_contas = ['lista.edita.usuarios', 'admin.impersonate', 'associa.recomendantes', 'visualiza.associacoes', 'conta.cartas.recomendante'];
+
     public function ativa_accordion_configura_edital()
     {
         if (in_array(Route::currentRouteName(), $this->accordion_configurar_edital)) {
@@ -36,6 +38,15 @@ class BladeServiceProvider extends ServiceProvider
     public function ativa_accordion_relatorios()
     {
         if (in_array(Route::currentRouteName(), $this->accordion_relatorios)) {
+            return 'show';
+        }else{
+            return '';
+        }
+    }
+
+    public function ativa_accordion_contas()
+    {
+        if (in_array(Route::currentRouteName(), $this->accordion_contas)) {
             return 'show';
         }else{
             return '';
@@ -54,7 +65,7 @@ class BladeServiceProvider extends ServiceProvider
                 return false;
             }
 
-            // View::share('keep_open_accordion_contas', $this->ativa_accordion_contas());
+            View::share('keep_open_accordion_contas', $this->ativa_accordion_contas());
 
             // View::share('keep_open_accordion_dados_pos', $this->ativa_accordion_dados_pos());
 
