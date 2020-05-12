@@ -21,7 +21,7 @@ class CreateDadosInscricaoTable extends Migration
             $table->foreign('id_inscricao_pnpd')->references('usuario_id')->on('users')->onDelete('cascade');
             $table->string('cpf', 20);
             $table->text('instituicao');
-            $table->integer('ano_doutorado', 4);
+            $table->integer('ano_doutorado', false, false);
             $table->text('colaboradores');
             $table->string('recomendantes', 26);
             $table->timestamps();
