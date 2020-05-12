@@ -95,9 +95,9 @@ class ConfiguraInscricaoController extends Controller
 
             Notification::send(User::find('1'), new NotificaNovaInscricao($dados_email));
 
-            Alert::error('Já existe uma inscrição ativa!', 'Não é possível configurar uma nova!');
+            Alert::success('Inscrição configurada com sucesso!');
 
-            return redirect()->route('configura.inscricao');
+            return redirect()->route('home');
         }else{
 
             Alert::error('Já existe uma inscrição ativa!', 'Não é possível configurar uma nova!');
