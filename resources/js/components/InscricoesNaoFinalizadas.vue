@@ -53,15 +53,14 @@
                                     <div class="container">
                                         <div class="row">
                                             <div v-if="record.curriculo !== null">
-                                                <a class="myhover" href="#" @click.prevent="myFunction(record.curriculo)">Documentos pessoais</a><br><br>
+                                                <a class="myhover" href="#" @click.prevent="myFunction(record.curriculo)">Curriculo&nbsp;&nbsp;&nbsp;</a><br><br>
                                             </div>
                                             <div v-if="record.projeto !== null">
-                                                <a class="myhover" href="#" @click.prevent="myFunction(record.projeto)">Projeto</a><br><br>
+                                                <a class="myhover" href="#" @click.prevent="myFunction(record.projeto)">Projeto&nbsp;&nbsp;&nbsp;</a><br><br>
                                             </div>
                                         <div v-if="record.necessita_recomendante">
-                                        <p :class="(record.recomendante1) ? 'mybg-success' : 'mybg-danger'">O recomendante 1 <span v-if="record.recomendante1"> FOI </span> <span v-else> NÃO FOI </span>foi notificado</p><br>
-                                        <p :class="(record.recomendante2) ? 'mybg-success' : 'mybg-danger'">O recomendante 2 <span v-if="record.recomendante2"> FOI </span> <span v-else> NÃO FOI </span>foi notificado</p><br>
-                                        <p :class="(record.recomendante3) ? 'mybg-success' : 'mybg-danger'">O recomendante 3 <span v-if="record.recomendante3"> FOI </span> <span v-else> NÃO FOI </span>foi notificado</p><br>
+                                        <p :class="(record.recomendante1) ? 'mybg-success' : 'mybg-danger'">&nbsp;&nbsp;&nbsp; O recomendante 1 <span v-if="record.recomendante1"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
+                                        <p :class="(record.recomendante2) ? 'mybg-success' : 'mybg-danger'">&nbsp;&nbsp;&nbsp; O recomendante 2 <span v-if="record.recomendante2"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
                                         </div>
                                     </div>    
                                     </div>
@@ -70,7 +69,7 @@
                                 </template>
                             </td>
                             <td>
-                                <div v-if="record.programa_pretendido !== null">
+                                <div>
                                     <a href="#" @click.provent="update(record.id_candidato, record.id_inscricao_pos)">Finalizar manualmente</a>
                                 </div>
                             </td>
