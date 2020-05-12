@@ -23,9 +23,14 @@ class ArquivosParaInscricao extends Model
         'tipo_arquivo',
     ];
 
-    public function retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd, $tipo_arquivo)
+    public function retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd, $tipo_arquivo = null)
     {
-        return $this->select('nome_arquivo')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('tipo_arquivo', $tipo_arquivo)->orderBy('created_at','desc')->first();
+
+        if (!is_null($tipo_arquivo)) {
+            return $this->select('nome_arquivo')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('tipo_arquivo', $tipo_arquivo)->orderBy('created_at','desc')->first();
+        }else{
+            return $this->select('nome_arquivo')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->orderBy('created_at','desc')->get();
+        }
     }
 
     public function atualiza_arquivos_enviados($id_candidato, $id_inscricao_pnpd, $tipo_arquivo)
