@@ -100,7 +100,13 @@ class RelatorioController extends HomeController
 
     $consolida_dados_inscricao['ano_doutorado'] = $dados[0]->ano_doutorado;
 
-    $consolida_dados_inscricao['colaboradores'] = $dados[0]->colaboradores;
+    $temp = explode(";", $dados[0]->colaboradores);
+
+    for ($i=0; $i < sizeof($temp); $i++) { 
+      $colab .= "<li>".$temp[$i]."</li>";
+    }
+    
+    $consolida_dados_inscricao['colaboradores'] = $colab;
 
     return $consolida_dados_inscricao;
   }

@@ -50,6 +50,10 @@
         <div>
             <label>Instituição: </label> {{ $dados_candidato_para_relatorio['instituicao'] }} &nbsp; &nbsp; &nbsp; <label>Ano de conclusão do Doutorado: </label> {{ $dados_candidato_para_relatorio['ano_doutorado'] }}
         </div>
+    
+        <hr>
+        <h3>Possíveis colaboradores</h3>
+            <ul>{!! $dados_candidato_para_relatorio['instituicao'] !!}</ul>
 
         @if ($necessita_recomendante)
             <hr>
