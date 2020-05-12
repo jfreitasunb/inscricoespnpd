@@ -1,18 +1,18 @@
 <template>    
-    <div class="panel panel-default">
-        <div class="panel-heading">{{ response.table }}</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card">{{ response.table }}</div>
+        <div class="card-body">
             <form action="#" @submit.prevent="getRecords">
                 <label for="search">Pesquisa</label>
                 <div class="row row-fluid">
-                    <div class="group col-md-3">
+                    <div class="group col-lg-3">
                         <select class="form-control" v-model="search.column">
                             <option :value="column" v-for="column in response.displayable">
                                 {{ column }}
                             </option>
                         </select>
                     </div>
-                    <div class="group col-md-3">
+                    <div class="group col-lg-3">
                         <select class="form-control" v-model="search.operator">
                             <option value="equals">=</option>
                             <option value="contains">Contém</option>
@@ -22,11 +22,11 @@
                             <option value="less_than">Menor que</option>
                         </select>
                     </div>
-                    <div class="group col-md-3">
+                    <div class="group col-lg-3">
                         <div class="input-group">
                             <input type="text" id="search" v-model="search.value" class="form-control">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit">Pesquisar</button>
+                                <button class="btn btn-secondary" type="submit">Pesquisar</button>
                             </span>
                         </div>
                     </div>
@@ -35,11 +35,11 @@
             </form>
 
             <div class="row">
-                <div class="form-group col-md-10">
+                <div class="form-group col-lg-10">
                     <label for="filter">Pesquisa rápida</label>
                     <input type="text" id="filter" class="form-control" v-model="quickSearchQuery">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-lg-2">
                     <label id="limit">Limitar resultados à:</label>
                     <select id="limit" class="form-control" v-model="limit" @change="getRecords">
                         <option value="50">50</option>
