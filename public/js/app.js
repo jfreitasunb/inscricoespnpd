@@ -2022,20 +2022,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         records: []
       },
       sort: {
-        key: 'id_user',
+        key: 'usuario_id',
         order: 'asc'
       },
       limit: 50,
       quickSearchQuery: '',
       editing: {
-        id_user: null,
+        usuario_id: null,
         form: {},
         errors: []
       },
       search: {
         value: null,
         operator: 'equals',
-        column: 'id_user'
+        column: 'usuario_id'
       }
     };
   },
@@ -2084,7 +2084,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     edit: function edit(record) {
       this.editing.errors = [];
-      this.editing.id_user = record.id_user;
+      this.editing.usuario_id = record.usuario_id;
       this.editing.form = _.pick(record, this.response.updatable);
     },
     isUpdatable: function isUpdatable(column) {
@@ -2093,9 +2093,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     update: function update() {
       var _this3 = this;
 
-      axios.patch("".concat(this.endpoint, "/").concat(this.editing.id_user), this.editing.form).then(function () {
+      axios.patch("".concat(this.endpoint, "/").concat(this.editing.usuario_id), this.editing.form).then(function () {
         _this3.getRecords().then(function () {
-          _this3.editing.id_user = null;
+          _this3.editing.usuario_id = null;
           _this3.editing.form = {};
         });
       })["catch"](function (error) {
@@ -38924,12 +38924,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "panel panel-default" }, [
-    _c("div", { staticClass: "panel-heading" }, [
-      _vm._v(_vm._s(_vm.response.table))
-    ]),
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card" }, [_vm._v(_vm._s(_vm.response.table))]),
     _vm._v(" "),
-    _c("div", { staticClass: "panel-body" }, [
+    _c("div", { staticClass: "card-body" }, [
       _c(
         "form",
         {
@@ -38945,7 +38943,7 @@ var render = function() {
           _c("label", { attrs: { for: "search" } }, [_vm._v("Pesquisa")]),
           _vm._v(" "),
           _c("div", { staticClass: "row row-fluid" }, [
-            _c("div", { staticClass: "group col-md-3" }, [
+            _c("div", { staticClass: "group col-lg-3" }, [
               _c(
                 "select",
                 {
@@ -38991,7 +38989,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "group col-md-3" }, [
+            _c("div", { staticClass: "group col-lg-3" }, [
               _c(
                 "select",
                 {
@@ -39050,7 +39048,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "group col-md-3" }, [
+            _c("div", { staticClass: "group col-lg-3" }, [
               _c("div", { staticClass: "input-group" }, [
                 _c("input", {
                   directives: [
@@ -39082,7 +39080,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "form-group col-md-10" }, [
+        _c("div", { staticClass: "form-group col-lg-10" }, [
           _c("label", { attrs: { for: "filter" } }, [
             _vm._v("Pesquisa rápida")
           ]),
@@ -39110,7 +39108,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-2" }, [
+        _c("div", { staticClass: "form-group col-lg-2" }, [
           _c("label", { attrs: { id: "limit" } }, [
             _vm._v("Limitar resultados à:")
           ]),
@@ -39213,7 +39211,7 @@ var render = function() {
                     return _c(
                       "td",
                       [
-                        _vm.editing.id_user === record.id_user &&
+                        _vm.editing.usuario_id === record.usuario_id &&
                         _vm.isUpdatable(column)
                           ? [
                               _c(
@@ -39286,7 +39284,7 @@ var render = function() {
                   _c(
                     "td",
                     [
-                      _vm.editing.id_user !== record.id_user
+                      _vm.editing.usuario_id !== record.usuario_id
                         ? _c(
                             "a",
                             {
@@ -39302,7 +39300,7 @@ var render = function() {
                           )
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm.editing.id_user === record.id_user
+                      _vm.editing.usuario_id === record.usuario_id
                         ? [
                             _c(
                               "a",
@@ -39326,7 +39324,7 @@ var render = function() {
                                 on: {
                                   click: function($event) {
                                     $event.preventDefault()
-                                    _vm.editing.id_user = null
+                                    _vm.editing.usuario_id = null
                                   }
                                 }
                               },
@@ -39356,7 +39354,7 @@ var staticRenderFns = [
     return _c("span", { staticClass: "input-group-btn" }, [
       _c(
         "button",
-        { staticClass: "btn btn-default", attrs: { type: "submit" } },
+        { staticClass: "btn btn-secondary", attrs: { type: "submit" } },
         [_vm._v("Pesquisar")]
       )
     ])
