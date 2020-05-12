@@ -35,6 +35,10 @@ Route::prefix('admin')->middleware('user.role:admin', 'auth')->group(function ()
     Route::get('inscricoes/nao/finalizadas', 'Admin\ListaInscricaoNaoFinalizadasController@getInscricoesNaoFinalizadas')->name('inscricoes.nao.finalizadas');
 
     Route::resource('datatable/inscricoesnaofinalizadas','DataTable\InscricoesNaoFinalizadasDataTableController');
+
+    Route::get('inscricao/altera/recomendantes', 'Admin\MudaRecomendanteController@getAlteraRecomendantes')->name('altera.recomendante');
+
+    Route::resource('datatable/alterarecomendante','DataTable\MudarRecomendanteDataTableController');
 });
 
 Route::prefix('coordenador')->middleware('user.role:admin,coordenador', 'auth')->group(function () {

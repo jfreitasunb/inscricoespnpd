@@ -20,7 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import DataTableUser from'./components/DataTableUser.vue';
-// const MudaRecomendante = require('./components/MudaRecomendante.vue');
+import MudaRecomendante from './components/MudaRecomendante.vue';
 // const ContaCartasRecomendantes = require('./components/ContaCartasRecomendantes.vue');
 import InscricoesNaoFinalizadas from './components/InscricoesNaoFinalizadas.vue';
 // const ListaRecomendacoesAtivas  = require('./components/ListaRecomendacoesAtivas.vue');
@@ -29,7 +29,7 @@ const app = new Vue({
     el: '#app',
     components: {
         DataTableUser,
-        // MudaRecomendante,
+        MudaRecomendante,
         // ContaCartasRecomendantes,
         InscricoesNaoFinalizadas,
         // ListaRecomendacoesAtivas

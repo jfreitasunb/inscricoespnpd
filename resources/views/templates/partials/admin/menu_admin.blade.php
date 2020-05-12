@@ -62,6 +62,11 @@
                                     <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('inscricoes.nao.finalizadas') }}">Inscrições Não Finalizadas</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class= "{{ Route::currentRouteNamed('altera.recomendante') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('altera.recomendante') }}">Alterar Recomendantes</a>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -81,6 +86,7 @@
                 @yield('lista_edita_usuarios')
                 @yield('editar_inscricao')
                 @yield('nao_finalizadas')
+                @yield('altera_recomendantes')
             </div>
         </div>
     </div>
