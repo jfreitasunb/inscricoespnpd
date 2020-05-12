@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                         <tr>
                             <th v-for="column in response.visivel">
@@ -42,9 +42,6 @@
                                 {{ record.email }}
                             </td>
                             <td>
-                                {{ record.programa_pretendido }}
-                            </td>
-                            <td>
                                 {{ record.created_at }}
                             </td>
                             <td>
@@ -55,14 +52,8 @@
                                 <template v-if="detalhe.id_candidato === record.id_candidato">
                                     <div class="container">
                                         <div class="row">
-                                            <div v-if="record.documentos !== null">
-                                                <a class="myhover" href="#" @click.prevent="myFunction(record.documentos)">Documentos pessoais</a><br><br>
-                                            </div>
-                                            <div v-if="record.comprovante !== null">
-                                                <a class="myhover" href="#" @click.prevent="myFunction(record.comprovante)">Comprovante de idioma</a><br><br>
-                                            </div>
-                                            <div v-if="record.historico !== null">
-                                                <a class="myhover" href="#" @click.prevent="myFunction(record.historico)">Histórico</a><br><br>
+                                            <div v-if="record.curriculo !== null">
+                                                <a class="myhover" href="#" @click.prevent="myFunction(record.curriculo)">Documentos pessoais</a><br><br>
                                             </div>
                                             <div v-if="record.projeto !== null">
                                                 <a class="myhover" href="#" @click.prevent="myFunction(record.projeto)">Projeto</a><br><br>
