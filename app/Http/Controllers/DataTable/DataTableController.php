@@ -9,6 +9,8 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 
+use Illuminate\Support\Arr;
+
 use Illuminate\Database\QueryException;
 
 abstract class DataTableController extends Controller
@@ -43,9 +45,9 @@ abstract class DataTableController extends Controller
     }
 
 
-    public function update($id_user, Request $request)
+    public function update($usuario_id, Request $request)
     {
-        $this->builder->find($id_user)->update($request->only($this->getUpdatableColumns()));
+        $this->builder->find($usuario_id)->update($request->only($this->getUpdatableColumns()));
     }
 
     public function getDisplayableColumns()
@@ -101,7 +103,7 @@ abstract class DataTableController extends Controller
 
     protected function resolveQueryParts($operator, $value)
     {
-        return array_get([
+        return Arr::get([
             'equals' => [
                 'operator' => '=',
                 'value' => $value
