@@ -64,7 +64,7 @@
                     <tbody>
                         <tr v-for="record in filteredRecords">
                             <td v-for="columnValue, column in record">
-                                <template v-if="editing.id_user === record.id_user && isUpdatable(column)">
+                                <template v-if="editing.usuario_id === record.usuario_id && isUpdatable(column)">
                                     <div class="form-group" :class="{ 'has-error': editing.errors[column] }">
                                         <input type="text" class="form-control" :name="columnValue" v-model="editing.form[column]">
                                         <span class="help-block" v-if="editing.errors[column]">
@@ -78,11 +78,11 @@
                                 </template>
                             </td>
                             <td>
-                                <a href="#" @click.prevent="edit(record)" v-if="editing.id_user !== record.id_user">Editar</a>
+                                <a href="#" @click.prevent="edit(record)" v-if="editing.usuario_id !== record.usuario_id">Editar</a>
 
-                                <template v-if=" editing.id_user === record.id_user">
+                                <template v-if=" editing.usuario_id === record.usuario_id">
                                     <a href="#" @click.prevent="update()">Salvar</a><br>
-                                    <a href="#" @click.prevent="editing.id_user = null">Cancelar</a>  
+                                    <a href="#" @click.prevent="editing.usuario_id = null">Cancelar</a>  
                                 </template>
                             </td>
                         </tr>
@@ -108,7 +108,7 @@
                 },
 
                 sort: {
-                    key: 'id_user',
+                    key: 'usuario_id',
                     order: 'asc'
                 },
 
@@ -117,7 +117,7 @@
                 quickSearchQuery: '',
 
                 editing: {
-                    id_user: null,
+                    usuario_id: null,
                     form: {},
                     errors: []
                 },
@@ -125,7 +125,7 @@
                 search: {
                     value: null,
                     operator: 'equals',
-                    column: 'id_user'
+                    column: 'usuario_id'
                 }
             }
         },
@@ -189,7 +189,7 @@
             edit (record) {
 
                 this.editing.errors = []
-                this.editing.id_user = record.id_user
+                this.editing.usuario_id = record.usuario_id
                 this.editing.form = _.pick(record, this.response.updatable)
             },
 
@@ -200,11 +200,11 @@
 
             update () {
 
-                axios.patch(`${this.endpoint}/${this.editing.id_user}`, this.editing.form).then(() => {
+                axios.patch(`${this.endpoint}/${this.editing.usuario_id}`, this.editing.form).then(() => {
 
                     this.getRecords().then(() => {
 
-                        this.editing.id_user = null
+                        this.editing.usuario_id = null
                         this.editing.form = {}
 
                     })
