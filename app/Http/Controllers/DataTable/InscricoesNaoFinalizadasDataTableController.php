@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
+use App\Models\CartaRecomendacao;
 
 use Notification;
 use Storage;
@@ -98,8 +99,11 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                         
                         $temp = explode("_", $ids_recomendantes);
 
-                        for ($i=0; $i < sizeof($temp); $i++) { 
-                            $recomendantes[$i+1] = User::find($temp[$i])->nome."/".User::find($temp[$i])->email;
+                        for ($i=0; $i < sizeof($temp); $i++) {
+
+                            $carta = new CartaRecomendacao();
+
+                            $recomendantes[$i+1] = $carta->retorna_carta_inicializada($temp[$i], $id_candidato, $id_inscricao_pnpd);
                         }
                     }else{
                         $recomendante[1] = null;
@@ -107,7 +111,7 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                     }
                 }
                 
-                $url_arquivo = URL::to('/')."/".str_replace('/var/www/inscricoespos/storage/app/public','storage',storage_path('app/public/relatorios/arquivos_auxiliares/'));
+                $url_arquivo = URL::to('/').str_replace('/var/www/inscricoespos/storage/app/public','storage',storage_path('app/public/relatorios/arquivos_auxiliares/'));
 
                 $documentos_enviados = new ArquivosParaInscricao();
                 
@@ -130,9 +134,9 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                 }
 
                 if ($necessita_recomendante) {
-                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendantes[1], 'recomendante2' => $recomendantes[2], is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
+                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendantes[1], 'recomendante2' => $recomendantes[2], 'projeto' => is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], 'curriculo' => is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }else{
-                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
+                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'projeto' => is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], 'curriculo' => is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }
                 
             }
