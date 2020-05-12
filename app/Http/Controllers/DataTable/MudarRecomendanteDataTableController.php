@@ -6,32 +6,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\User;
-use App\Models\ContatoRecomendante;
 use App\Models\CartaRecomendacao;
+use App\Models\DadosInscricao;
 use Illuminate\Validation\Rule;
 use DB;
 use Notification;
 use Carbon\Carbon;
 use App\Notifications\NotificaRecomendante;
+use Illuminate\Support\Str;
 
 class MudarRecomendanteDataTableController extends DataTableController
 {
     public function builder()
     {
-        return ContatoRecomendante::query();
+        return CartaRecomendacao::query();
     }
 
     public function getDisplayableColumns()
     {
         return [
-            'id_candidato', 'id_recomendante', 'email_enviado',
+            'id_candidato', 'id_recomendante', 'carta_finalizada'
         ];
     }
 
     public function getVisibleColumns()
     {
         return [
-            'id', 'nome_candidato', 'nome_programa_pretendido', 'nome_recomendante', 'email_recomendante', 'status_carta'
+            'id', 'nome_candidato', 'nome_recomendante', 'email_recomendante', 'status_carta'
         ];
     }
 
@@ -48,7 +49,6 @@ class MudarRecomendanteDataTableController extends DataTableController
             'id' => 'Inscrição',
             'id_candidato' => 'Identificador',
             'nome_candidato' => 'Nome',
-            'nome_recomendante' => 'Nome Recomendante',
             'email_recomendante' => 'E-mail Recomendante',
             'status_carta' => 'Carta enviada?'
         ];
@@ -60,7 +60,7 @@ class MudarRecomendanteDataTableController extends DataTableController
 
         $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
-        $id_inscricao_pos = $relatorio_disponivel->id_inscricao_pos;
+        $id_inscricao_pnpd = $relatorio_disponivel->id_inscricao_pnpd;
 
         return response()->json([
             'data' => [
@@ -70,7 +70,7 @@ class MudarRecomendanteDataTableController extends DataTableController
                 'updatable' => $this->getUpdatableColumns(),
                 'custom_columns' => $this->getCustomColumnNanes(),
                 'records' => $this->getRecords($request),
-                'id_inscricao_pos' => $id_inscricao_pos
+                'id_inscricao_pnpd' => $id_inscricao_pnpd
             ]
         ]);
     }
@@ -87,24 +87,16 @@ class MudarRecomendanteDataTableController extends DataTableController
 
         $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
-        $id_inscricao_pos = $relatorio_disponivel->id_inscricao_pos;
+        $id_inscricao_pnpd = $relatorio_disponivel->id_inscricao_pnpd;
 
-        $dados_temporarios = $this->builder()->limit($request->limit)->where('id_inscricao_pos', $id_inscricao_pos)->orderBy('id_candidato')->get($this->getDisplayableColumns());
+        $dados_temporarios = $this->builder()->limit($request->limit)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->orderBy('id_candidato')->get($this->getDisplayableColumns());
 
         $i = 1;
 
         if (sizeof($dados_temporarios) > 0) {
             foreach ($dados_temporarios as $dados) {
-
-                $escolha = new EscolhaCandidato();
-
-                $id_programa_pretendido = $escolha->retorna_escolha_candidato($dados->id_candidato, $id_inscricao_pos)->programa_pretendido;
-
-                $carta = new CartaRecomendacao();
-
-                $status_carta = $carta->retorna_status_carta_recomendacao($dados->id_recomendante, $dados->id_candidato, $id_inscricao_pos);
                 
-                $dados_vue[] = ['id' => $i, 'id_candidato' => $dados->id_candidato, 'nome_candidato' => (User::find($dados->id_candidato))->nome, 'nome_programa_pretendido' => (ProgramaPos::find($id_programa_pretendido))->tipo_programa_pos_ptbr, "id_programa_pretendido" => $id_programa_pretendido, 'id_recomendante' => $dados->id_recomendante, 'nome_recomendante' => (User::find($dados->id_recomendante))->nome, 'email_recomendante' => (User::find($dados->id_recomendante))->email, 'status_carta' => $status_carta];
+                $dados_vue[] = ['id' => $i, 'id_candidato' => $dados->id_candidato, 'nome_candidato' => (User::find($dados->id_candidato))->nome, 'id_recomendante' => $dados->id_recomendante, 'nome_recomendante' => (User::find($dados->id_recomendante))->nome, 'email_recomendante' => (User::find($dados->id_recomendante))->email, 'carta_finalizada' => $dados->carta_finalizada];
 
                 $i++;
             }
@@ -129,7 +121,7 @@ class MudarRecomendanteDataTableController extends DataTableController
 
         $relatorio_disponivel = $relatorio->retorna_edital_vigente();
 
-        $id_inscricao_pos = $relatorio_disponivel->id_inscricao_pos;
+        $id_inscricao_pnpd = $relatorio_disponivel->id_inscricao_pnpd;
 
         $id_candidato = (int)$request->id_candidato;
 
@@ -153,11 +145,11 @@ class MudarRecomendanteDataTableController extends DataTableController
             
             $user_recomendante->registra_recomendante($novo_recomendante);
             
-            $id_novo_recomendante = $user_recomendante->retorna_user_por_email($email_recomendante)->id_user;
+            $id_novo_recomendante = $user_recomendante->retorna_user_por_email($email_recomendante)->usuario_id;
         }else{
 
             if ($acha_recomendante->user_type === 'recomendante') {
-                $id_novo_recomendante = $acha_recomendante->id_user;
+                $id_novo_recomendante = $acha_recomendante->usuario_id;
             }else{
 
                 notify()->flash('O e-mail: '.$email_recomendante.' pertence a um candidato!','error');
@@ -167,18 +159,32 @@ class MudarRecomendanteDataTableController extends DataTableController
 
         $carta_recomendacao = new CartaRecomendacao();
 
-        $ja_enviou_carta = $carta_recomendacao->retorna_carta_recomendacao($id_recomendante, $id_candidato, $id_inscricao_pos);
+        $ja_enviou_carta = $carta_recomendacao->carta_preenchida($id_recomendante, $id_candidato, $id_inscricao_pnpd);
 
-        if ($ja_enviou_carta->completada) {
+        if ($ja_enviou_carta) {
             
             return redirect()->back();
             
         }else{
-            $mudou_recomendante = DB::table('cartas_recomendacoes')->where('id_candidato', $id_candidato)->where('id_inscricao_pos', $id_inscricao_pos)->where('id_recomendante', $id_recomendante)->where('completada', false)->update(['id_recomendante' => $id_novo_recomendante, 'updated_at' => date('Y-m-d H:i:s') ]);
 
-            DB::table('contatos_recomendantes')->where('id_candidato', $id_candidato)->where('id_inscricao_pos', $id_inscricao_pos)->where('id_recomendante', $id_recomendante)->update(['id_recomendante' => $id_novo_recomendante, 'updated_at' => date('Y-m-d H:i:s') ]);
+            DB::table('carta_recomendacao')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('id_recomendante', $id_recomendante)->where('carta_finalizada', false)->update(['id_recomendante' => $id_novo_recomendante, 'updated_at' => date('Y-m-d H:i:s') ]);
 
-            $edital = ConfiguraInscricaoPNPD::find($id_inscricao_pos);
+            $dados_inscricao = new DadosInscricao();
+
+            $dados_candidato = $dados_inscricao->retorna_dados_inscricao($id_candidato, $id_inscricao_pnpd);
+
+            $novos_recomendantes = str_replace($id_recomendante, $id_novo_recomendante, $dados_candidato[0]->recomendantes);
+
+            DB::table('dados_inscricao')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->update(['recomendantes' => $novos_recomendantes, 'updated_at' => date('Y-m-d H:i:s') ]);
+
+
+            $novo_tamanho_link = rand(60, 99);
+
+            $novo_link_acesso = Str::random($novo_tamanho_link);
+
+            DB::table('link_carta_recomendacao')->where('id_candidato', $id_candidato)->where('id_inscricao_pnpd', $id_inscricao_pnpd)->where('id_recomendante', $id_recomendante)->update(['id_recomendante' => $id_novo_recomendante, 'link_acesso' => $novo_link_acesso, 'tamanho_link' => $novo_tamanho_link, 'updated_at' => date('Y-m-d H:i:s') ]);
+
+            $edital = ConfiguraInscricaoPNPD::find($id_inscricao_pnpd);
 
             $prazo_envio = Carbon::createFromFormat('Y-m-d', $edital->prazo_carta);
 
@@ -186,6 +192,12 @@ class MudarRecomendanteDataTableController extends DataTableController
             $dados_email['nome_candidato'] = $request->nome_candidato;
             $dados_email['email_recomendante'] = $email_recomendante;
             $dados_email['prazo_envio'] = $prazo_envio->format('d/m/Y');
+
+            $dados_email['id_recomendante'] = $id_novo_recomendante;
+
+            $dados_email['id_inscricao_pnpd'] = $id_inscricao_pnpd;
+
+            $dados_email['link_acesso'] = $novo_link_acesso;
 
             Notification::send(User::find($id_novo_recomendante), new NotificaRecomendante($dados_email));
         }

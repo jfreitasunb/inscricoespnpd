@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -70,5 +71,37 @@ class User extends Authenticatable
     public function retorna_id_pelo_email($email)
     {
         return $this->select('usuario_id')->where('email', $email)->value('usuario_id');
+    }
+
+    public function retorna_user_por_email($email)
+    {
+        return $this->where('email',$email)->get()->first();
+    }
+
+    public function registra_recomendante($novo_recomendante)
+    {
+        if (is_null($this->retorna_user_por_email($novo_recomendante['email']))){
+
+            $senha_temporaria = str_shuffle(bin2hex(random_bytes(rand(5, 20))).$novo_recomendante['email'].bin2hex(random_bytes(rand(5, 25))));
+                
+            $novo_usuario = new User();
+            $novo_usuario->nome = $novo_recomendante['nome'];
+            $novo_usuario->email = $novo_recomendante['email'];
+            $novo_usuario->locale = "en";
+            $novo_usuario->password = Hash::make($senha_temporaria);
+            $novo_usuario->user_type =  "recomendante";
+            $novo_usuario->save();
+
+            $id_recomendante = $novo_usuario->usuario_id;
+
+            $inicia_dado = new DadosRecomendante();
+
+            $inicia_dado->id_recomendante = $id_recomendante;
+
+            $inicia_dado->save();
+            
+        }elseif ($this->retorna_user_por_email($novo_recomendante['email'])->user_type <> "recomendante"){
+                return true;
+        }
     }
 }

@@ -70,10 +70,7 @@
                                 {{ record.nome_candidato }}
                             </td>
                             <td>
-                                {{ record.nome_programa_pretendido }}
-                            </td>
-                            <td>
-                                <template v-if="editing.id_candidato === record.id_candidato && !record.status_carta && editing.id_recomendante === record.id_recomendante && isUpdatable('nome_recomendante')">
+                                <template v-if="editing.id_candidato === record.id_candidato && !record.carta_finalizada && editing.id_recomendante === record.id_recomendante && isUpdatable('nome_recomendante')">
                                     <div class="form-group" :class="{ 'has-error': editing.errors['nome_recomendante'] }">
                                         <input type="text" class="form-control" :name="record.nome_recomendante" v-model="editing.form['nome_recomendante']">
                                         <span class="help-block" v-if="editing.errors['nome_recomendante']">
@@ -87,7 +84,7 @@
                                 </template>
                             </td>
                             <td>
-                                <template v-if="editing.id_candidato === record.id_candidato && editing.id_recomendante === record.id_recomendante && !record.status_carta && isUpdatable('email_recomendante')">
+                                <template v-if="editing.id_candidato === record.id_candidato && editing.id_recomendante === record.id_recomendante && !record.carta_finalizada && isUpdatable('email_recomendante')">
                                     <div class="form-group" :class="{ 'has-error': editing.errors['email_recomendante'] }">
                                         <input type="text" class="form-control" :name="record.email_recomendante" v-model="editing.form['email_recomendante']">
                                         <span class="help-block" v-if="editing.errors['email_recomendante']">
@@ -101,12 +98,12 @@
                                 </template>
                             </td>
                             <td>
-                                {{ record.status_carta }}
+                                {{ record.carta_finalizada }}
                             </td>
                             <td>
-                                <a href="#" @click.prevent="edit(record)" v-if="editing.id_candidato !== record.id_candidato && !record.status_carta">Editar</a>
+                                <a href="#" @click.prevent="edit(record)" v-if="editing.id_candidato !== record.id_candidato && !record.carta_finalizada">Editar</a>
 
-                                <template v-if=" editing.id_candidato === record.id_candidato">
+                                <template v-if=" editing.id_candidato === record.id_candidato && !record.carta_finalizada">
                                     <a href="#" @click.prevent="update()">Salvar</a><br>
                                     <a href="#" @click.prevent="editing.id_candidato = null">Cancelar</a>  
                                 </template>
