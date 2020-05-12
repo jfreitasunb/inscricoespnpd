@@ -30,6 +30,7 @@ Route::prefix('admin')->middleware('user.role:admin', 'auth')->group(function ()
     Route::get('/', 'Admin\AdminController@getMenu')->name('menu.admin');
     Route::get('/editar/inscricao', 'Admin\EditaInscricaoController@getEditaInscricao')->name('editar.inscricao');
     Route::post('/editar/inscricao', 'Admin\EditaInscricaoController@postEditaInscricao')->name('editar.inscricao');
+    Route::get('lista/users', 'Admin\AdministraUserController@index')->name('lista.edita.usuarios');
     Route::resource('datatable/users','DataTable\UserDataTableController');
 });
 

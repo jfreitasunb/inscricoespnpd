@@ -12,10 +12,27 @@
                 <div class="card-header">
                     <h4 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseUm"><span class="glyphicon glyphicon-user fa-fw">
-                        </span>Configurar Edital</a>
+                        </span>Sistema</a>
                     </h4>
                 </div>
                 <div id="collapseUm" class="panel-collapse collapse {{ $keep_open_accordion_configurar_edital }}">
+                    <div class="card-body bg-white">
+                        <table class="table">
+                            <tr>
+                                <td class= "{{ Route::currentRouteNamed('lista.edita.usuarios') ? 'active_link' : '' }}">
+                                    <span class="glyphicon glyphicon-wrench fa-fw"></span><a href="{{ route('lista.edita.usuarios') }}">Lista/Edita Usuários</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDois"><span class="glyphicon glyphicon-user fa-fw">
+                        </span>Configurar Edital</a>
+                    </h4>
+                </div>
+                <div id="collapseDois" class="panel-collapse collapse {{ $keep_open_accordion_configurar_edital }}">
                     <div class="card-body bg-white">
                         <table class="table">
                             <tr>
@@ -33,7 +50,7 @@
                 </div>
                 <div class="card-header">
                     <h4 class="card-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDois"><span class="glyphicon glyphicon-user fa-fw">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTres"><span class="glyphicon glyphicon-user fa-fw">
                         </span>Relatórios</a>
                     </h4>
                 </div>
