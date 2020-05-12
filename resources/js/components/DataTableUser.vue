@@ -1,6 +1,6 @@
 <template>    
     <div class="card">
-        <div class="card">{{ response.table }}</div>
+        <div class="card-header">{{ response.table }}</div>
         <div class="card-body">
             <form action="#" @submit.prevent="getRecords">
                 <label for="search">Pesquisa</label>
