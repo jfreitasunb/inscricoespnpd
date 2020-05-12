@@ -100,7 +100,7 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                         $temp = explode("_", $ids_recomendantes);
 
                         for ($i=0; $i < sizeof($temp); $i++) { 
-                            $recomendantes[$i] = User::find($temp[$i])->nome."/".User::find($temp[$i])->email;
+                            $recomendantes[$i+1] = User::find($temp[$i])->nome."/".User::find($temp[$i])->email;
                         }
                     }else{
                         $recomendante[1] = null;
@@ -111,60 +111,29 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                 $url_arquivo = URL::to('/')."/".str_replace('/var/www/inscricoespos/storage/app/public','storage',storage_path('app/public/relatorios/arquivos_auxiliares/'));
 
                 $documentos_enviados = new ArquivosParaInscricao();
-                dd($documentos_enviados->retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd));
-                if ($documentos_enviados->retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd)){
+                
+                $documentos_candidato = $documentos_enviados->retorna_arquivo_edital_atual($id_candidato, $id_inscricao_pnpd);
+
+                if (sizeof($documentos_candidato)){
                     
-                    $temp = explode("/", $documentos_enviados->retorna_documento($id_candidato,$id_inscricao_pnpd)['nome_arquivo']);
+                    foreach ($documentos_candidato as $documento) {
+                        
+                        $temp =explode("/", $documento['nome_arquivo']);
 
-                    if (count($temp) > 1) {
-                        File::copy(storage_path("app/").$documentos_enviados->retorna_documento($id_candidato,$id_inscricao_pnpd)['nome_arquivo'], storage_path("app/public/relatorios/")."arquivos_auxiliares/".$temp[1]);
+                        if (count($temp) > 1) {
+                            File::copy(storage_path("app/").$documento['nome_arquivo'], storage_path("app/public/relatorios/")."arquivos_auxiliares/".$temp[1]);
 
-                        $documentos = $url_arquivo.$temp[1];
-                    }else{
-                        $documentos = null;
+                            $tipo_documento[strtolower($documento->tipo_arquivo)] = $url_arquivo.$temp[1];
+                        }else{
+                            $tipo_documento[strtolower($documento->tipo_arquivo)] = null;
+                        }
                     }
-                    
-                    $temp = explode("/", $documentos_enviados->retorna_comprovante_proficiencia($id_candidato,$id_inscricao_pnpd)['nome_arquivo']);
-
-                    if (count($temp) > 1) {
-                        File::copy(storage_path("app/").$documentos_enviados->retorna_comprovante_proficiencia($id_candidato,$id_inscricao_pnpd)['nome_arquivo'], storage_path("app/public/relatorios/")."arquivos_auxiliares/".$temp[1]);
-
-                        $comprovante = $url_arquivo.$temp[1];
-                    }else{
-                        $comprovante = null;
-                    }
-                    
-                    $temp = explode("/", $documentos_enviados->retorna_historico($id_candidato,$id_inscricao_pnpd)['nome_arquivo']);
-
-                    if (count($temp) > 1) {
-                        File::copy(storage_path("app/").$documentos_enviados->retorna_historico($id_candidato,$id_inscricao_pnpd)['nome_arquivo'], storage_path("app/public/relatorios/")."arquivos_auxiliares/".$temp[1]);
-
-                        $historico = $url_arquivo.$temp[1];
-                    }else{
-                        $historico = null;
-                    }
-                    
-                    $temp = explode("/", $documentos_enviados->retorna_projeto($id_candidato,$id_inscricao_pnpd)['nome_arquivo']);
-
-                    if (count($temp) > 1) {
-                        File::copy(storage_path("app/").$documentos_enviados->retorna_projeto($id_candidato,$id_inscricao_pnpd)['nome_arquivo'], storage_path("app/public/relatorios/")."arquivos_auxiliares/".$temp[1]);
-
-                        $projeto = $url_arquivo.$temp[1];
-                    }else{
-                        $projeto = null;
-                    }
-
-                }else{
-                    $documentos = null;
-                    $comprovante = null;
-                    $historico = null;
-                    $projeto = null;
                 }
 
                 if ($necessita_recomendante) {
-                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'programa_pretendido' => $programa_pretendido, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendante[1], 'recomendante2' => $recomendante[2], 'recomendante3' => $recomendante[3], 'documentos' => $documentos, 'comprovante' => $comprovante, 'historico' => $historico, 'projeto' => $projeto, 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
+                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendantes[1], 'recomendante2' => $recomendantes[2], is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }else{
-                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'programa_pretendido' => $programa_pretendido, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'documentos' => $documentos, 'comprovante' => $comprovante, 'historico' => $historico, 'projeto' => $projeto, 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
+                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }
                 
             }
