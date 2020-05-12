@@ -59,18 +59,29 @@
                                                 <a class="myhover" href="#" @click.prevent="myFunction(record.projeto)">Projeto&nbsp;&nbsp;&nbsp;</a><br><br>
                                             </div>
                                         <div v-if="record.necessita_recomendante">
-                                        <p :class="(record.recomendante1) ? 'mybg-success' : 'mybg-danger'">&nbsp;&nbsp;&nbsp; O recomendante 1 <span v-if="record.recomendante1"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
-                                        <p :class="(record.recomendante2) ? 'mybg-success' : 'mybg-danger'">&nbsp;&nbsp;&nbsp; O recomendante 2 <span v-if="record.recomendante2"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
+                                            <ul>
+                                                <li>
+                                                    <p :class="(record.recomendante1) ? 'mybg-success' : 'mybg-danger'">O recomendante 1 <span v-if="record.recomendante1"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
+                                                </li>
+                                                <li>
+                                                    <p :class="(record.link_carta1) ? 'mybg-success' : 'mybg-danger'">A carta 1 <span v-if="record.link_carta1"> POSSUI </span> <span v-else> NÃO POSSUI </span>link de preenchimento.</p><br>
+                                                </li>
+                                                <li>
+                                                    <p :class="(record.recomendante2) ? 'mybg-success' : 'mybg-danger'">O recomendante 2 <span v-if="record.recomendante2"> FOI </span> <span v-else> NÃO FOI </span>inicializado.</p><br>
+                                                </li>
+                                                <li>
+                                                    <p :class="(record.link_carta2) ? 'mybg-success' : 'mybg-danger'">A carta 2 <span v-if="record.link_carta2"> POSSUI </span> <span v-else> NÃO POSSUI </span>link de preenchimento.</p><br>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>    
                                     </div>
-                                    
                                     <a class="myhover" href="#" @click.provent="detalhe.id_candidato = null">Fechar</a>
                                 </template>
                             </td>
                             <td>
                                 <div>
-                                    <a href="#" @click.provent="update(record.id_candidato, record.id_inscricao_pos)">Finalizar manualmente</a>
+                                    <a href="#" @click.provent="update(record.id_candidato, record.id_inscricao_pnpd)">Finalizar manualmente</a>
                                 </div>
                             </td>
                         </tr>
@@ -112,7 +123,7 @@
 
                 finalizar: {
                     id_candidato: null,
-                    id_inscricao_pos: null,
+                    id_inscricao_pnpd: null,
                     errors: []
                 },
             }
@@ -180,13 +191,13 @@
                 this.detalhe.id_candidato = id_candidato
             },
 
-            update (id_candidato, id_inscricao_pos) {
-                axios.patch(`${this.endpoint}/${id_candidato+"_"+id_inscricao_pos}`, this.id_inscricao_pos).then(() => {
+            update (id_candidato, id_inscricao_pnpd) {
+                axios.patch(`${this.endpoint}/${id_candidato+"_"+id_inscricao_pnpd}`, this.id_inscricao_pnpd).then(() => {
 
                     this.getRecords().then(() => {
 
                         this.finalizar.id_candidato = null
-                        this.finalizar.id_inscricao_pos = null
+                        this.finalizar.id_inscricao_pnpd = null
                     })
 
                 }).catch((error) => {
