@@ -11,6 +11,8 @@ use App\Models\ConfiguraInscricaoPNPD;
 use App\Models\DadosInscricao;
 use App\Models\ArquivosParaInscricao;
 use App\Models\CartaRecomendacao;
+use App\Models\LinkCartaRecomendacao;
+use App\Notifications\NotificaRecomendante;
 
 use Notification;
 use Storage;
@@ -104,10 +106,18 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                             $carta = new CartaRecomendacao();
 
                             $recomendantes[$i+1] = $carta->retorna_carta_inicializada($temp[$i], $id_candidato, $id_inscricao_pnpd);
+
+                            $link = new LinkCartaRecomendacao();
+
+                            $link_carta[$i+1] = $link->link_existe($temp[$i], $id_candidato, $id_inscricao_pnpd);
                         }
                     }else{
                         $recomendante[1] = null;
                         $recomendante[2] = null;
+
+                        $link_carta[1] = null;
+
+                        $link_carta[2] = null;
                     }
                 }
                 
@@ -134,7 +144,7 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
                 }
 
                 if ($necessita_recomendante) {
-                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendantes[1], 'recomendante2' => $recomendantes[2], 'projeto' => is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], 'curriculo' => is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
+                    $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'recomendante1' => $recomendantes[1], 'recomendante2' => $recomendantes[2], 'link_carta1' => $link_carta[1], 'link_carta2' => $link_carta[2], 'projeto' => is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], 'curriculo' => is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }else{
                     $dados_vue[] = ['id_candidato' => $id_candidato, 'nome' => (User::find($dados->id_candidato))->nome, 'email' => (User::find($dados->id_candidato))->email, 'created_at' => $dados->created_at->format('d/m/Y'). " ".$dados->created_at->format('H:m'), 'updated_at' => $dados->updated_at->format('d/m/Y'). " ".$dados->updated_at->format('H:m'), 'projeto' => is_null($tipo_documento['projeto'])?: $tipo_documento['projeto'], 'curriculo' => is_null($tipo_documento['curriculo'])?: $tipo_documento['curriculo'], 'id_inscricao_pnpd' => $id_inscricao_pnpd, 'necessita_recomendante' => $necessita_recomendante];
                 }
@@ -149,56 +159,47 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
 
     public function update($id, Request $request)
     {
-        
         $id_candidato = explode("_", $id)[0];
 
         $id_inscricao_pnpd = explode("_", $id)[1];
 
-        $edital_ativo = new ConfiguraInscricaoPos();
+        $edital_ativo = new ConfiguraInscricaoPNPD();
 
-        $necessita_recomendante = $edital_ativo->retorna_inscricao_ativa()->necessita_recomendante;
+        $necessita_recomendante = $edital_ativo->retorna_edital_vigente()->necessita_recomendante;
 
         $locale_fixo = 'en';
 
         $dados_pessoais_candidato = User::find($id_candidato);
 
-        $escolha_candidato = new EscolhaCandidato();
-
-        $programa_pretendido = $escolha_candidato->retorna_escolha_candidato($id_candidato,$id_inscricao_pnpd)->programa_pretendido;
-        
-        $programa_pos = new ProgramaPos();
-
-        $nome_programa_pos_candidato = $programa_pos->pega_programa_pos_mat($programa_pretendido, $locale_fixo);
-
-        $dados_email_candidato['nome_candidato'] = $dados_pessoais_candidato->nome;
-
-        $dados_email_candidato['programa'] = $nome_programa_pos_candidato;
-
         if ($necessita_recomendante) {
-            $recomendantes_candidato = new ContatoRecomendante();
+            
+            $dados_inscircao = new DadosInscricao();
 
-            $informou_recomendantes = $recomendantes_candidato->retorna_recomendante_candidato($id_candidato,$id_inscricao_pnpd);
+            $informou_recomendantes = explode("_", $dados_inscircao->retorna_dados_inscricao($id_candidato,$id_inscricao_pnpd)[0]->recomendantes);
 
-            foreach ($informou_recomendantes as $recomendante) {
+            for ($i=0; $i < sizeof($informou_recomendantes); $i++) { 
                 
+                $link = new LinkCartaRecomendacao();
 
-                $dado_pessoal_recomendante = User::find($recomendante->id_recomendante);
+                $dado_pessoal_recomendante = User::find($informou_recomendantes[$i]);
 
-                $prazo_envio = Carbon::createFromFormat('Y-m-d', $edital_ativo->retorna_inscricao_ativa()->prazo_carta);
+                $prazo_envio = Carbon::createFromFormat('Y-m-d', $edital_ativo->retorna_edital_vigente()->prazo_carta);
 
                 $dados_email['nome_professor'] = $dado_pessoal_recomendante->nome;
 
                 $dados_email['nome_candidato'] = $dados_pessoais_candidato->nome;
 
-                $dados_email['programa'] = $nome_programa_pos_candidato;
-
                 $dados_email['email_recomendante'] = $dado_pessoal_recomendante->email;
 
                 $dados_email['prazo_envio'] = $prazo_envio->format('d/m/Y');
 
-                Notification::send(User::find($recomendante->id_recomendante), new NotificaRecomendante($dados_email));
+                $dados_email['id_recomendante'] = $informou_recomendantes[$i];
 
-                DB::table('contatos_recomendantes')->where('id', $recomendante->id)->where('id_candidato', $recomendante->id_candidato)->where('id_inscricao_pnpd', $recomendante->id_inscricao_pnpd)->update(['email_enviado' => TRUE, 'updated_at' => date('Y-m-d H:i:s')]);
+                $dados_email['id_inscricao_pnpd'] = $id_inscricao_pnpd;
+
+                $dados_email['link_acesso'] = $link->recupera_link_acesso($informou_recomendantes[$i], $id_candidato, $id_inscricao_pnpd);
+
+                Notification::send(User::find($informou_recomendantes[$i]), new NotificaRecomendante($dados_email));
             }
         }
 
