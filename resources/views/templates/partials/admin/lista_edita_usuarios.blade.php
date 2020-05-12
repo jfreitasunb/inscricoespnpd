@@ -4,7 +4,7 @@
 
 <div id="app">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
       <data-table-user endpoint="{{ route('users.index') }}"></data-table-user>
     </div>
   </div>
