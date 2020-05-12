@@ -1,13 +1,13 @@
 <template>    
-    <div class="panel panel-default">
-        <div class="panel-heading">Inscrições que não foram finalizadas</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">Inscrições que não foram finalizadas</div>
+        <div class="card-body">
             <div class="row">
-                <div class="form-group col-md-10">
+                <div class="form-group col-lg-10">
                     <label for="filter">Pesquisa rápida</label>
                     <input type="text" id="filter" class="form-control" v-model="quickSearchQuery">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-lg-2">
                     <label id="limit">Limitar resultados à:</label>
                     <select id="limit" class="form-control" v-model="limit" @change="getRecords">
                         <option value="50">50</option>

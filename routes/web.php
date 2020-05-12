@@ -32,6 +32,9 @@ Route::prefix('admin')->middleware('user.role:admin', 'auth')->group(function ()
     Route::post('/editar/inscricao', 'Admin\EditaInscricaoController@postEditaInscricao')->name('editar.inscricao');
     Route::get('lista/users', 'Admin\AdministraUserController@index')->name('lista.edita.usuarios');
     Route::resource('datatable/users','DataTable\UserDataTableController');
+    Route::get('inscricoes/nao/finalizadas', 'Admin\ListaInscricaoNaoFinalizadasController@getInscricoesNaoFinalizadas')->name('inscricoes.nao.finalizadas');
+
+    Route::resource('datatable/inscricoesnaofinalizadas','DataTable\InscricoesNaoFinalizadasDataTableController');
 });
 
 Route::prefix('coordenador')->middleware('user.role:admin,coordenador', 'auth')->group(function () {
