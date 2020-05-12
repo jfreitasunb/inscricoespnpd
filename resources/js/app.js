@@ -22,7 +22,7 @@ window.Vue = require('vue');
 import DataTableUser from'./components/DataTableUser.vue';
 // const MudaRecomendante = require('./components/MudaRecomendante.vue');
 // const ContaCartasRecomendantes = require('./components/ContaCartasRecomendantes.vue');
-// const InscricoesNaoFinalizadas = require('./components/InscricoesNaoFinalizadas.vue');
+import InscricoesNaoFinalizadas from './components/InscricoesNaoFinalizadas.vue';
 // const ListaRecomendacoesAtivas  = require('./components/ListaRecomendacoesAtivas.vue');
 
 const app = new Vue({
@@ -31,7 +31,7 @@ const app = new Vue({
         DataTableUser,
         // MudaRecomendante,
         // ContaCartasRecomendantes,
-        // InscricoesNaoFinalizadas,
+        InscricoesNaoFinalizadas,
         // ListaRecomendacoesAtivas
     }
 });
