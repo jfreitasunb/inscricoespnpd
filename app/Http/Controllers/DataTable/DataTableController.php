@@ -80,7 +80,7 @@ abstract class DataTableController extends Controller
         }
 
         try {
-            return $builder->limit($request->limit)->orderBy('id_user')->get($this->getDisplayableColumns());
+            return $builder->limit($request->limit)->orderBy('usuario_id')->get($this->getDisplayableColumns());
         } catch (QueryException $e) {
             return [];
         }
