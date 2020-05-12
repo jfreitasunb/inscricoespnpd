@@ -2447,9 +2447,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['endpoint'],
@@ -40653,19 +40650,11 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(record.nome_programa_pretendido) +
-                      "\n                        "
-                  )
-                ]),
-                _vm._v(" "),
                 _c(
                   "td",
                   [
                     _vm.editing.id_candidato === record.id_candidato &&
-                    !record.status_carta &&
+                    !record.carta_finalizada &&
                     _vm.editing.id_recomendante === record.id_recomendante &&
                     _vm.isUpdatable("nome_recomendante")
                       ? [
@@ -40744,7 +40733,7 @@ var render = function() {
                   [
                     _vm.editing.id_candidato === record.id_candidato &&
                     _vm.editing.id_recomendante === record.id_recomendante &&
-                    !record.status_carta &&
+                    !record.carta_finalizada &&
                     _vm.isUpdatable("email_recomendante")
                       ? [
                           _c(
@@ -40820,7 +40809,7 @@ var render = function() {
                 _c("td", [
                   _vm._v(
                     "\n                            " +
-                      _vm._s(record.status_carta) +
+                      _vm._s(record.carta_finalizada) +
                       "\n                        "
                   )
                 ]),
@@ -40829,7 +40818,7 @@ var render = function() {
                   "td",
                   [
                     _vm.editing.id_candidato !== record.id_candidato &&
-                    !record.status_carta
+                    !record.carta_finalizada
                       ? _c(
                           "a",
                           {
@@ -40845,7 +40834,8 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.editing.id_candidato === record.id_candidato
+                    _vm.editing.id_candidato === record.id_candidato &&
+                    !record.carta_finalizada
                       ? [
                           _c(
                             "a",
