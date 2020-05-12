@@ -122,6 +122,10 @@ class ConfiguraInscricaoPNPD extends Model
 
     public function autoriza_carta()
     {
+        if (is_null($this->retorna_edital_vigente())) {
+            return false;
+        }
+
         $fim_carta = Carbon::createFromFormat('Y-m-d', $this->retorna_edital_vigente()->prazo_carta);
 
         $prazo_carta = $fim_carta->format('Y-m-d');
