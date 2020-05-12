@@ -20,18 +20,18 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 const DataTableUser =  require('./components/DataTableUser.vue');
-const MudaRecomendante = require('./components/MudaRecomendante.vue');
-const ContaCartasRecomendantes = require('./components/ContaCartasRecomendantes.vue');
-const InscricoesNaoFinalizadas = require('./components/InscricoesNaoFinalizadas.vue');
-const ListaRecomendacoesAtivas  = require('./components/ListaRecomendacoesAtivas.vue');
+// const MudaRecomendante = require('./components/MudaRecomendante.vue');
+// const ContaCartasRecomendantes = require('./components/ContaCartasRecomendantes.vue');
+// const InscricoesNaoFinalizadas = require('./components/InscricoesNaoFinalizadas.vue');
+// const ListaRecomendacoesAtivas  = require('./components/ListaRecomendacoesAtivas.vue');
 
 const app = new Vue({
     el: '#app',
     components: {
         DataTableUser,
-        MudaRecomendante,
-        ContaCartasRecomendantes,
-        InscricoesNaoFinalizadas,
-        ListaRecomendacoesAtivas
+        // MudaRecomendante,
+        // ContaCartasRecomendantes,
+        // InscricoesNaoFinalizadas,
+        // ListaRecomendacoesAtivas
     }
 });

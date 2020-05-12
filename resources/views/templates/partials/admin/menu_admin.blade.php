@@ -61,6 +61,8 @@
         <div class="menuadmin card card-body">
             <div class="bg-light">
                 @yield('configura_inscricao')
+                @yield('lista_edita_usuarios')
+                @yield('editar_inscricao')
             </div>
         </div>
     </div>
