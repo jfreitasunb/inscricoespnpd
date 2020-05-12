@@ -54,7 +54,7 @@
                         </span>Acompanhar Inscrições</a>
                     </h4>
                 </div>
-                <div id="collapseTres" class="panel-collapse collapse {{ $keep_open_accordion_configurar_edital }}">
+                <div id="collapseTres" class="panel-collapse collapse {{ $keep_open_accordion_acompanhar_inscricoes }}">
                     <div class="card-body bg-white">
                         <table class="table">
                             <tr>

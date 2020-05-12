@@ -26,6 +26,8 @@ class BladeServiceProvider extends ServiceProvider
 
     private $accordion_contas = ['lista.edita.usuarios', 'admin.impersonate', 'associa.recomendantes', 'visualiza.associacoes', 'conta.cartas.recomendante'];
 
+    private $accordion_acompanhar_inscricoes = ['lista.recomendacoes', 'gera.ficha.individual', 'auxilia.selecao', 'reativar.candidato', 'pesquisa.carta', 'altera.recomendante', 'pesquisa.indicacoes',  'reativar.carta', 'inscricoes.nao.finalizadas', 'lista.recomendacoes', 'link.acesso'];
+
     public function ativa_accordion_configura_edital()
     {
         if (in_array(Route::currentRouteName(), $this->accordion_configurar_edital)) {
@@ -52,6 +54,15 @@ class BladeServiceProvider extends ServiceProvider
             return '';
         }
     }
+
+    public function ativa_accordion_acompanhar_inscricoes()
+    {
+        if (in_array(Route::currentRouteName(), $this->accordion_acompanhar_inscricoes)) {
+            return 'show';
+        }else{
+            return '';
+        }
+    }
     
     public function boot()
     {
@@ -72,6 +83,8 @@ class BladeServiceProvider extends ServiceProvider
             View::share('keep_open_accordion_relatorios', $this->ativa_accordion_relatorios());
 
             View::share('keep_open_accordion_configurar_edital', $this->ativa_accordion_configura_edital());
+
+            View::share('keep_open_accordion_acompanhar_inscricoes', $this->ativa_accordion_acompanhar_inscricoes());
 
             return $user->isAdmin();
         });
