@@ -34,7 +34,7 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
     public function getVisibleColumns()
     {
         return [
-            'id_candidato', 'nome', 'email', 'programa_pretendido', 'created_at', 'updated_at'
+            'id_candidato', 'nome', 'email', 'created_at', 'updated_at'
         ];
     }
 
@@ -44,7 +44,6 @@ class InscricoesNaoFinalizadasDataTableController extends DataTableController
             'id_candidato' => 'Identificador',
             'nome' => 'Nome',
             'email' => 'Email',
-            'programa_pretendido' => 'Programa Pretendido',
             'created_at' => 'Criação',
             'updated_at' => 'Última atualização',
         ];
