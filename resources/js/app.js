@@ -19,7 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-const DataTableUser =  require('./components/DataTableUser.vue');
+import DataTableUser from'./components/DataTableUser.vue';
 // const MudaRecomendante = require('./components/MudaRecomendante.vue');
 // const ContaCartasRecomendantes = require('./components/ContaCartasRecomendantes.vue');
 // const InscricoesNaoFinalizadas = require('./components/InscricoesNaoFinalizadas.vue');
